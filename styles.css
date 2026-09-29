@@ -51,7 +51,7 @@ strong{color:var(--mint);font-weight:600}
 .icebreaker-grid{margin-top:16px}
 .icebreaker-grid>div:nth-child(2){border-left:2px solid #9289b4;padding-left:48px}
 .icebreaker-grid p{max-width:520px}
-.pinballs{display:flex;flex-wrap:wrap;gap:10px;margin-top:37px;max-width:355px}
+.pinballs{display:flex;flex-wrap:wrap;gap:10px;margin-top:37px;max-width:265px}
 .pinballs span{width:45px;height:45px;border:2px solid var(--accent);color:var(--mint);display:grid;place-items:center;font:400 19px ClearDigits,Pixelify,monospace;border-radius:50%}
 .pinballs span:nth-child(3n+2){color:var(--pink)}
 .callout-line{position:absolute;left:62px;right:58px;bottom:37px;border-top:2px solid var(--accent);padding-top:15px;color:var(--accent);font:400 23px ClearDigits,Pixelify,monospace}
