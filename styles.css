@@ -131,6 +131,19 @@ strong{color:var(--mint);font-weight:600}
 .meeting-duration{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:flex-start;gap:40px;color:var(--accent)}
 .meeting-duration .meeting-label{margin:0}
 .meeting-duration h3{font-size:49px}
+.pricing-slide .slide-head{margin-bottom:37px}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:305px 108px;gap:24px;margin-left:67px}
+.price-card{display:flex;flex-direction:column;justify-content:space-between;border:2px solid currentColor;padding:24px 28px;overflow:hidden}
+.price-shirt{color:var(--mint)}
+.price-bundle{color:var(--pink)}
+.price-label{font:600 21px Pixelify,monospace;letter-spacing:1px}
+.price-card h3{font-size:43px;line-height:1;color:var(--ink);margin:0}
+.price-value{font:600 105px/.85 Pixelify,monospace;letter-spacing:-3px;color:currentColor;white-space:nowrap}
+.price-value small{font-size:39px;letter-spacing:0;margin-right:10px}
+.price-next{grid-column:1/-1;display:flex;align-items:center;gap:36px;border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);padding:15px 28px;color:var(--accent)}
+.price-next span{font:600 22px Pixelify,monospace;letter-spacing:1px}
+.price-next strong{font:600 32px Pixelify,monospace;color:var(--ink)}
+.price-next b{margin-left:auto;font:600 47px Pixelify,monospace;color:var(--mint);white-space:nowrap}
 .fullscreen-control{position:fixed;left:16px;bottom:16px;z-index:5;width:40px;height:40px;border:2px solid var(--accent);background:var(--paper);color:var(--mint);font:400 26px Pixelify,monospace;cursor:pointer;display:grid;place-items:center;box-shadow:3px 3px 0 #2928374d}
 .fullscreen-control:hover,.fullscreen-control:focus-visible{background:var(--accent);color:var(--paper);outline:none}
 @media (prefers-reduced-motion:reduce){.blink{animation:none}}
