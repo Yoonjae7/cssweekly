@@ -1,6 +1,6 @@
 # CSS Weekly #01
 
-Open `index.html` in a browser. The presentation works offline.
+Open `index.html` in a browser. The presentation works offline; the two activity links on Slide 6 need an internet connection.
 
 - Left and right arrows, Page Up and Page Down: change slides
 - Home and End: first and last slide

@@ -101,6 +101,9 @@ strong{color:var(--mint);font-weight:600}
 .fair-item::after{content:attr(data-number);position:absolute;right:5px;bottom:-30px;font:600 127px/.85 Pixelify,monospace;color:currentColor;opacity:.18;pointer-events:none}
 .activity-label{position:relative;z-index:1;font:600 18px Pixelify,monospace;letter-spacing:1px;color:currentColor;margin-bottom:12px}
 .fair-item h3{position:relative;z-index:1;font-size:35px;line-height:1.02;color:currentColor;margin:0}
+.fair-link{text-decoration:none;cursor:pointer}
+.fair-link::before{content:"↗";position:absolute;right:16px;top:15px;z-index:2;color:currentColor;font:600 31px Pixelify,monospace}
+.fair-link:hover,.fair-link:focus-visible{border-color:currentColor;background:#ffffff0d;outline:none}
 .fair-item p,.fair-recruitment p{font-size:19px;line-height:1.23;margin:0}
 .fair-recruitment{border-left:2px solid var(--accent);padding-left:31px}
 .fair-recruitment h3{color:var(--pink)}
