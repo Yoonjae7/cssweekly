@@ -1,0 +1,10 @@
+# CSS Weekly #01
+
+Open `index.html` in a browser. The presentation works offline.
+
+- Left and right arrows, Page Up and Page Down: change slides
+- Home and End: first and last slide
+- F: fullscreen
+- P: print all six slides
+
+The visual style adapts [CSS Photo Club Design 2](https://github.com/Yoonjae7/cssphotoclub): its dark retro computer windows, lavender borders, mint cursor, Pixelify Sans type, and terminal footer. The CSS logo and the bundled Pixelify Sans and DM Sans fonts come from that repository. Font licenses are in `assets/fonts/`.
