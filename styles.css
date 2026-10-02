@@ -193,3 +193,6 @@ strong{color:var(--mint);font-weight:600}
 .after-fair-grid .after-fair-detail{font-size:21px;color:var(--muted);margin-top:28px}
 
 .price-next b .price-digits{font:inherit;font-family:DM,Arial,sans-serif;letter-spacing:0}
+
+.fair-item .fair-photo-price{margin-top:14px;color:var(--ink)}
+.booth-price-note{font-size:19px;line-height:1.25;margin:17px 0 0 67px;color:var(--muted)}
