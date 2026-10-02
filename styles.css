@@ -158,3 +158,26 @@ strong{color:var(--mint);font-weight:600}
   .slide,.slide[hidden]{position:relative;display:block!important;width:1440px;height:810px;break-after:page;page-break-after:always}
   .fullscreen-control{display:none!important}
 }
+
+/* CS Fair: independent sales and activity diagrams at the native stage size. */
+.fair-flow-slide{padding:14px 33px 15px}
+.fair-flow-slide .slide-head{gap:25px;margin-bottom:5px}
+.fair-flow-slide .slide-index{padding-top:9px}
+.fair-flow-slide h2{font-size:43px}
+.fair-flow-slide .eyebrow{font-size:15px}
+.fair-flow-heading{font-size:22px;margin:0 0 4px;color:var(--mint)}
+.fair-sales-flow,.fair-activities-flow{display:block;width:100%;height:auto;overflow:visible}
+.fair-flow-node rect{fill:var(--window);stroke:var(--accent);stroke-width:2}
+.fair-flow-node text{font:400 18px DM,Arial,sans-serif;fill:var(--ink);dominant-baseline:central}
+.fair-flow-node.decision rect{stroke:var(--mint)}
+.fair-flow-node.discount rect{stroke:var(--pink)}
+.fair-flow-node.discount text{fill:var(--pink);font-weight:600}
+.fair-flow-node.terminal rect{fill:var(--paper)}
+.fair-flow-node.terminal text{fill:var(--mint)}
+.fair-flow-node.small text{font-size:17px}
+.fair-flow-node.terminal.small text{font-size:16px}
+.fair-flow-edge>path{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round}
+.fair-flow-edge>text{font:600 17px DM,Arial,sans-serif;fill:var(--mint);paint-order:stroke;stroke:var(--window);stroke-width:6px;stroke-linejoin:round}
+.fair-flow-activities-section{border-top:2px solid var(--accent);padding-top:9px;margin-top:3px}
+.fair-flow-activities-section .fair-flow-heading{color:var(--pink);margin-bottom:3px}
+.fair-flow-heading span{margin-left:18px;font:400 17px DM,Arial,sans-serif;color:var(--muted)}
