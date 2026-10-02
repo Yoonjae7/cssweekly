@@ -18,7 +18,7 @@ function showSlide(index) {
     slide.classList.toggle('is-active', active);
     slide.setAttribute('aria-hidden', String(!active));
   });
-  document.title = `CSS Weekly #01 — Slide ${current + 1} of ${slides.length}`;
+  document.title = `CSS Weekly — Slide ${current + 1} of ${slides.length}`;
   history.replaceState(null, '', `#slide-${current + 1}`);
 }
 
