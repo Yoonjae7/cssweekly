@@ -209,3 +209,14 @@ strong{color:var(--mint);font-weight:600}
 .shift-welcome h3{font-size:28px;margin-bottom:9px}
 .shift-welcome p{font-size:22px;line-height:1.3;margin:0}
 .shift-benefits{font-size:19px;line-height:1.35;margin:19px 0 0;color:var(--muted)}
+
+/* Shift role cards echo the activity cards on slide 2. */
+.shift-grid{gap:22px 35px}
+.shift-grid>.shift-role{position:relative;min-height:170px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;border-top:2px solid #aaa1c5;border-bottom:2px solid #aaa1c5;padding:22px 20px;color:var(--mint)}
+.shift-grid>.shift-role:nth-child(2),.shift-grid>.shift-role:nth-child(4){color:var(--pink)}
+.shift-role::after{content:attr(data-number);position:absolute;right:10px;bottom:-27px;font:600 140px/.85 ClearDigits,Pixelify,monospace;color:currentColor;opacity:.18;pointer-events:none}
+.shift-grid .shift-role h3{position:relative;z-index:1;font-size:39px;line-height:1.02;color:currentColor;margin:0}
+.shift-role .activity-label{margin-bottom:13px}
+.shift-welcome{margin-top:24px}
+.shift-welcome h3{margin-bottom:0}
+.shift-benefits{margin-top:15px}
