@@ -196,3 +196,16 @@ strong{color:var(--mint);font-weight:600}
 
 .fair-item .fair-photo-price{margin-top:14px;color:var(--ink)}
 .booth-price-note{font-size:19px;line-height:1.25;margin:17px 0 0 67px;color:var(--muted)}
+
+/* Four shift roles and shared visitor welcome expectations. */
+.shift-slide .slide-head{margin-bottom:26px}
+.shift-slide h2{font-size:53px}
+.shift-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px 42px}
+.shift-grid>div{border-top:2px solid var(--accent);padding-top:14px}
+.shift-grid h3{font-size:28px;margin-bottom:10px}
+.shift-grid p{font-size:22px;line-height:1.3;margin:0}
+.shift-grid>div:nth-child(2) h3,.shift-grid>div:nth-child(4) h3{color:var(--pink)}
+.shift-welcome{margin-top:27px;border-top:2px solid var(--mint);padding-top:15px}
+.shift-welcome h3{font-size:28px;margin-bottom:9px}
+.shift-welcome p{font-size:22px;line-height:1.3;margin:0}
+.shift-benefits{font-size:19px;line-height:1.35;margin:19px 0 0;color:var(--muted)}
