@@ -14,3 +14,5 @@ Slide 3 uses inline SVG in `index.html` and the deck's bundled fonts and palette
 The visual style adapts [CSS Photo Club Design 2](https://github.com/Yoonjae7/cssphotoclub): dark retro computer windows, lavender borders, mint cursor, Pixelify Sans headings and a terminal footer. The CSS logo and bundled Pixelify Sans and DM Sans fonts come from that repository. Font licenses are in `assets/fonts/`.
 
 Each shift requires four members: one per activity, one for membership sign-up and one general assistant for queues, teammate support and eligible snack distribution. Both activity staff bring their own laptops; Activity 1 connects Jia Wen’s webcam and Activity 2 needs a camera suitable for the hand experience. Everyone should stand ready, look toward visitors and proactively welcome them.
+
+Setup is available from 4 PM on both fair days (6–7 October). One power cord is provided per booth; bring two extension leads. Each shift needs three laptops operated by three members, with the photo booth, CS Finger game and marketing video open on one laptop each.

@@ -220,3 +220,17 @@ strong{color:var(--mint);font-weight:600}
 .shift-welcome{margin-top:24px}
 .shift-welcome h3{margin-bottom:0}
 .shift-benefits{margin-top:15px}
+
+/* Setup essentials alongside the four shift roles. */
+.shift-slide .slide-head{margin-bottom:18px}
+.shift-setup{border-left:3px solid var(--mint);padding:0 0 0 16px;margin-bottom:18px}
+.shift-setup p{font-size:20px;line-height:1.3;margin:0 0 8px}
+.shift-setup p:last-child{margin-bottom:0}
+.shift-grid>.shift-role{min-height:126px;padding:16px 20px}
+.shift-role::after{font-size:116px;bottom:-23px}
+.shift-grid .shift-role h3{font-size:35px}
+.shift-role .activity-label{font-size:17px;margin-bottom:10px}
+.shift-grid{row-gap:18px}
+.shift-welcome{margin-top:18px;padding-top:12px}
+.shift-welcome h3{font-size:26px}
+.shift-benefits{font-size:18px;margin-top:12px}
