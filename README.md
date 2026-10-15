@@ -1,6 +1,6 @@
 # CSS Weekly — CS Fair briefing
 
-Open `cs-fair-briefing.html` in a browser (`index.html` is the Induction Committee Briefing (7 slides): the 7–9 PM event flow plus the three-game plan (Caesar cipher, one game TBC, quiz show with a buzzer app)). The deck works offline; the two activity links on slide 2 need an internet connection.
+Open `cs-fair-briefing.html` in a browser (`index.html` is the Induction Committee Briefing (8 slides): the 7–9 PM event flow, a 10-minute countdown before Round 1, and the three-game plan (Caesar cipher, one game TBC, quiz show with a buzzer app)). The deck works offline; the two activity links on slide 2 need an internet connection.
 
 - Left and right arrows, Page Up and Page Down: change slides
 - Home and End: first and last slide
@@ -8,6 +8,8 @@ Open `cs-fair-briefing.html` in a browser (`index.html` is the Induction Committ
 - P: print all six slides
 
 The six slides cover the briefing, fair overview, independent purchase/activity flows, prices, shift roles and preorder follow-up. The fair dates remain 6–7 October 2026. The photo booth costs RM3 for non-members and is free for members. Snacks require a membership purchase (including a bundle); a photo payment alone does not qualify.
+
+On the countdown (slide 4), click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in `index.html`, and pauses when you leave the slide.
 
 Slide 3 uses inline SVG in `index.html` and the deck's bundled fonts and palette in `styles.css`. Its activity flow is linear: visitor starts, photo booth with member/non-member prices, optional MediaPipe experience, then thanks. The snack condition appears above the activities flow. Stock is 29 T-shirts. Preorders preserve the selected price, including bundle and eligible winner discounts.
 
