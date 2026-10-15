@@ -1,6 +1,6 @@
 # CSS Weekly — CS Fair briefing
 
-Open `cs-fair-briefing.html` in a browser (`index.html` is the Cipher Hunt Committee Briefing). The deck works offline; the two activity links on slide 2 need an internet connection.
+Open `cs-fair-briefing.html` in a browser (`index.html` is the Induction Committee Briefing (7 slides): the 7–9 PM event flow plus the three-game plan (Caesar cipher, one game TBC, quiz show with a buzzer app)). The deck works offline; the two activity links on slide 2 need an internet connection.
 
 - Left and right arrows, Page Up and Page Down: change slides
 - Home and End: first and last slide
