@@ -544,6 +544,44 @@ const Sound = (() => {
       keyNote(81, t, 0.5, sfx, 4);
       keyNote(86, t + 0.18, 0.45, sfx, 5);
     },
+    // The goose's raspberry: a low buzzy tone that wobbles in pitch, chopped by a fast flutter, with a bit of spit.
+    raspberry() {
+      if (!ctx || !sfx) return;
+      const t = ctx.currentTime + 0.02, dur = 1.5;
+      const env = ctx.createGain();
+      env.gain.setValueAtTime(0, t);
+      env.gain.linearRampToValueAtTime(0.32, t + 0.06);
+      env.gain.setValueAtTime(0.32, t + dur - 0.3);
+      env.gain.linearRampToValueAtTime(0, t + dur);
+      const tone = ctx.createBiquadFilter();
+      tone.type = 'lowpass';
+      tone.frequency.value = 1100;
+      const flutter = ctx.createGain();
+      flutter.gain.value = 0.55;
+      const lfo = ctx.createOscillator();
+      lfo.frequency.setValueAtTime(34, t);
+      lfo.frequency.linearRampToValueAtTime(22, t + dur);
+      const lfoDepth = ctx.createGain();
+      lfoDepth.gain.value = 0.45;
+      lfo.connect(lfoDepth).connect(flutter.gain);
+      const buzz = ctx.createOscillator();
+      buzz.type = 'sawtooth';
+      buzz.frequency.setValueAtTime(110, t);
+      buzz.frequency.linearRampToValueAtTime(78, t + dur);
+      const hiss = ctx.createBufferSource();
+      hiss.buffer = noiseBuffer;
+      hiss.loop = true;
+      const hissBand = ctx.createBiquadFilter();
+      hissBand.type = 'bandpass';
+      hissBand.frequency.value = 1800;
+      hissBand.Q.value = 0.7;
+      const hissLevel = ctx.createGain();
+      hissLevel.gain.value = 0.5;
+      buzz.connect(flutter);
+      hiss.connect(hissBand).connect(hissLevel).connect(flutter);
+      flutter.connect(env).connect(tone).connect(sfx);
+      [lfo, buzz, hiss].forEach(n => { n.start(t); n.stop(t + dur + 0.05); });
+    },
     minuteChime() {
       if (usingTrack) return; // a chime in another key would clash with the track
       const t = ctx.currentTime + 0.05;
@@ -822,3 +860,120 @@ syncControls();
 pushLog('countdown.exe loaded');
 pushLog('scan the QR code to sign in');
 $('startButton').focus();
+
+/* ---------- Easter egg: a goose runs by every minute, stares at the screen and blows a raspberry ---------- */
+
+const GOOSE = (() => {
+  const CELL = 8;
+  const PALETTE = { W: '#fbfaf6', G: '#cfcde0', O: '#f0a040', K: '#2b2a3a', P: '#f1a1db', R: '#d9609f' };
+
+  // Side view, facing right; the legs have two frames so it really runs.
+  const BODY = [
+    '..............WWW...',
+    '.............WWWWOO.',
+    '.............WKWWOOO',
+    '.............WWWWOO.',
+    '..............WWW...',
+    '..............WW....',
+    '.............WWW....',
+    '............WWW.....',
+    '...WWWWWWWWWWW......',
+    '..WWWWWWWWWWWWW.....',
+    '.WWWWWWWWWWWWWWW....',
+    'WWWWWGGWWWWWWWWW....',
+    '.WWWGGGGWWWWWWW.....',
+    '..WWWWWWWWWWWW......',
+    '....WWWWWWWWW.......',
+  ];
+  const LEGS_A = ['.......O....O......', '......O......O.....', '.....OO.....OOO....'];
+  const LEGS_B = ['........O..O.......', '........O..O.......', '.......OOO.OOO.....'];
+
+  // Front view: it turns to look straight at you. The tongue is its own sprite so it can wobble.
+  const FRONT = [
+    '......WWWW......',
+    '.....WWWWWW.....',
+    '....WWWWWWWW....',
+    '....WWWWWWWW....',
+    '....WKWWWWKW....',
+    '....WWWWWWWW....',
+    '....WWOOOOWW....',
+    '.....OOOOOO.....',
+    '.....WOOOOW.....',
+    '......WWWW......',
+    '......WWWW......',
+    '.....WWWWWW.....',
+    '....WWWWWWWW....',
+    '...WWWWWWWWWW...',
+    '...WWGWWWWGWW...',
+    '...WWGWWWWGWW...',
+    '...WWWWWWWWWW...',
+    '....WWWWWWWW....',
+    '......O..O......',
+    '......O..O......',
+    '.....OOO.OOO....',
+  ];
+  const TONGUE = ['PPPP', 'PPPP', 'PRRP', '.PP.'];
+
+  function svg(rows, cls) {
+    const w = rows[0].length, h = rows.length, groups = {};
+    rows.forEach((row, y) => [...row].forEach((ch, x) => {
+      if (PALETTE[ch]) (groups[ch] = groups[ch] || []).push(`<rect x="${x}" y="${y}" width="1" height="1"/>`);
+    }));
+    const body = Object.keys(groups).map(c => `<g fill="${PALETTE[c]}">${groups[c].join('')}</g>`).join('');
+    return `<svg class="${cls}" width="${w * CELL}" height="${h * CELL}" viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges" aria-hidden="true">${body}</svg>`;
+  }
+
+  const el = document.createElement('div');
+  el.className = 'goose';
+  el.setAttribute('aria-hidden', 'true');
+  let spit = '';
+  for (let i = 0; i < 9; i++) {
+    const angle = -0.9 + (i / 8) * 1.8;
+    spit += `<i style="--dx:${Math.round(Math.sin(angle) * 150 + 40)}px;--dy:${Math.round(-Math.cos(angle) * 110 - 10)}px;--d:${(i % 3) * 0.12}s"></i>`;
+  }
+  el.innerHTML =
+    svg(BODY.concat(LEGS_A), 'sp side a') + svg(BODY.concat(LEGS_B), 'sp side b') +
+    '<div class="sp front">' + svg(FRONT, 'front-body') + svg(TONGUE, 'tongue') + '</div>' +
+    '<span class="bubble">pbbbbbt!</span><span class="spit">' + spit + '</span>';
+  screen.appendChild(el);
+
+  let busy = false;
+  const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const after = (ms, fn) => setTimeout(fn, ms);
+
+  function run() {
+    if (busy || reduced()) return;
+    busy = true;
+    el.className = 'goose run';
+    el.style.transition = 'none';
+    el.style.left = '-200px';
+    void el.offsetWidth;
+    el.style.transition = 'left 2.4s linear';
+    el.style.left = '580px';
+    after(2400, () => { el.className = 'goose stare'; });                       // skids to a stop and turns to look at you
+    after(3300, () => { el.className = 'goose stare blow'; Sound.raspberry(); }); // blows the raspberry
+    after(5500, () => { el.className = 'goose stare'; });
+    after(6200, () => {                                                           // turns away and runs off
+      el.className = 'goose run';
+      el.style.transition = 'left 2.2s linear';
+      el.style.left = '1500px';
+    });
+    after(8500, () => { el.className = 'goose'; busy = false; });
+  }
+
+  return { run, get busy() { return busy; } };
+})();
+
+// Once a minute of running time (not while paused), as long as the countdown isn't nearly over.
+// Add ?goose=10 to the address for a visit every 10 seconds; press G to call the goose yourself.
+const GOOSE_EVERY = Math.max(5, Number(new URLSearchParams(location.search).get('goose')) || 60);
+let gooseClock = 0;
+setInterval(() => {
+  if (state === 'ready') { gooseClock = 0; return; }
+  if (state !== 'running') return;
+  gooseClock += 1;
+  if (gooseClock >= GOOSE_EVERY && lastSecond > 20 && !GOOSE.busy) { gooseClock = 0; GOOSE.run(); }
+}, 1000);
+document.addEventListener('keydown', event => {
+  if (event.key.toLowerCase() === 'g' && !event.metaKey && !event.ctrlKey && !event.altKey) GOOSE.run();
+});
