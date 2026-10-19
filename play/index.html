@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <meta name="robots" content="noindex">
+  <title>CSS Weekly — Countdown and Jeopardy</title>
+  <link rel="icon" href="../assets/css-logo.png">
+  <style>
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f8f7f2}
+    iframe{position:fixed;inset:0;width:100%;height:100%;border:0;display:none;background:#f8f7f2}
+    iframe.on{display:block}
+    .pager{position:fixed;z-index:5;right:16px;bottom:16px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:12px/1.5 system-ui,sans-serif;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .3s;pointer-events:none}
+    .pager.on{opacity:1}
+  </style>
+</head>
+<body>
+  <!-- One set of two slides: 1 the 10-minute countdown, 2 CSS Jeopardy. Arrow keys move between them. -->
+  <iframe id="slide-1" title="Slide 1: 10-minute countdown" src="countdown/" allow="autoplay"></iframe>
+  <iframe id="slide-2" title="Slide 2: CSS Jeopardy" src="jeopardy/"></iframe>
+  <div class="pager" id="pager" aria-hidden="true"></div>
+
+  <script>
+    // Slide keys: Right arrow or Page Down = next, Left arrow or Page Up = back, Home and End, F fullscreen, #1 or #2 in the address.
+    // The slides are separate pages in frames; they send their arrow and F key presses up to here.
+    (function () {
+      var frames = Array.prototype.slice.call(document.querySelectorAll('iframe'));
+      var pager = document.getElementById('pager');
+      var current = -1, pagerTimer = 0;
+
+      function focusFrame() {
+        try { frames[current].contentWindow.focus(); } catch (e) {}
+      }
+
+      function show(index) {
+        index = Math.max(0, Math.min(frames.length - 1, index));
+        if (index === current) { focusFrame(); return; }
+        // Leaving the countdown pauses it (and its music).
+        if (current === 0) try { frames[0].contentWindow.postMessage({ type: 'play-leave' }, '*'); } catch (e) {}
+        current = index;
+        frames.forEach(function (f, i) { f.classList.toggle('on', i === current); });
+        document.title = (current === 0 ? 'Countdown' : 'CSS Jeopardy') + ' — CSS Weekly';
+        try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) {}
+        pager.textContent = (current + 1) + ' / ' + frames.length;
+        pager.classList.add('on');
+        clearTimeout(pagerTimer);
+        pagerTimer = setTimeout(function () { pager.classList.remove('on'); }, 1600);
+        focusFrame();
+      }
+
+      function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen();
+        } catch (e) {}
+      }
+
+      window.addEventListener('message', function (event) {
+        if (!frames.some(function (f) { return f.contentWindow === event.source; })) return;
+        var data = event.data || {};
+        if (data.type === 'play-nav') show(current + data.dir);
+        else if (data.type === 'play-fullscreen') toggleFullscreen();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        var k = e.key;
+        if (k === 'ArrowRight' || k === 'PageDown') { e.preventDefault(); show(current + 1); }
+        else if (k === 'ArrowLeft' || k === 'PageUp') { e.preventDefault(); show(current - 1); }
+        else if (k === 'Home') show(0);
+        else if (k === 'End') show(frames.length - 1);
+        else if (k === 'f' || k === 'F') toggleFullscreen();
+      });
+      window.addEventListener('hashchange', function () {
+        var m = /^#(\d+)$/.exec(location.hash);
+        if (m) show(Number(m[1]) - 1);
+      });
+      frames.forEach(function (f, i) {
+        f.addEventListener('load', function () { if (i === current) focusFrame(); });
+      });
+
+      var m = /^#(\d+)$/.exec(location.hash);
+      show(m ? Number(m[1]) - 1 : 0);
+    })();
+  </script>
+</body>
+</html>

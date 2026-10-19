@@ -18,19 +18,20 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 - F: fullscreen
 - P: print every slide (weeklies 01 and 02)
 
-## Countdown and Jeopardy (separate pages)
+## Play: countdown and Jeopardy (one set of slides)
 
-The 10-minute countdown and CSS Jeopardy are standalone pages with no links to the weeklies or the archive, so they can be put on the big screen without showing anything else: [`countdown/`](countdown/) and [`jeopardy/`](jeopardy/). The homepage links to them in a PLAY row under Week 4.
+[`play/`](play/) is a separate two-slide deck for the big screen: **slide 1 is the 10-minute countdown and slide 2 is CSS Jeopardy**. Press the right arrow (or Page Down) to go from the countdown straight to Jeopardy, and the left arrow to go back. It has no links to the weeklies or the archive. The homepage links to it in a PLAY row under Week 4: Countdown opens slide 1 and Jeopardy opens slide 2.
 
-- **Countdown:** press Start (or Space), M mutes, R resets, F goes fullscreen and the up and down arrows add or remove a minute; `?min=5` sets a different length. It shows the SA disclaimer QR code, plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), and a goose runs by every minute (G calls it by hand; `?goose=10` makes it visit every 10 seconds).
-- **Jeopardy:** 4 categories × 5 tiers. Click a square to open its question; it is crossed off straight away. A right answer adds the points and a wrong answer takes the same amount off: use the Right and Wrong buttons, or 1–6 for right and Shift+1–6 for wrong. Enter shows the answer, 0 means nobody got it and Esc goes back to the board. The motto question has a +200 Latin bonus. Undo reverses the last score change, and scores are saved in the browser until you click Reset game.
+- **Countdown (slide 1):** press Start (or Space), M mutes, R resets, and the up and down arrows add or remove a minute (open `play/countdown/?min=5` on its own for a different starting length). It shows the SA disclaimer QR code, plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), and a goose runs by every minute (G calls it by hand). Leaving the slide pauses it.
+- **Jeopardy (slide 2):** 4 categories × 5 tiers. Click a square to open its question; it is crossed off straight away. A right answer adds the points and a wrong answer takes the same amount off: use the Right and Wrong buttons, or 1–6 for right and Shift+1–6 for wrong. Enter shows the answer, 0 means nobody got it and Esc goes back to the board. The motto question has a +200 Latin bonus. Undo reverses the last score change, and scores are saved in the browser until you click Reset game. While a question is open the arrows do nothing, so you can't skip ahead by accident.
+- **F** goes fullscreen from either slide.
 
 Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in the deck, and pauses when you leave the slide.
 
 ## Layout
 
 - `index.html` and `weeklies/archive.css`: the archive homepage
-- `countdown/` and `jeopardy/`: the standalone countdown and Jeopardy pages
+- `play/`: the countdown and Jeopardy deck (`play/countdown/` and `play/jeopardy/` are its two slides)
 - `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weekly 03 is a single self-contained file
 - `weeklies/thumbs/NN-S.jpg`: slide thumbnails (weekly NN, slide S), 640×360
 - `cs-fair-briefing.html`: redirects the old CS Fair link to `weeklies/02-cs-fair/`

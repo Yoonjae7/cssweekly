@@ -762,6 +762,7 @@ function adjustMinutes(delta) {
 /* ---------- Controls ---------- */
 
 async function toggleFullscreen() {
+  if (window.parent !== window) { parent.postMessage({ type: 'play-fullscreen' }, '*'); return; } // inside the Play deck
   try {
     if (document.fullscreenElement) await document.exitFullscreen();
     else await document.documentElement.requestFullscreen();
@@ -939,3 +940,15 @@ setInterval(() => {
 document.addEventListener('keydown', event => {
   if (event.key.toLowerCase() === 'g' && !event.metaKey && !event.ctrlKey && !event.altKey) GOOSE.run();
 });
+
+/* ---------- Inside the Play deck: arrows move between slides, and leaving this slide pauses the countdown ---------- */
+if (window.parent !== window) {
+  document.addEventListener('keydown', event => {
+    if (event.metaKey || event.ctrlKey || event.altKey) return;
+    if (event.key === 'ArrowRight' || event.key === 'PageDown') parent.postMessage({ type: 'play-nav', dir: 1 }, '*');
+    else if (event.key === 'ArrowLeft' || event.key === 'PageUp') parent.postMessage({ type: 'play-nav', dir: -1 }, '*');
+  });
+  window.addEventListener('message', event => {
+    if (event.source === parent && event.data && event.data.type === 'play-leave' && state === 'running') togglePause();
+  });
+}
