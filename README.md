@@ -30,7 +30,7 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 
 1. Put the deck in `weeklies/04-short-name/index.html`.
 2. Add a thumbnail per slide as `weeklies/thumbs/04-1.jpg`, `04-2.jpg` and so on (16:9, 640 wide).
-3. In `index.html`, copy the newest `<article class="weekly">` block above it, then update the number, date, summary, covered list and slide titles. Point `latest.exe` and the jump list at the new weekly, and update the counts in the stats row.
+3. In `index.html`, copy the newest `<article class="weekly">` block above it, then update the number, date, summary, covered list and slide titles. Point `latest.exe` at the new weekly.
 
 ## Credits
 
