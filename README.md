@@ -18,7 +18,7 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 - F: fullscreen
 - P: print every slide (weeklies 01 and 02)
 
-Weekly 04 slide 3 is CSS Jeopardy: click a square to open its question. Enter shows the answer, 1–6 gives the points to that team, 0 if nobody got it, and Esc goes back to the board. Scores are saved in the browser until you click Reset game.
+Weekly 04 slide 3 is CSS Jeopardy (4 categories × 5 tiers). Click a square to open its question; it is crossed off straight away. A right answer adds the points and a wrong answer takes the same amount off: use the Right and Wrong buttons, or 1–6 for right and Shift+1–6 for wrong. Enter shows the answer, 0 means nobody got it and Esc goes back to the board. The motto question has a +200 Latin bonus. Undo reverses the last score change, and scores are saved in the browser until you click Reset game.
 
 Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in the deck, and pauses when you leave the slide.
 
