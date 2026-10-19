@@ -292,7 +292,7 @@
           ['What is 101 in binary, as a normal (decimal) number?', '5'],
           ['Which data structure works “last in, first out”?', 'A stack'],
           ['What is the time complexity of binary search?', 'O(log n)'],
-          ['Who is called the first computer programmer, for her notes on Babbage’s Analytical Engine?', 'Ada Lovelace'],
+          ['In 1947, engineers found a real “bug” stuck inside the Harvard Mark II computer. What was it?', 'A moth'],
         ] },
         { cat: 'CSS', qs: [
           ['What does CSS stand for?', 'Computer Science Society'],
@@ -319,7 +319,7 @@
           ['Ctrl + C copies. What does Ctrl + V do?', 'Paste'],
           ['What’s the classic error code when a web page can’t be found?', '404'],
           ['The Python language isn’t named after the snake. What is it named after?', 'Monty Python, the comedy group'],
-          ['In 1947, engineers found a real “bug” stuck inside the Harvard Mark II computer. What was it?', 'A moth'],
+          ['Which keyboard shortcut reopens the browser tab you just closed?', 'Ctrl + Shift + T (Cmd + Shift + T on a Mac)'],
           ['The first message sent over ARPANET in 1969 was meant to be “LOGIN”. What actually arrived before the system crashed?', '“LO”'],
         ] },
       ];
@@ -393,6 +393,9 @@
 
       function openQuestion(c, r) {
         open = { c: c, r: r };
+        state.used[c + '-' + r] = true;
+        save();
+        renderBoard();
         var col = BOARD[c], tier = TIERS[r], qa = col.qs[r];
         document.getElementById('jp-file').textContent = col.cat.toLowerCase().replace(/[^a-z]+/g, '_') + '_' + tier[1] + '.exe';
         document.getElementById('jp-meta').textContent = col.cat.toUpperCase() + ' · ' + tier[0].toUpperCase() + ' · ' + tier[1] + ' POINTS';
