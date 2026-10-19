@@ -11,6 +11,9 @@
     @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
     @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
     @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    /* Pixelify's digits are hard to read (2 looks like 8), so digits come from DM Sans, like the earlier decks. */
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
     :root{--paper:#f8f7f2;--card:#fbfaf6;--ink:#303044;--purple:#7070a2;--lavender:#b3aee0;--shadow:#d6d4e2;--screen:#2a2838;--mint:#98e7ad;--pink:#f1a1db;--muted:#55536a;--s:1;color-scheme:light}
     *{box-sizing:border-box}
     html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#1d1c27}
@@ -18,15 +21,15 @@
     .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s))}
     .slide{position:absolute;inset:0;overflow:hidden;color:var(--ink);font:400 30px/1.4 DM,Arial,sans-serif;background-color:var(--paper);background-image:linear-gradient(rgba(112,112,162,.09) 2px,transparent 2px),linear-gradient(90deg,rgba(112,112,162,.09) 2px,transparent 2px);background-size:48px 48px}
     .slide[hidden]{display:none}
-    h1,h2{font-family:Pixelify,monospace;font-weight:600}
+    h1,h2{font-family:ClearDigits,Pixelify,monospace;font-weight:600}
     h1 em,h2 em{font-style:normal;color:var(--purple)}
     .eyebrow{font:600 28px DM,Arial,sans-serif;letter-spacing:5px;color:var(--purple)}
-    .footer{position:absolute;left:120px;right:120px;bottom:52px;display:flex;justify-content:space-between;font:400 24px Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
-    .binary{position:absolute;left:120px;bottom:62px;font:400 30px Pixelify,monospace;letter-spacing:6px;color:var(--lavender)}
+    .footer{position:absolute;left:120px;right:120px;bottom:52px;display:flex;justify-content:space-between;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
+    .binary{position:absolute;left:120px;bottom:62px;font:400 30px ClearDigits,Pixelify,monospace;letter-spacing:6px;color:var(--lavender)}
 
     /* Window chrome */
     .window{position:absolute;border:4px solid var(--ink);background:var(--screen);box-shadow:16px 16px 0 var(--shadow)}
-    .window-bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px 0 26px;background:var(--purple);color:#f2f0fb;font:400 30px Pixelify,monospace}
+    .window-bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px 0 26px;background:var(--purple);color:#f2f0fb;font:400 30px ClearDigits,Pixelify,monospace}
     .lights{display:flex;gap:12px}
     .lights i{display:block;width:18px;height:18px;background:#d9d6f2}
     .tape{position:absolute;top:-30px;width:156px;height:48px;background:rgba(152,231,173,.8);transform:rotate(-3deg);z-index:2}
@@ -52,13 +55,13 @@
     .cover-copy .eyebrow{font-size:26px;letter-spacing:4px;white-space:nowrap}
     .cover-copy h1{font-size:150px;line-height:.92;letter-spacing:-2px;margin:40px 0 44px}
     .cover-copy p{font-size:38px;line-height:1.35;color:var(--muted);max-width:900px}
-    .date-button{display:inline-block;margin-top:60px;padding:20px 34px;background:var(--mint);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--shadow);font:400 36px Pixelify,monospace}
+    .date-button{display:inline-block;margin-top:60px;padding:20px 34px;background:var(--mint);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--shadow);font:400 36px ClearDigits,Pixelify,monospace}
     .cover-window{left:1200px;top:190px;width:580px;transform:rotate(1.6deg)}
     .cover-window .tape{left:210px}
     .cover-window .body{display:flex;flex-direction:column;align-items:center;padding:20px 30px 40px}
     .cover-window img{display:block;width:440px;height:440px;margin:-40px 0 -36px;object-fit:contain;animation:float 4s ease-in-out infinite}
     @keyframes float{50%{transform:translateY(-10px) rotate(-1.5deg)}}
-    .cover-window .loading{font:400 34px Pixelify,monospace;color:var(--mint)}
+    .cover-window .loading{font:400 34px ClearDigits,Pixelify,monospace;color:var(--mint)}
     .cover-window .loading::after{content:"_";animation:blink 1s steps(1) infinite}
     @keyframes blink{50%{opacity:0}}
 
@@ -73,9 +76,46 @@
     .person .body{display:flex;flex-direction:column;align-items:center;padding:34px 20px 36px}
     .tile{display:grid;place-items:center;width:170px;height:170px;border:4px solid var(--ink);background:var(--c);box-shadow:8px 8px 0 var(--shadow);font:600 104px DM,Arial,sans-serif;line-height:1;color:var(--ink)}
     .person .name{margin-top:30px;font:600 56px DM,Arial,sans-serif;line-height:1;letter-spacing:-.5px;white-space:nowrap}
-    .person .tag{margin-top:14px;font:400 24px Pixelify,monospace;letter-spacing:2px;color:var(--purple)}
+    .person .tag{margin-top:14px;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:var(--purple)}
     .bits{position:absolute;inset:0;pointer-events:none}
     .bits i{position:absolute;width:var(--z,18px);height:var(--z,18px);background:var(--c);box-shadow:4px 4px 0 var(--shadow)}
+
+    /* Slide 3: Jeopardy board */
+    .jp-head{position:absolute;left:120px;top:56px;right:120px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px}
+    .jp-head h1{font-size:92px;line-height:1;margin-top:16px}
+    .jp-head .hint{font:400 24px ClearDigits,Pixelify,monospace;color:var(--purple);text-align:right}
+    .jp-board{position:absolute;left:120px;right:120px;top:240px;display:grid;grid-template-columns:170px repeat(5,1fr);grid-template-rows:96px repeat(5,104px);gap:14px}
+    .jp-cat{display:grid;place-items:center;padding:0 12px;border:4px solid var(--ink);background:var(--purple);box-shadow:8px 8px 0 var(--shadow);color:#f2f0fb;font:400 28px/1.1 ClearDigits,Pixelify,monospace;text-align:center}
+    .jp-tier{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding-right:12px;font:400 26px/1.1 ClearDigits,Pixelify,monospace;color:var(--purple)}
+    .jp-tier b{font-weight:600;color:var(--ink);font-size:30px}
+    .jp-cell{border:4px solid var(--ink);background:var(--screen);box-shadow:8px 8px 0 var(--shadow);color:var(--mint);font:600 54px ClearDigits,Pixelify,monospace;cursor:pointer;transition:transform .12s,box-shadow .12s,background .12s}
+    .jp-cell:hover,.jp-cell:focus-visible{transform:translate(-3px,-3px);box-shadow:11px 11px 0 var(--shadow);background:#3a3750;outline:none}
+    .jp-cell.used{background:var(--card);color:var(--lavender);box-shadow:4px 4px 0 var(--shadow);text-decoration:line-through;text-decoration-thickness:4px}
+    .jp-scores{position:absolute;left:120px;right:120px;bottom:40px;display:flex;align-items:center;gap:16px}
+    .jp-team{display:flex;align-items:baseline;gap:14px;padding:10px 20px;border:4px solid var(--ink);background:var(--card);box-shadow:6px 6px 0 var(--shadow);font:400 26px ClearDigits,Pixelify,monospace}
+    .jp-team b{font-weight:600;font-size:34px;color:var(--purple)}
+    .jp-tool{margin-left:auto;display:flex;gap:12px}
+    .jp-tool button{padding:10px 18px;border:3px solid var(--ink);background:var(--card);box-shadow:5px 5px 0 var(--shadow);font:400 22px ClearDigits,Pixelify,monospace;color:var(--ink);cursor:pointer}
+        .jp-tool button:hover{background:var(--mint)}
+
+    .jp-card{position:absolute;inset:0;z-index:20;display:none;place-items:center;background:rgba(248,247,242,.82);backdrop-filter:blur(6px)}
+    .jp-card.open{display:grid}
+    .jp-card .window{position:relative;width:1480px;background:var(--card)}
+    .jp-card .body{padding:48px 64px 52px}
+    .jp-card .eyebrow{font-size:26px}
+    .jp-q{margin-top:26px;font:600 64px/1.2 DM,Arial,sans-serif;color:var(--ink);min-height:230px}
+    .jp-a{margin-top:28px;padding:22px 30px;border:4px solid var(--ink);background:var(--mint);box-shadow:8px 8px 0 var(--shadow);font:600 52px/1.2 DM,Arial,sans-serif;visibility:hidden}
+    .jp-card.revealed .jp-a{visibility:visible}
+    .jp-actions{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:14px;font:400 26px ClearDigits,Pixelify,monospace;color:var(--purple)}
+    .jp-actions button{padding:14px 24px;border:4px solid var(--ink);background:var(--card);box-shadow:6px 6px 0 var(--shadow);font:400 28px ClearDigits,Pixelify,monospace;color:var(--ink);cursor:pointer}
+    .jp-actions button:hover{background:#e9e7f5}
+    .jp-actions .primary{background:var(--mint)}
+    .jp-actions .primary:hover{background:#b2efc2}
+    .jp-award{display:none;align-items:center;gap:14px;flex-wrap:wrap}
+    .jp-card.revealed .jp-award{display:flex}
+    .jp-card.revealed .jp-reveal{display:none}
+    .jp-back{margin-left:auto}
+    .jp-tool button:disabled{opacity:.4;cursor:default;background:var(--card)}
 
     .pager{position:fixed;right:16px;bottom:16px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:12px/1.5 system-ui,sans-serif;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .3s;pointer-events:none}
     .pager.on{opacity:1}
@@ -146,7 +186,34 @@
           <div class="body"><div class="tile" style="--c:#fbe7a6" aria-hidden="true">K</div><p class="name">Karon</p><p class="tag">JUNIOR COMMITTEE</p></div>
         </article>
       </div>
-      <div class="footer"><span>CSS / WEEKLY #04</span><span>02 / 02</span></div>
+      <div class="footer"><span>CSS / WEEKLY #04</span><span>02 / 03</span></div>
+    </section>
+
+    <section class="slide" aria-label="Slide 3: CSS Jeopardy" hidden>
+      <div class="jp-head">
+        <div>
+          <p class="eyebrow rise">GAME TIME / 5 CATEGORIES × 5 TIERS</p>
+          <h1 class="rise" style="--d:1">CSS <em>Jeopardy!</em></h1>
+        </div>
+        <p class="hint rise" style="--d:2">Pick a square · Enter shows the answer<br>1–6 gives the points · 0 if nobody · Esc goes back</p>
+      </div>
+      <div class="jp-board rise" style="--d:2" id="jp-board" data-no-nav></div>
+      <div class="jp-scores" id="jp-scores" data-no-nav></div>
+      <div class="jp-card" id="jp-card" role="dialog" aria-modal="true" aria-labelledby="jp-q" data-no-nav>
+        <div class="window">
+          <div class="window-bar"><span id="jp-file">question.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <p class="eyebrow" id="jp-meta"></p>
+            <p class="jp-q" id="jp-q"></p>
+            <p class="jp-a" id="jp-a"></p>
+            <div class="jp-actions">
+              <button class="primary jp-reveal" id="jp-reveal" type="button">Show answer (Enter)</button>
+              <div class="jp-award" id="jp-award"></div>
+              <button class="jp-back" id="jp-back" type="button">Back to board (Esc)</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -201,7 +268,7 @@
         else if (k === 'p' || k === 'P') window.print();
       });
       document.addEventListener('click', function (e) {
-        if (e.button !== 0 || String(window.getSelection())) return;
+        if (e.button !== 0 || String(window.getSelection()) || e.target.closest('button, a, [data-no-nav]')) return;
         show(current + (e.clientX < window.innerWidth / 2 ? -1 : 1));
       });
       window.addEventListener('resize', fit);
@@ -213,6 +280,175 @@
       fit();
       var m = /^#(\d+)$/.exec(location.hash);
       show(m ? Number(m[1]) - 1 : 0);
+    })();
+  </script>
+  <script>
+    // CSS Jeopardy (slide 3): 5 categories × 5 tiers, team scores kept in this browser.
+    (function () {
+      var TIERS = [['Easy', 100], ['Medium', 200], ['Difficult', 300], ['Hard', 400], ['Expert', 500]];
+      var BOARD = [
+        { cat: 'Computer Science', qs: [
+          ['What does CPU stand for?', 'Central Processing Unit'],
+          ['What is 101 in binary, as a normal (decimal) number?', '5'],
+          ['Which data structure works “last in, first out”?', 'A stack'],
+          ['What is the time complexity of binary search?', 'O(log n)'],
+          ['Who is called the first computer programmer, for her notes on Babbage’s Analytical Engine?', 'Ada Lovelace'],
+        ] },
+        { cat: 'CSS', qs: [
+          ['What does CSS stand for?', 'Computer Science Society'],
+          ['Finish the CSS motto: “We don’t code, …”', '“… we build”'],
+          ['Which country is the CSS president from?', 'South Korea'],
+          ['What was CSS’s first-ever open hackathon called?', 'NottsHack’26'],
+          ['On which day of the week does the CSS committee hold its weekly meeting?', 'Tuesday (6 PM)'],
+        ] },
+        { cat: 'University of Nottingham', qs: [
+          ['The University of Nottingham’s home campus is in which country?', 'The United Kingdom (England)'],
+          ['Our Malaysia campus is in which town in Selangor?', 'Semenyih'],
+          ['Besides the UK and Malaysia, the University of Nottingham has a campus in which country?', 'China (Ningbo)'],
+          ['UNM was the first university from which country to open a campus in Malaysia?', 'The UK (it was the first British university there)'],
+          ['What is the University of Nottingham’s Latin motto?', '“Sapientia urbs conditur” (A city is built on wisdom)'],
+        ] },
+        { cat: 'Tech & AI', qs: [
+          ['What does “AI” stand for?', 'Artificial Intelligence'],
+          ['What does “GPT” in ChatGPT stand for?', 'Generative Pre-trained Transformer'],
+          ['Which company makes the AI assistant Claude?', 'Anthropic'],
+          ['What is the latest AI model Anthropic has released?', 'Claude Sonnet 5.5 (28 Sep 2026). Check anthropic.com/news on the day; accept any Claude 5.5 model'],
+          ['Which 1950 test asks whether a machine can pass as a human in conversation?', 'The Turing test (Alan Turing’s “imitation game”)'],
+        ] },
+        { cat: 'Internet & Fun', qs: [
+          ['Ctrl + C copies. What does Ctrl + V do?', 'Paste'],
+          ['What’s the classic error code when a web page can’t be found?', '404'],
+          ['The Python language isn’t named after the snake. What is it named after?', 'Monty Python, the comedy group'],
+          ['In 1947, engineers found a real “bug” stuck inside the Harvard Mark II computer. What was it?', 'A moth'],
+          ['The first message sent over ARPANET in 1969 was meant to be “LOGIN”. What actually arrived before the system crashed?', '“LO”'],
+        ] },
+      ];
+      var STORE = 'cssweekly-04-jeopardy';
+      var board = document.getElementById('jp-board');
+      var scoresEl = document.getElementById('jp-scores');
+      var card = document.getElementById('jp-card');
+      var state = { used: {}, scores: [0, 0, 0, 0] };
+      var open = null; // { c, r }
+
+      try { var saved = JSON.parse(localStorage.getItem(STORE)); if (saved && saved.scores) state = saved; } catch (e) {}
+      function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {} }
+
+      function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+
+      function renderBoard() {
+        board.innerHTML = '';
+        board.appendChild(el('div'));
+        BOARD.forEach(function (col) { board.appendChild(el('div', 'jp-cat', col.cat)); });
+        TIERS.forEach(function (tier, r) {
+          var label = el('div', 'jp-tier');
+          label.appendChild(el('b', null, tier[0]));
+          label.appendChild(document.createTextNode(String(tier[1])));
+          board.appendChild(label);
+          BOARD.forEach(function (col, c) {
+            var b = el('button', 'jp-cell' + (state.used[c + '-' + r] ? ' used' : ''), String(tier[1]));
+            b.type = 'button';
+            b.setAttribute('aria-label', col.cat + ', ' + tier[0] + ', ' + tier[1] + ' points');
+            b.addEventListener('click', function (e) { e.stopPropagation(); openQuestion(c, r); });
+            board.appendChild(b);
+          });
+        });
+      }
+
+      function renderScores() {
+        scoresEl.innerHTML = '';
+        state.scores.forEach(function (score, i) {
+          var t = el('div', 'jp-team');
+          t.appendChild(document.createTextNode('Team ' + (i + 1)));
+          t.appendChild(el('b', null, String(score)));
+          scoresEl.appendChild(t);
+        });
+        var tools = el('div', 'jp-tool');
+        var add = el('button', null, '+ team');
+        add.type = 'button';
+        add.disabled = state.scores.length >= 6;
+        add.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (state.scores.length < 6) { state.scores.push(0); save(); renderScores(); }
+        });
+        var remove = el('button', null, '− team');
+        remove.type = 'button';
+        remove.disabled = state.scores.length <= 2;
+        remove.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (state.scores.length > 2) { state.scores.pop(); save(); renderScores(); }
+        });
+        var reset = el('button', null, 'Reset game');
+        reset.type = 'button';
+        reset.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (!window.confirm('Clear the board and all scores?')) return;
+          state = { used: {}, scores: state.scores.map(function () { return 0; }) };
+          save(); renderBoard(); renderScores();
+        });
+        tools.appendChild(add);
+        tools.appendChild(remove);
+        tools.appendChild(reset);
+        scoresEl.appendChild(tools);
+      }
+
+      function openQuestion(c, r) {
+        open = { c: c, r: r };
+        var col = BOARD[c], tier = TIERS[r], qa = col.qs[r];
+        document.getElementById('jp-file').textContent = col.cat.toLowerCase().replace(/[^a-z]+/g, '_') + '_' + tier[1] + '.exe';
+        document.getElementById('jp-meta').textContent = col.cat.toUpperCase() + ' · ' + tier[0].toUpperCase() + ' · ' + tier[1] + ' POINTS';
+        document.getElementById('jp-q').textContent = qa[0];
+        document.getElementById('jp-a').textContent = qa[1];
+        var award = document.getElementById('jp-award');
+        award.innerHTML = '';
+        award.appendChild(document.createTextNode('Points to:'));
+        state.scores.forEach(function (_, i) {
+          var b = el('button', null, 'Team ' + (i + 1));
+          b.type = 'button';
+          b.addEventListener('click', function (e) { e.stopPropagation(); finish(i); });
+          award.appendChild(b);
+        });
+        var none = el('button', null, 'Nobody');
+        none.type = 'button';
+        none.addEventListener('click', function (e) { e.stopPropagation(); finish(-1); });
+        award.appendChild(none);
+        card.classList.remove('revealed');
+        card.classList.add('open');
+        document.getElementById('jp-reveal').focus();
+      }
+
+      function reveal() { if (open) card.classList.add('revealed'); }
+
+      function finish(team) {
+        if (!open) return;
+        if (team >= 0) state.scores[team] += TIERS[open.r][1];
+        state.used[open.c + '-' + open.r] = true;
+        save();
+        close();
+        renderBoard();
+        renderScores();
+      }
+
+      function close() { open = null; card.classList.remove('open', 'revealed'); }
+
+      document.getElementById('jp-reveal').addEventListener('click', function (e) { e.stopPropagation(); reveal(); });
+      document.getElementById('jp-back').addEventListener('click', function (e) { e.stopPropagation(); close(); });
+      card.addEventListener('click', function (e) { e.stopPropagation(); });
+
+      // While a question is open, keys drive the question instead of changing slides.
+      window.addEventListener('keydown', function (e) {
+        if (!open) return;
+        e.stopPropagation();
+        var k = e.key;
+        if (k === 'Escape') { e.preventDefault(); close(); }
+        else if (k === 'Enter' || k === ' ') { e.preventDefault(); if (!card.classList.contains('revealed')) reveal(); }
+        else if (card.classList.contains('revealed') && /^[0-6]$/.test(k)) {
+          var n = Number(k);
+          if (n === 0) finish(-1); else if (n <= state.scores.length) finish(n - 1);
+        }
+      }, true);
+
+      renderBoard();
+      renderScores();
     })();
   </script>
 </body>

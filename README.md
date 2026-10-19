@@ -4,7 +4,7 @@ Slides from every Computer Science Society committee weekly. The homepage (`inde
 
 | # | Date | Weekly | Deck |
 |---|------|--------|------|
-| 04 | Tue 20 Oct 2026 | Welcome, Junior Committee (2 slides) | [`weeklies/04-welcome-jc/`](weeklies/04-welcome-jc/) |
+| 04 | Tue 20 Oct 2026 | Welcome, Junior Committee, plus CSS Jeopardy (3 slides) | [`weeklies/04-welcome-jc/`](weeklies/04-welcome-jc/) |
 | 03 | Tue 13 Oct 2026 | Induction committee briefing (8 slides) | [`weeklies/03-induction/`](weeklies/03-induction/) |
 | 02 | Mon 5 Oct 2026 | CS Fair briefing (6 slides). Held a day early because the fair took Tuesday | [`weeklies/02-cs-fair/`](weeklies/02-cs-fair/) |
 | 01 | Wed 30 Sep 2026 | First committee meeting (7 slides) | [`weeklies/01-first-meeting/`](weeklies/01-first-meeting/) |
@@ -17,6 +17,8 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 - Home and End: first and last slide
 - F: fullscreen
 - P: print every slide (weeklies 01 and 02)
+
+Weekly 04 slide 3 is CSS Jeopardy: click a square to open its question. Enter shows the answer, 1–6 gives the points to that team, 0 if nobody got it, and Esc goes back to the board. Scores are saved in the browser until you click Reset game.
 
 Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in the deck, and pauses when you leave the slide.
 
