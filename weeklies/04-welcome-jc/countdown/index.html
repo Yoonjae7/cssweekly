@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f1">
+  <title>Week 4 countdown — CSS Weekly</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="deck" id="deck" aria-label="CSS Weekly Week 4 countdown">
+    <div class="stage" id="stage">
+      <section class="slide" id="screen">
+        <div class="floaters" id="floaters" aria-hidden="true"></div>
+
+        <div class="countdown-main">
+          <p class="eyebrow">COMPUTER SCIENCE SOCIETY / WEEK 4</p>
+          <h1 id="headline">Starting<br><em>soon.</em></h1>
+          <p class="subtitle" id="subtitle">Grab a seat and get ready. We start when the clock hits zero.</p>
+          <div class="pixel-clock" id="clock" role="timer" aria-live="off" aria-label="Time remaining">
+            <div class="pixel-digit" data-slot="0"></div>
+            <div class="pixel-digit" data-slot="1"></div>
+            <div class="pixel-colon" id="colon"><i></i><i></i></div>
+            <div class="pixel-digit" data-slot="2"></div>
+            <div class="pixel-digit" data-slot="3"></div>
+          </div>
+          <div class="date-button" id="startsAt">Live in 10 min →</div>
+        </div>
+        <p class="binary" id="binary" aria-hidden="true"></p>
+
+        <div class="window" id="window">
+          <div class="window-tape" aria-hidden="true"></div>
+          <div class="window-bar"><span id="windowFile">countdown.exe</span><span class="window-lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="window-body">
+            <img class="window-logo" src="../../../assets/css-logo.png" alt="Computer Science Society logo">
+            <ol class="log-lines" id="log" aria-live="polite"></ol>
+            <div class="loader">
+              <div class="loader-track" id="loader" aria-hidden="true"></div>
+              <span id="percent">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <svg class="asterisk asterisk-mint" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+        <svg class="asterisk asterisk-pink" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+        <svg class="envelope" viewBox="0 0 160 124" aria-hidden="true"><rect x="5" y="5" width="150" height="114"/><path d="M5 5l75 62 75-62"/><rect class="seal" x="66" y="54" width="28" height="26"/></svg>
+
+        <div class="final-count" id="finalCount" aria-hidden="true">
+          <div class="final-ring"></div>
+          <div class="final-digits" id="finalDigits">
+            <div class="pixel-digit"></div>
+            <div class="pixel-digit"></div>
+          </div>
+          <p class="final-label">get ready...</p>
+        </div>
+
+        <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+        <div class="start-overlay" id="startOverlay">
+          <div class="window start-window" role="dialog" aria-labelledby="startTitle">
+            <div class="window-bar"><span>ready.exe</span><span class="window-lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+            <div class="start-body">
+              <p class="eyebrow">COUNTDOWN / <span id="durationLabel">10 MIN</span></p>
+              <h2 id="startTitle">Ready when <em>you are.</em></h2>
+              <p>Sound plays once you start. Turn your volume up.</p>
+              <button class="date-button start-button" id="startButton" type="button">Press start →</button>
+              <p class="start-keys">SPACE pause · M mute · F fullscreen · R reset · ↑↓ ±1 min</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="controls" id="controls">
+      <button class="control" id="playButton" type="button" aria-label="Pause" title="Pause (Space)">❚❚</button>
+      <button class="control" id="muteButton" type="button" aria-label="Mute" title="Mute (M)">♪</button>
+      <button class="control" id="resetButton" type="button" aria-label="Reset" title="Reset (R)">↺</button>
+      <button class="control" id="fullscreenButton" type="button" aria-label="Fullscreen" title="Fullscreen (F)">⛶</button>
+    </div>
+  </main>
+  <script src="countdown.js"></script>
+</body>
+</html>

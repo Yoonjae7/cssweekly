@@ -4,7 +4,7 @@ Slides from every Computer Science Society committee weekly. The homepage (`inde
 
 | # | Date | Weekly | Deck |
 |---|------|--------|------|
-| 04 | Tue 20 Oct 2026 | Welcome, Junior Committee, plus CSS Jeopardy (3 slides) | [`weeklies/04-welcome-jc/`](weeklies/04-welcome-jc/) |
+| 04 | Tue 20 Oct 2026 | Welcome, Junior Committee, plus CSS Jeopardy (3 slides) and a standalone 10-minute countdown | [`weeklies/04-welcome-jc/`](weeklies/04-welcome-jc/) |
 | 03 | Tue 13 Oct 2026 | Induction committee briefing (8 slides) | [`weeklies/03-induction/`](weeklies/03-induction/) |
 | 02 | Mon 5 Oct 2026 | CS Fair briefing (6 slides). Held a day early because the fair took Tuesday | [`weeklies/02-cs-fair/`](weeklies/02-cs-fair/) |
 | 01 | Wed 30 Sep 2026 | First committee meeting (7 slides) | [`weeklies/01-first-meeting/`](weeklies/01-first-meeting/) |
@@ -19,6 +19,8 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 - P: print every slide (weeklies 01 and 02)
 
 Weekly 04 slide 3 is CSS Jeopardy (4 categories × 5 tiers). Click a square to open its question; it is crossed off straight away. A right answer adds the points and a wrong answer takes the same amount off: use the Right and Wrong buttons, or 1–6 for right and Shift+1–6 for wrong. Enter shows the answer, 0 means nobody got it and Esc goes back to the board. The motto question has a +200 Latin bonus. Undo reverses the last score change, and scores are saved in the browser until you click Reset game.
+
+Weekly 04 also has a standalone 10-minute countdown at [`weeklies/04-welcome-jc/countdown/`](weeklies/04-welcome-jc/countdown/), linked under a PLAY row beneath Week 4 on the homepage along with Jeopardy. Press Start (or Space), M mutes, R resets, F goes fullscreen and the up and down arrows add or remove a minute; `?min=5` sets a different length. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required).
 
 Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in the deck, and pauses when you leave the slide.
 

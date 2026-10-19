@@ -1,0 +1,124 @@
+@font-face{font-family:Pixelify;src:url('../../../assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:Pixelify;src:url('../../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:DM;src:url('../../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:DM;src:url('../../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+:root{--paper:#f7f6f1;--grid:#e7e5ea;--ink:#2b2a3a;--purple:#6e69a3;--lavender:#b3aee0;--shadow:#d6d4e2;--screen:#2a2838;--mint:#98e7ad;--pink:#f1a1db;--muted:#4c4a5c;--scale:1;--lit:var(--ink)}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:36px 36px;color:var(--ink);font-family:DM,Arial,sans-serif}
+body.idle{cursor:none}
+button{font:inherit}
+.deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.stage{position:absolute;left:50%;top:50%;width:1440px;height:810px;transform:translate(-50%,-50%) scale(var(--scale));transform-origin:center center}
+.slide{position:absolute;inset:0;overflow:hidden;background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:36px 36px;background-position:-1px -1px}
+h1,h2,p{margin:0}
+h1,h2{font-family:Pixelify,monospace;font-weight:600;color:var(--ink)}
+h1 em,h2 em{font-style:normal;color:var(--purple)}
+.eyebrow{font:600 21px DM,Arial,sans-serif;letter-spacing:4px;color:var(--purple)}
+.blink{animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* Left column: eyebrow, headline, clock and the mint "date" button. */
+.countdown-main{position:absolute;left:90px;top:70px;width:760px;z-index:1;transition:opacity .5s,filter .5s}
+h1{font-size:98px;line-height:.9;letter-spacing:-1px;margin:26px 0 24px}
+.subtitle{font-size:27px;line-height:1.35;color:var(--muted);max-width:720px;margin-bottom:34px}
+.date-button{display:inline-block;margin-top:38px;padding:14px 24px;background:var(--mint);border:3px solid var(--ink);box-shadow:8px 8px 0 var(--shadow);font:400 27px Pixelify,monospace;color:var(--ink);letter-spacing:.5px}
+.binary{position:absolute;left:90px;bottom:46px;z-index:1;font:400 22px Pixelify,monospace;letter-spacing:4px;color:var(--lavender);white-space:pre}
+.binary b{font-weight:400;color:var(--purple)}
+
+/* Pixel digits: a 5x7 grid per digit; cells pop in as they light up. */
+.pixel-clock{--cell:20px;--gap:4px;display:flex;align-items:flex-start;gap:22px}
+.pixel-digit{display:grid;grid-template-columns:repeat(5,var(--cell));grid-auto-rows:var(--cell);gap:var(--gap)}
+.pixel-digit i{display:block;background:#2b2a3a0d;transform:scale(.5);transition:transform .32s cubic-bezier(.3,1.7,.5,1),background-color .2s,box-shadow .2s}
+.pixel-digit i.on{background:var(--lit);transform:scale(1);box-shadow:4px 4px 0 var(--shadow)}
+.pixel-colon{display:grid;grid-template-rows:repeat(7,var(--cell));gap:var(--gap);width:var(--cell)}
+.pixel-colon i{display:block;background:var(--pink);box-shadow:4px 4px 0 var(--shadow);transition:opacity .15s}
+.pixel-colon i:nth-child(1){grid-row:2}
+.pixel-colon i:nth-child(2){grid-row:6}
+.pixel-colon.dim i{opacity:.3}
+.pixel-clock .pixel-digit:nth-of-type(n+3){--lit:var(--purple)}
+
+/* Right: tilted retro window with the logo, live log and loader. */
+.window{position:absolute;left:893px;top:136px;width:432px;border:3px solid var(--ink);background:var(--screen);box-shadow:12px 12px 0 var(--shadow);transform:rotate(1.6deg);z-index:1;transition:opacity .5s,filter .5s}
+.window-bar{position:relative;height:46px;background:var(--purple);color:#f2f0fb;display:flex;align-items:center;justify-content:space-between;padding:0 16px 0 18px;font:400 22px Pixelify,monospace;letter-spacing:.5px}
+.window-lights{display:flex;gap:9px}
+.window-lights i{display:block;width:13px;height:13px;background:#d9d6f2}
+.window-tape{position:absolute;left:156px;top:-22px;width:116px;height:36px;background:#98e7adcc;transform:rotate(-3deg);z-index:2}
+.window-body{display:flex;flex-direction:column;align-items:center;padding:20px 26px 24px}
+.window-logo{display:block;width:360px;height:360px;margin:-62px 0 -64px;object-fit:contain;animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px) rotate(-1.5deg)}}
+.log-lines{list-style:none;margin:0;padding:0;width:100%;height:84px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;font:400 19px/1.45 Pixelify,monospace;color:#8f8ab8}
+.log-lines li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.log-lines li:last-child{color:var(--mint)}
+.log-lines li.typing::after{content:"_";animation:blink .6s steps(1) infinite}
+.loader{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px}
+.loader-track{flex:1;display:grid;grid-template-columns:repeat(24,1fr);gap:3px;height:18px}
+.loader-track i{background:#ffffff14}
+.loader-track i.on{background:var(--mint)}
+.loader-track i.head{background:var(--pink);animation:blink .5s steps(1) infinite}
+#percent{min-width:48px;text-align:right;font:400 18px Pixelify,monospace;color:var(--mint)}
+
+/* Doodles: asterisks and an envelope, like the briefing deck. */
+.asterisk{position:absolute;fill:none;stroke-width:17;stroke-linecap:butt;z-index:2;pointer-events:none}
+.asterisk-mint{left:1268px;top:74px;width:96px;height:96px;stroke:var(--mint);animation:spin 18s linear infinite}
+.asterisk-pink{left:830px;top:578px;width:58px;height:58px;stroke:var(--pink);animation:spin 12s linear infinite reverse,pulse 2.4s ease-in-out infinite}
+@keyframes spin{to{rotate:360deg}}
+@keyframes pulse{50%{scale:1.15}}
+.envelope{position:absolute;left:1165px;top:578px;width:160px;height:124px;overflow:visible;transform:rotate(6deg);animation:bob 3.4s ease-in-out infinite;z-index:1}
+.envelope rect,.envelope path{fill:#fbfaf6;stroke:var(--ink);stroke-width:6;stroke-linejoin:miter}
+.envelope path{fill:none}
+.envelope .seal{fill:var(--pink);stroke-width:4}
+@keyframes bob{50%{transform:rotate(3deg) translateY(-10px)}}
+
+/* Drifting pastel pixels. */
+.floaters{position:absolute;inset:0;pointer-events:none;z-index:0}
+.floaters i{position:absolute;bottom:-20px;width:var(--s);height:var(--s);background:var(--c);opacity:0;animation:drift var(--d) linear var(--delay) infinite}
+@keyframes drift{0%{transform:translate(0,0);opacity:0}10%{opacity:.5}80%{opacity:.35}100%{transform:translate(var(--x),-860px);opacity:0}}
+
+/* Final ten seconds: a big pixel number takes over. */
+.final-count{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;opacity:0;transition:opacity .4s}
+.final-digits{--cell:38px;--gap:6px;display:flex;gap:34px}
+.final-digits .pixel-digit i.on{box-shadow:8px 8px 0 var(--shadow)}
+.final-digits .pixel-digit[hidden]{display:none}
+.final-digits.pop{animation:final-pop .9s cubic-bezier(.2,1.4,.4,1)}
+@keyframes final-pop{0%{transform:scale(1.35);opacity:0}25%{opacity:1}100%{transform:scale(1)}}
+.final-label{margin-top:40px;color:var(--purple);font:400 40px Pixelify,monospace;letter-spacing:3px}
+.final-ring{position:absolute;left:50%;top:44%;width:340px;height:340px;margin:-170px 0 0 -170px;border:5px solid var(--mint);opacity:0}
+.final-ring.pulse{animation:ring 1s ease-out}
+@keyframes ring{0%{transform:scale(.6) rotate(0);opacity:.9}100%{transform:scale(2.4) rotate(45deg);opacity:0}}
+.is-final .final-count{opacity:1}
+.is-final .countdown-main,.is-final .window,.is-final .binary,.is-final .asterisk,.is-final .envelope{opacity:.1;filter:blur(3px)}
+.is-final .final-digits{--lit:var(--ink)}
+
+/* Live: confetti burst; seconds turn pink. */
+.is-live .final-count{opacity:0}
+.is-live h1{font-size:76px;line-height:.98}
+.is-live h1 em{color:var(--pink)}
+.is-live .pixel-clock .pixel-digit{--lit:var(--pink)}
+.is-live .pixel-clock{animation:blink 1s steps(1) 4}
+.confetti{position:absolute;inset:0;z-index:4;pointer-events:none}
+.confetti i{position:absolute;left:50%;top:45%;width:var(--s);height:var(--s);background:var(--c);box-shadow:3px 3px 0 var(--shadow);animation:burst var(--d) cubic-bezier(.15,.7,.35,1) forwards}
+@keyframes burst{0%{transform:translate(0,0) rotate(0);opacity:1}70%{opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+
+/* Start dialog: audio needs one click before the browser lets it play. */
+.start-overlay{position:absolute;inset:0;z-index:10;display:grid;place-items:center;background:#f7f6f1b3;backdrop-filter:blur(4px);transition:opacity .4s}
+.start-overlay.gone{opacity:0;pointer-events:none}
+.start-window{position:relative;left:auto;top:auto;width:640px;background:#fbfaf6;transform:rotate(-1deg)}
+.start-body{padding:32px 40px 30px}
+.start-body h2{font-size:50px;line-height:1;margin:16px 0 14px;white-space:nowrap}
+.start-body p{font-size:21px;color:var(--muted)}
+.start-button{display:block;width:100%;margin:28px 0 22px;cursor:pointer;text-align:left;transition:transform .1s,box-shadow .1s}
+.start-button:hover,.start-button:focus-visible{outline:none;background:#b2efc2}
+.start-button:active{transform:translate(6px,6px);box-shadow:2px 2px 0 var(--shadow)}
+.start-body .start-keys{font:400 16px Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
+
+.controls{position:fixed;left:16px;bottom:16px;z-index:20;display:flex;gap:8px;transition:opacity .4s}
+.idle .controls{opacity:0;pointer-events:none}
+.control{width:40px;height:40px;border:2px solid var(--ink);background:#fbfaf6;color:var(--ink);font:400 17px Pixelify,monospace;cursor:pointer;display:grid;place-items:center;box-shadow:3px 3px 0 var(--shadow)}
+.control:hover,.control:focus-visible{background:var(--mint);outline:none}
+.control.off{color:#c0569f;text-decoration:line-through}
+
+@media (prefers-reduced-motion:reduce){
+  .blink,.window-logo,.asterisk,.envelope,.floaters,.final-digits.pop,.final-ring.pulse,.is-live .pixel-clock{animation:none!important}
+  .floaters{display:none}
+}

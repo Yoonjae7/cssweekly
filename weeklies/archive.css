@@ -48,6 +48,15 @@ a{color:inherit}
 .thumb img{display:block;width:100%;height:auto;aspect-ratio:16/9}
 .thumb b{position:absolute;left:0;top:0;padding:0 4px;background:var(--ink);color:var(--paper);font:600 11px ClearDigits,DM,Arial,sans-serif;line-height:15px}
 
+/* A separate part under a week: standalone things to open on their own (countdown, Jeopardy). */
+.extras{margin-top:22px;padding-top:14px;border-top:1.5px solid var(--ink)}
+.extras-label{font:600 13px DM,Arial,sans-serif;letter-spacing:3px;color:var(--purple)}
+.extras ul{list-style:none;padding:0;margin:10px 0 0;display:flex;flex-wrap:wrap;gap:10px}
+.extras a{display:inline-block;padding:6px 12px;background:var(--mint);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--shadow);font:400 17px Pixelify,monospace;color:var(--ink);text-decoration:none;transition:transform .1s,box-shadow .1s}
+.extras a::before{content:"▶ ";font-size:12px}
+.extras a:hover{background:#b2efc2}
+.extras a:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--shadow)}
+
 /* Desktop and landscape screens: one fixed 1920×1080 board, scaled to fit. */
 @media (min-width:900px) and (min-aspect-ratio:1/1){
   html,body{height:100%;overflow:hidden}
