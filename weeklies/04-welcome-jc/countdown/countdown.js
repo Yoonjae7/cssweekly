@@ -544,44 +544,6 @@ const Sound = (() => {
       keyNote(81, t, 0.5, sfx, 4);
       keyNote(86, t + 0.18, 0.45, sfx, 5);
     },
-    // The goose's raspberry: a low buzzy tone that wobbles in pitch, chopped by a fast flutter, with a bit of spit.
-    raspberry() {
-      if (!ctx || !sfx) return;
-      const t = ctx.currentTime + 0.02, dur = 1.5;
-      const env = ctx.createGain();
-      env.gain.setValueAtTime(0, t);
-      env.gain.linearRampToValueAtTime(0.32, t + 0.06);
-      env.gain.setValueAtTime(0.32, t + dur - 0.3);
-      env.gain.linearRampToValueAtTime(0, t + dur);
-      const tone = ctx.createBiquadFilter();
-      tone.type = 'lowpass';
-      tone.frequency.value = 1100;
-      const flutter = ctx.createGain();
-      flutter.gain.value = 0.55;
-      const lfo = ctx.createOscillator();
-      lfo.frequency.setValueAtTime(34, t);
-      lfo.frequency.linearRampToValueAtTime(22, t + dur);
-      const lfoDepth = ctx.createGain();
-      lfoDepth.gain.value = 0.45;
-      lfo.connect(lfoDepth).connect(flutter.gain);
-      const buzz = ctx.createOscillator();
-      buzz.type = 'sawtooth';
-      buzz.frequency.setValueAtTime(110, t);
-      buzz.frequency.linearRampToValueAtTime(78, t + dur);
-      const hiss = ctx.createBufferSource();
-      hiss.buffer = noiseBuffer;
-      hiss.loop = true;
-      const hissBand = ctx.createBiquadFilter();
-      hissBand.type = 'bandpass';
-      hissBand.frequency.value = 1800;
-      hissBand.Q.value = 0.7;
-      const hissLevel = ctx.createGain();
-      hissLevel.gain.value = 0.5;
-      buzz.connect(flutter);
-      hiss.connect(hissBand).connect(hissLevel).connect(flutter);
-      flutter.connect(env).connect(tone).connect(sfx);
-      [lfo, buzz, hiss].forEach(n => { n.start(t); n.stop(t + dur + 0.05); });
-    },
     minuteChime() {
       if (usingTrack) return; // a chime in another key would clash with the track
       const t = ctx.currentTime + 0.05;
@@ -951,7 +913,7 @@ const GOOSE = (() => {
     el.style.transition = 'left 2.4s linear';
     el.style.left = '580px';
     after(2400, () => { el.className = 'goose stare'; });                       // skids to a stop and turns to look at you
-    after(3300, () => { el.className = 'goose stare blow'; Sound.raspberry(); }); // blows the raspberry
+    after(3300, () => { el.className = 'goose stare blow'; });                    // blows the raspberry (silently)
     after(5500, () => { el.className = 'goose stare'; });
     after(6200, () => {                                                           // turns away and runs off
       el.className = 'goose run';
