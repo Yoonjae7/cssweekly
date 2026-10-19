@@ -1,6 +1,6 @@
 # CSS Weekly
 
-Slides from every Computer Science Society committee weekly. The homepage (`index.html`, live at [cssweekly-seven.vercel.app](https://cssweekly-seven.vercel.app)) lists each weekly with its date, what we covered and a thumbnail of every slide. Click a thumbnail to open that deck at that slide.
+Slides from every Computer Science Society committee weekly. The homepage (`index.html`, live at [cssweekly-seven.vercel.app](https://cssweekly-seven.vercel.app)) shows every weekly on one screen, with no scrolling: its date, a short summary and a thumbnail of every slide. Click a thumbnail to open that deck at that slide. On phones it becomes a normal scrolling page.
 
 | # | Date | Weekly | Deck |
 |---|------|--------|------|
@@ -33,7 +33,7 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 
 1. Put the deck in `weeklies/05-short-name/index.html`.
 2. Add a thumbnail per slide as `weeklies/thumbs/05-1.jpg`, `05-2.jpg` and so on (16:9, 640 wide).
-3. In `index.html`, copy the newest `<article class="weekly">` block above it, then update the number, date, summary, covered list and slide titles. Point `latest.exe` at the new weekly.
+3. In `index.html`, copy the newest `<article class="weekly">` block to the top of the `.grid`, then update its number, date, summary and thumbnails, and move the `LATEST` badge to it. Update `--cols` on `<main class="stage">` to the new number of weeklies. The weeklies sit side by side, so the cards get narrower as more are added; past about six, the page will need a different layout.
 
 ## Credits
 
