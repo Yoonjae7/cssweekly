@@ -45,9 +45,10 @@ h1{font-size:98px;line-height:.9;letter-spacing:-1px;margin:26px 0 24px}
 .window-lights i{display:block;width:13px;height:13px;background:#d9d6f2}
 .window-tape{position:absolute;left:156px;top:-22px;width:116px;height:36px;background:#98e7adcc;transform:rotate(-3deg);z-index:2}
 .window-body{display:flex;flex-direction:column;align-items:center;padding:20px 26px 24px}
-.window-logo{display:block;width:360px;height:360px;margin:-62px 0 -64px;object-fit:contain;animation:float 4s ease-in-out infinite}
-@keyframes float{50%{transform:translateY(-8px) rotate(-1.5deg)}}
-.log-lines{list-style:none;margin:0;padding:0;width:100%;height:84px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;font:400 19px/1.45 Pixelify,monospace;color:#8f8ab8}
+.qr{width:300px;height:300px;padding:10px;background:#fff;border:3px solid var(--mint);box-shadow:6px 6px 0 rgba(0,0,0,.35)}
+.qr svg{display:block;width:100%;height:100%}
+.qr-label{margin:14px 0 10px;font:400 22px Pixelify,monospace;color:var(--mint);letter-spacing:.5px}
+.log-lines{list-style:none;margin:0;padding:0;width:100%;height:56px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;font:400 19px/1.45 Pixelify,monospace;color:#8f8ab8}
 .log-lines li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .log-lines li:last-child{color:var(--mint)}
 .log-lines li.typing::after{content:"_";animation:blink .6s steps(1) infinite}
@@ -64,7 +65,7 @@ h1{font-size:98px;line-height:.9;letter-spacing:-1px;margin:26px 0 24px}
 .asterisk-pink{left:830px;top:578px;width:58px;height:58px;stroke:var(--pink);animation:spin 12s linear infinite reverse,pulse 2.4s ease-in-out infinite}
 @keyframes spin{to{rotate:360deg}}
 @keyframes pulse{50%{scale:1.15}}
-.envelope{position:absolute;left:1165px;top:578px;width:160px;height:124px;overflow:visible;transform:rotate(6deg);animation:bob 3.4s ease-in-out infinite;z-index:1}
+.envelope{position:absolute;left:1238px;top:668px;width:160px;height:124px;overflow:visible;transform:rotate(6deg);animation:bob 3.4s ease-in-out infinite;z-index:1}
 .envelope rect,.envelope path{fill:#fbfaf6;stroke:var(--ink);stroke-width:6;stroke-linejoin:miter}
 .envelope path{fill:none}
 .envelope .seal{fill:var(--pink);stroke-width:4}
@@ -119,6 +120,6 @@ h1{font-size:98px;line-height:.9;letter-spacing:-1px;margin:26px 0 24px}
 .control.off{color:#c0569f;text-decoration:line-through}
 
 @media (prefers-reduced-motion:reduce){
-  .blink,.window-logo,.asterisk,.envelope,.floaters,.final-digits.pop,.final-ring.pulse,.is-live .pixel-clock{animation:none!important}
+  .blink,.asterisk,.envelope,.floaters,.final-digits.pop,.final-ring.pulse,.is-live .pixel-clock{animation:none!important}
   .floaters{display:none}
 }

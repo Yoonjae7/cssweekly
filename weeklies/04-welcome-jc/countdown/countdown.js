@@ -97,6 +97,8 @@ const LOG_MESSAGES = [
   'compiling this week\'s slides',
   'grab a snack, we start soon',
   'checking audio levels ... ok',
+  'scan the QR: SA disclaimer form',
+  'SA disclaimer form done?',
   'say hi to your table!',
   'fixing one last bug (promise)',
   'people > pixels',
@@ -126,7 +128,7 @@ function typeNext() {
   const li = document.createElement('li');
   li.className = 'typing';
   log.append(li);
-  while (log.children.length > 3) log.firstElementChild.remove();
+  while (log.children.length > 2) log.firstElementChild.remove();
   const full = `> ${text}`;
   let i = 0;
   const step = () => {
@@ -726,7 +728,7 @@ function reset() {
   lastSecond = null;
   screen.classList.remove('is-final', 'is-live');
   $('headline').innerHTML = 'Starting<br><em>soon.</em>';
-  $('subtitle').textContent = 'Grab a seat and get ready. We start when the clock hits zero.';
+  $('subtitle').textContent = 'Scan the QR code and fill in the SA disclaimer form. We start when the clock hits zero.';
   $('windowFile').textContent = 'countdown.exe';
   setBinary('SOON');
   state = 'ready';
@@ -818,5 +820,5 @@ renderProgress();
 renderStartTime();
 syncControls();
 pushLog('countdown.exe loaded');
-pushLog('loading week 4...');
+pushLog('scan the QR code to sign in');
 $('startButton').focus();
