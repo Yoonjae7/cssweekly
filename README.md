@@ -1,20 +1,37 @@
-# CSS Weekly — CS Fair briefing
+# CSS Weekly
 
-Open `cs-fair-briefing.html` in a browser (`index.html` is the Induction Committee Briefing (8 slides): the 7–9 PM event flow, a 10-minute countdown before Round 1, and the three-game plan (Caesar cipher, one game TBC, quiz show with a buzzer app)). The deck works offline; the two activity links on slide 2 need an internet connection.
+Slides from every Computer Science Society committee weekly. The homepage (`index.html`, live at [cssweekly-seven.vercel.app](https://cssweekly-seven.vercel.app)) lists each weekly with its date, what we covered and a thumbnail of every slide. Click a thumbnail to open that deck at that slide.
+
+| # | Date | Weekly | Deck |
+|---|------|--------|------|
+| 03 | Tue 13 Oct 2026 | Induction committee briefing (8 slides) | [`weeklies/03-induction/`](weeklies/03-induction/) |
+| 02 | Mon 5 Oct 2026 | CS Fair briefing (6 slides). Held a day early because the fair took Tuesday | [`weeklies/02-cs-fair/`](weeklies/02-cs-fair/) |
+| 01 | Wed 30 Sep 2026 | First committee meeting (7 slides) | [`weeklies/01-first-meeting/`](weeklies/01-first-meeting/) |
+
+Regular slot: Tuesdays at 6 PM, under an hour.
+
+## Presenting
 
 - Left and right arrows, Page Up and Page Down: change slides
 - Home and End: first and last slide
 - F: fullscreen
-- P: print all six slides
+- P: print every slide (weeklies 01 and 02)
 
-The six slides cover the briefing, fair overview, independent purchase/activity flows, prices, shift roles and preorder follow-up. The fair dates remain 6–7 October 2026. The photo booth costs RM3 for non-members and is free for members. Snacks require a membership purchase (including a bundle); a photo payment alone does not qualify.
+Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in the deck, and pauses when you leave the slide.
 
-On the countdown (slide 4), click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in `index.html`, and pauses when you leave the slide.
+## Layout
 
-Slide 3 uses inline SVG in `index.html` and the deck's bundled fonts and palette in `styles.css`. Its activity flow is linear: visitor starts, photo booth with member/non-member prices, optional MediaPipe experience, then thanks. The snack condition appears above the activities flow. Stock is 29 T-shirts. Preorders preserve the selected price, including bundle and eligible winner discounts.
+- `index.html` and `weeklies/archive.css`: the archive homepage
+- `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weekly 03 is a single self-contained file
+- `weeklies/thumbs/NN-S.jpg`: slide thumbnails (weekly NN, slide S), 640×360
+- `cs-fair-briefing.html`: redirects the old CS Fair link to `weeklies/02-cs-fair/`
 
-The visual style adapts [CSS Photo Club Design 2](https://github.com/Yoonjae7/cssphotoclub): dark retro computer windows, lavender borders, mint cursor, Pixelify Sans headings and a terminal footer. The CSS logo and bundled Pixelify Sans and DM Sans fonts come from that repository. Font licenses are in `assets/fonts/`.
+## Adding a new weekly
 
-Each shift requires four members: one per activity, one for membership sign-up and one general assistant for queues, teammate support and eligible snack distribution. Both activity staff bring their own laptops; Activity 1 connects Jia Wen’s webcam and Activity 2 needs a camera suitable for the hand experience. Everyone should stand ready, look toward visitors and proactively welcome them.
+1. Put the deck in `weeklies/04-short-name/index.html`.
+2. Add a thumbnail per slide as `weeklies/thumbs/04-1.jpg`, `04-2.jpg` and so on (16:9, 640 wide).
+3. In `index.html`, copy the newest `<article class="weekly">` block above it, then update the number, date, summary, covered list and slide titles. Point `latest.exe` and the jump list at the new weekly, and update the counts in the stats row.
 
-Setup is available from 4 PM on both fair days (6–7 October). One power cord is provided per booth; bring two extension leads. Each shift needs three laptops operated by three members, with the photo booth, CS Finger game and marketing video open on one laptop each.
+## Credits
+
+The visual style adapts [CSS Photo Club Design 2](https://github.com/Yoonjae7/cssphotoclub): retro computer windows, lavender borders, mint cursor, Pixelify Sans headings and a terminal footer. The CSS logo and the bundled Pixelify Sans and DM Sans fonts come from that repository. Font licenses are in `assets/fonts/`.

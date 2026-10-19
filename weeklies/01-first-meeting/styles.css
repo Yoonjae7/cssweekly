@@ -1,9 +1,9 @@
-@font-face{font-family:Pixelify;src:url('assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
-@font-face{font-family:Pixelify;src:url('assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
-@font-face{font-family:DM;src:url('assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
-@font-face{font-family:DM;src:url('assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
-@font-face{font-family:ClearDigits;src:url('assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
-@font-face{font-family:ClearDigits;src:url('assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
+@font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
+@font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
 :root{--paper:#292837;--window:#464154;--ink:#e6e1fa;--accent:#bcb4ef;--mint:#98e7ad;--pink:#f1a1db;--cream:#faf7f0;--muted:#c9c2df;--scale:1}
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden}
@@ -158,79 +158,3 @@ strong{color:var(--mint);font-weight:600}
   .slide,.slide[hidden]{position:relative;display:block!important;width:1440px;height:810px;break-after:page;page-break-after:always}
   .fullscreen-control{display:none!important}
 }
-
-/* CS Fair: independent sales and activity diagrams at the native stage size. */
-.fair-flow-slide{padding:14px 33px 15px}
-.fair-flow-slide .slide-head{gap:25px;margin-bottom:5px}
-.fair-flow-slide .slide-index{padding-top:9px}
-.fair-flow-slide h2{font-size:43px}
-.fair-flow-slide .eyebrow{font-size:15px}
-.fair-flow-heading{font-size:22px;margin:0 0 4px;color:var(--mint)}
-.fair-sales-flow,.fair-activities-flow{display:block;width:100%;height:auto;overflow:visible}
-.fair-flow-node rect{fill:var(--window);stroke:var(--accent);stroke-width:2}
-.fair-flow-node text{font:400 18px DM,Arial,sans-serif;fill:var(--ink);dominant-baseline:central}
-.fair-flow-node.decision rect{stroke:var(--mint)}
-.fair-flow-node.discount rect{stroke:var(--pink)}
-.fair-flow-node.discount text{fill:var(--pink);font-weight:600}
-.fair-flow-node.terminal rect{fill:var(--paper)}
-.fair-flow-node.terminal text{fill:var(--mint)}
-.fair-flow-node.small text{font-size:17px}
-.fair-flow-node.terminal.small text{font-size:16px}
-.fair-flow-edge>path{fill:none;stroke:var(--accent);stroke-width:2;stroke-linejoin:round}
-.fair-flow-edge>text{font:600 17px DM,Arial,sans-serif;fill:var(--mint);paint-order:stroke;stroke:var(--window);stroke-width:6px;stroke-linejoin:round}
-.fair-flow-activities-section{border-top:2px solid var(--accent);padding-top:9px;margin-top:3px}
-.fair-flow-activities-section .fair-flow-heading{color:var(--pink);margin-bottom:3px}
-.fair-flow-heading span{margin-left:18px;font:400 17px DM,Arial,sans-serif;color:var(--muted)}
-
-/* This week's CS Fair briefing and confirmed preorder follow-up. */
-.cover-copy h1 em{display:block;font-size:78px;margin-top:14px}
-.pricing-slide h2{font-size:59px}
-.price-label{font-size:18px}
-.after-fair-grid{margin-left:67px;gap:65px;border-top:2px solid var(--accent);padding-top:30px}
-.after-fair-grid>div:nth-child(2){border-left:2px solid var(--accent);padding-left:35px}
-.after-fair-grid>div:nth-child(2) h3{color:var(--pink)}
-.after-fair-grid p{font-size:25px;line-height:1.3;margin-bottom:23px}
-.after-fair-grid .after-fair-detail{font-size:21px;color:var(--muted);margin-top:28px}
-
-.price-next b .price-digits{font:inherit;font-family:DM,Arial,sans-serif;letter-spacing:0}
-
-.fair-item .fair-photo-price{margin-top:14px;color:var(--ink)}
-.booth-price-note{font-size:19px;line-height:1.25;margin:17px 0 0 67px;color:var(--muted)}
-
-/* Four shift roles and shared visitor welcome expectations. */
-.shift-slide .slide-head{margin-bottom:26px}
-.shift-slide h2{font-size:53px}
-.shift-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px 42px}
-.shift-grid>div{border-top:2px solid var(--accent);padding-top:14px}
-.shift-grid h3{font-size:28px;margin-bottom:10px}
-.shift-grid p{font-size:22px;line-height:1.3;margin:0}
-.shift-grid>div:nth-child(2) h3,.shift-grid>div:nth-child(4) h3{color:var(--pink)}
-.shift-welcome{margin-top:27px;border-top:2px solid var(--mint);padding-top:15px}
-.shift-welcome h3{font-size:28px;margin-bottom:9px}
-.shift-welcome p{font-size:22px;line-height:1.3;margin:0}
-.shift-benefits{font-size:19px;line-height:1.35;margin:19px 0 0;color:var(--muted)}
-
-/* Shift role cards echo the activity cards on slide 2. */
-.shift-grid{gap:22px 35px}
-.shift-grid>.shift-role{position:relative;min-height:170px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;border-top:2px solid #aaa1c5;border-bottom:2px solid #aaa1c5;padding:22px 20px;color:var(--mint)}
-.shift-grid>.shift-role:nth-child(2),.shift-grid>.shift-role:nth-child(4){color:var(--pink)}
-.shift-role::after{content:attr(data-number);position:absolute;right:10px;bottom:-27px;font:600 140px/.85 ClearDigits,Pixelify,monospace;color:currentColor;opacity:.18;pointer-events:none}
-.shift-grid .shift-role h3{position:relative;z-index:1;font-size:39px;line-height:1.02;color:currentColor;margin:0}
-.shift-role .activity-label{margin-bottom:13px}
-.shift-welcome{margin-top:24px}
-.shift-welcome h3{margin-bottom:0}
-.shift-benefits{margin-top:15px}
-
-/* Setup essentials alongside the four shift roles. */
-.shift-slide .slide-head{margin-bottom:18px}
-.shift-setup{border-left:3px solid var(--mint);padding:0 0 0 16px;margin-bottom:18px}
-.shift-setup p{font-size:20px;line-height:1.3;margin:0 0 8px}
-.shift-setup p:last-child{margin-bottom:0}
-.shift-grid>.shift-role{min-height:126px;padding:16px 20px}
-.shift-role::after{font-size:116px;bottom:-23px}
-.shift-grid .shift-role h3{font-size:35px}
-.shift-role .activity-label{font-size:17px;margin-bottom:10px}
-.shift-grid{row-gap:18px}
-.shift-welcome{margin-top:18px;padding-top:12px}
-.shift-welcome h3{font-size:26px}
-.shift-benefits{font-size:18px;margin-top:12px}
