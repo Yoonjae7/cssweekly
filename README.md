@@ -4,6 +4,7 @@ Slides from every Computer Science Society committee weekly. The homepage (`inde
 
 | # | Date | Weekly | Deck |
 |---|------|--------|------|
+| 04 | Tue 20 Oct 2026 | Welcome, Junior Committee (2 slides) | [`weeklies/04-welcome-jc/`](weeklies/04-welcome-jc/) |
 | 03 | Tue 13 Oct 2026 | Induction committee briefing (8 slides) | [`weeklies/03-induction/`](weeklies/03-induction/) |
 | 02 | Mon 5 Oct 2026 | CS Fair briefing (6 slides). Held a day early because the fair took Tuesday | [`weeklies/02-cs-fair/`](weeklies/02-cs-fair/) |
 | 01 | Wed 30 Sep 2026 | First committee meeting (7 slides) | [`weeklies/01-first-meeting/`](weeklies/01-first-meeting/) |
@@ -28,8 +29,8 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 
 ## Adding a new weekly
 
-1. Put the deck in `weeklies/04-short-name/index.html`.
-2. Add a thumbnail per slide as `weeklies/thumbs/04-1.jpg`, `04-2.jpg` and so on (16:9, 640 wide).
+1. Put the deck in `weeklies/05-short-name/index.html`.
+2. Add a thumbnail per slide as `weeklies/thumbs/05-1.jpg`, `05-2.jpg` and so on (16:9, 640 wide).
 3. In `index.html`, copy the newest `<article class="weekly">` block above it, then update the number, date, summary, covered list and slide titles. Point `latest.exe` at the new weekly.
 
 ## Credits
