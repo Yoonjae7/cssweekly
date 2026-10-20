@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f8f7f2">
   <meta name="robots" content="noindex">
-  <title>CSS Weekly — Countdown and Jeopardy</title>
+  <title>CSS Weekly — Countdown, Canva and Jeopardy</title>
   <link rel="icon" href="../assets/css-logo.png">
   <style>
     html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f8f7f2}
@@ -16,13 +16,15 @@
   </style>
 </head>
 <body>
-  <!-- One set of two slides: 1 the 10-minute countdown, 2 CSS Jeopardy. Arrow keys move between them. -->
+  <!-- One set of three slides: 1 the 10-minute countdown, 2 the Canva link, 3 CSS Jeopardy. Arrow keys move between them. -->
   <iframe id="slide-1" title="Slide 1: 10-minute countdown" src="countdown/" allow="autoplay"></iframe>
-  <iframe id="slide-2" title="Slide 2: CSS Jeopardy" src="jeopardy/"></iframe>
+  <iframe id="slide-2" title="Slide 2: Canva slides" src="canva/"></iframe>
+  <iframe id="slide-3" title="Slide 3: CSS Jeopardy" src="jeopardy/"></iframe>
   <div class="pager" id="pager" aria-hidden="true"></div>
 
   <script>
-    // Slide keys: Right arrow or Page Down = next, Left arrow or Page Up = back, Home and End, F fullscreen, #1 or #2 in the address.
+    // Slide keys: Right arrow or Page Down = next, Left arrow or Page Up = back, F fullscreen, #1 to #3 in the address.
+    // (Home and End only work when the deck itself has focus, not from inside a slide.)
     // The slides are separate pages in frames; they send their arrow and F key presses up to here.
     (function () {
       var frames = Array.prototype.slice.call(document.querySelectorAll('iframe'));
@@ -40,7 +42,7 @@
         if (current === 0) try { frames[0].contentWindow.postMessage({ type: 'play-leave' }, '*'); } catch (e) {}
         current = index;
         frames.forEach(function (f, i) { f.classList.toggle('on', i === current); });
-        document.title = (current === 0 ? 'Countdown' : 'CSS Jeopardy') + ' — CSS Weekly';
+        document.title = ['Countdown', 'Canva slides', 'CSS Jeopardy'][current] + ' — CSS Weekly';
         try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) {}
         pager.textContent = (current + 1) + ' / ' + frames.length;
         pager.classList.add('on');

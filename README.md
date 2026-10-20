@@ -18,20 +18,21 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 - F: fullscreen
 - P: print every slide (weeklies 01 and 02)
 
-## Play: countdown and Jeopardy (one set of slides)
+## Play: countdown, Canva and Jeopardy (one set of slides)
 
-[`play/`](play/) is a separate two-slide deck for the big screen: **slide 1 is the 10-minute countdown and slide 2 is CSS Jeopardy**. Press the right arrow (or Page Down) to go from the countdown straight to Jeopardy, and the left arrow to go back. It has no links to the weeklies or the archive. The homepage links to it in a PLAY row under Week 4: Countdown opens slide 1 and Jeopardy opens slide 2.
+[`play/`](play/) is a separate three-slide deck for the big screen: **slide 1 is the 10-minute countdown, slide 2 is a link to our Canva slides and slide 3 is CSS Jeopardy**. Press the right arrow (or Page Down) to go to the next slide and the left arrow to go back. It has no links to the weeklies or the archive. The homepage links to it in a PLAY row under Week 4: Countdown opens slide 1 and Jeopardy opens slide 3.
 
 - **Countdown (slide 1):** press Start (or Space), M mutes, R resets, and the up and down arrows add or remove a minute (open `play/countdown/?min=5` on its own for a different starting length). It shows the SA disclaimer QR code, plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), and a goose runs by every minute (G calls it by hand). Leaving the slide pauses it.
-- **Jeopardy (slide 2):** 4 categories × 5 tiers. Click a square to open its question; it is crossed off straight away. A right answer adds the points and a wrong answer takes the same amount off: use the Right and Wrong buttons, or 1–6 for right and Shift+1–6 for wrong. Enter shows the answer, 0 means nobody got it and Esc goes back to the board. The motto question has a +200 Latin bonus. Undo reverses the last score change, and scores are saved in the browser until you click Reset game. While a question is open the arrows do nothing, so you can't skip ahead by accident.
-- **F** goes fullscreen from either slide.
+- **Canva (slide 2):** one big button that opens the Canva design in a new tab; press Enter (or Space) the moment you arrive and it opens, with no click needed. The link is the `href` of `#go` in `play/canva/index.html`.
+- **Jeopardy (slide 3):** 4 categories × 5 tiers. Click a square to open its question; it is crossed off straight away. A right answer adds the points and a wrong answer takes the same amount off: use the Right and Wrong buttons, or 1–6 for right and Shift+1–6 for wrong. Enter shows the answer, 0 means nobody got it and Esc goes back to the board. The motto question has a +200 Latin bonus. Undo reverses the last score change, and scores are saved in the browser until you click Reset game. While a question is open the arrows do nothing, so you can't skip ahead by accident.
+- **F** goes fullscreen from any slide.
 
 Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press start or press S to start or pause; M mutes and R resets. It plays Space Walk by Silent Partner from the YouTube Audio Library (no attribution required), embedded in the deck, and pauses when you leave the slide.
 
 ## Layout
 
 - `index.html` and `weeklies/archive.css`: the archive homepage
-- `play/`: the countdown and Jeopardy deck (`play/countdown/` and `play/jeopardy/` are its two slides)
+- `play/`: the countdown, Canva and Jeopardy deck (`play/countdown/`, `play/canva/` and `play/jeopardy/` are its three slides)
 - `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weekly 03 is a single self-contained file
 - `weeklies/thumbs/NN-S.jpg`: slide thumbnails (weekly NN, slide S), 640×360
 - `cs-fair-briefing.html`: redirects the old CS Fair link to `weeklies/02-cs-fair/`
