@@ -60,9 +60,11 @@
     .person{position:relative;border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow)}
     .person .bar{height:48px;font-size:24px;padding:0 18px 0 20px}
     .person .lights i{width:13px;height:13px}
-    .person .photo{display:block;width:100%;height:270px;object-fit:cover;object-position:center 28%;border-bottom:4px solid var(--ink);background:var(--lavender)}
-    .person .blank{display:grid;place-items:center;width:100%;height:270px;border-bottom:4px solid var(--ink);background:repeating-linear-gradient(45deg,#efedf8,#efedf8 14px,#e6e3f4 14px,#e6e3f4 28px);color:var(--purple);font:600 120px DM,Arial,sans-serif}
-    .person .info{padding:22px 28px 26px}
+    .person{text-align:center}
+    .person .photo,.person .blank{display:block;width:220px;height:220px;margin:34px auto 0;border:4px solid var(--ink);border-radius:var(--shape,50%);box-shadow:8px 8px 0 var(--shadow)}
+    .person .photo{object-fit:cover;object-position:center 30%;background:var(--lavender)}
+    .person .blank{display:grid;place-items:center;background:repeating-linear-gradient(45deg,#efedf8,#efedf8 12px,#e6e3f4 12px,#e6e3f4 24px);color:var(--purple);font:600 110px DM,Arial,sans-serif}
+    .person .info{padding:26px 28px 30px}
     .person h3{font-size:44px;line-height:1.1}
     .person .role{margin-top:6px;font-size:26px;line-height:1.35;color:var(--muted)}
     .person.open{border-style:dashed;background:transparent;box-shadow:none}
