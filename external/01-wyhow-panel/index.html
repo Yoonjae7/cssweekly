@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <meta name="robots" content="noindex">
+  <title>CSS External Relations — Panel talk with WYHOW</title>
+  <link rel="icon" href="../../assets/css-logo.png">
+  <style>
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    /* Pixelify's digits are hard to read (2 looks like 8), so digits come from DM Sans, like the weekly decks. */
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
+    :root{--paper:#f8f7f2;--card:#fbfaf6;--ink:#303044;--purple:#7070a2;--lavender:#b3aee0;--shadow:#d6d4e2;--screen:#2a2838;--mint:#98e7ad;--pink:#f1a1db;--sun:#fbe7a6;--muted:#55536a;--s:1;color-scheme:light}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#1d1c27}
+    h1,h2,h3,p{margin:0}
+    .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s))}
+    .slide{position:absolute;inset:0;overflow:hidden;color:var(--ink);font:400 30px/1.4 DM,Arial,sans-serif;background-color:var(--paper);background-image:linear-gradient(rgba(112,112,162,.09) 2px,transparent 2px),linear-gradient(90deg,rgba(112,112,162,.09) 2px,transparent 2px);background-size:48px 48px}
+    .slide[hidden]{display:none}
+    h1,h2,h3{font-family:ClearDigits,Pixelify,monospace;font-weight:600}
+    h1 em,h2 em{font-style:normal;color:var(--purple)}
+    .eyebrow{font:600 28px DM,Arial,sans-serif;letter-spacing:5px;color:var(--purple)}
+    .footer{position:absolute;left:120px;right:120px;bottom:52px;display:flex;justify-content:space-between;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
+    .binary{position:absolute;left:120px;bottom:62px;font:400 30px ClearDigits,Pixelify,monospace;letter-spacing:6px;color:var(--lavender)}
+
+    /* Window chrome */
+    .window{position:absolute;border:4px solid var(--ink);background:var(--screen);box-shadow:16px 16px 0 var(--shadow)}
+    .window-bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px 0 26px;background:var(--purple);color:#f2f0fb;font:400 30px ClearDigits,Pixelify,monospace}
+    .lights{display:flex;gap:12px}
+    .lights i{display:block;width:18px;height:18px;background:#d9d6f2}
+    .tape{position:absolute;top:-30px;width:156px;height:48px;background:rgba(152,231,173,.8);transform:rotate(-3deg);z-index:2}
+
+    /* Doodles */
+    .asterisk{position:absolute;fill:none;stroke-width:17;pointer-events:none}
+    .asterisk.mint{stroke:var(--mint);animation:spin 18s linear infinite}
+    .asterisk.pink{stroke:var(--pink);animation:spin 12s linear infinite reverse}
+    @keyframes spin{to{rotate:360deg}}
+    .bits{position:absolute;inset:0;pointer-events:none}
+    .bits i{position:absolute;width:var(--z,18px);height:var(--z,18px);background:var(--c);box-shadow:4px 4px 0 var(--shadow)}
+    .envelope{position:absolute;overflow:visible;transform:rotate(6deg)}
+    .envelope rect,.envelope path{fill:var(--card);stroke:var(--ink);stroke-width:6}
+    .envelope path{fill:none}
+    .envelope .seal{fill:var(--pink);stroke-width:4}
+
+    /* Entrances: replayed each time a slide is shown */
+    .is-active .rise{animation:rise .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0) * 120ms)}
+    @keyframes rise{from{opacity:0;transform:translateY(40px)}}
+    .is-active .pop{animation:pop .7s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--d,0) * 140ms)}
+    @keyframes pop{from{opacity:0;transform:scale(.6) rotate(var(--tilt,0deg))}}
+
+    /* Shared heading block */
+    .head{position:absolute;left:120px;top:104px;right:120px}
+    .head h1{font-size:112px;line-height:1;letter-spacing:-1px;margin:24px 0 22px}
+    .head p.lede{font-size:36px;color:var(--muted);max-width:1400px}
+
+    /* Slide 1: cover */
+    .cover-copy{position:absolute;left:120px;top:150px;width:1040px}
+    .cover-copy .eyebrow{font-size:26px;letter-spacing:4px;white-space:nowrap}
+    .cover-copy h1{font-size:150px;line-height:.92;letter-spacing:-2px;margin:40px 0 44px}
+    .cover-copy p{font-size:38px;line-height:1.35;color:var(--muted);max-width:940px}
+    .date-button{display:inline-block;margin-top:60px;padding:20px 34px;background:var(--mint);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--shadow);font:400 36px ClearDigits,Pixelify,monospace}
+    .cover-window{left:1200px;top:190px;width:580px;transform:rotate(1.6deg)}
+    .cover-window .tape{left:210px}
+    .cover-window .body{display:flex;flex-direction:column;align-items:center;padding:20px 30px 40px}
+    .cover-window img{display:block;width:440px;height:440px;margin:-40px 0 -36px;object-fit:contain;animation:float 4s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-10px) rotate(-1.5deg)}}
+    .cover-window .loading{font:400 34px ClearDigits,Pixelify,monospace;color:var(--mint)}
+    .cover-window .loading::after{content:"_";animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* Slide 2: the panel */
+    .speakers{position:absolute;left:120px;right:120px;top:440px;display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+    .person{position:relative;border:4px solid var(--ink);background:var(--card);box-shadow:14px 14px 0 var(--shadow);transform:rotate(var(--tilt,0deg))}
+    .person .window-bar{height:52px;font-size:26px;padding:0 18px 0 20px}
+    .person .lights i{width:14px;height:14px}
+    .person .body{display:flex;flex-direction:column;align-items:center;padding:30px 20px 32px}
+    .tile{display:grid;place-items:center;width:132px;height:132px;border:4px solid var(--ink);background:var(--c);box-shadow:8px 8px 0 var(--shadow);font:600 84px DM,Arial,sans-serif;line-height:1;color:var(--ink)}
+    .person .name{margin-top:24px;font:600 50px DM,Arial,sans-serif;line-height:1;letter-spacing:-.5px;white-space:nowrap}
+    .person .tag{margin-top:12px;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:var(--purple)}
+    .person.open{border-style:dashed;background:transparent;box-shadow:none}
+    .person.open .name{color:var(--purple)}
+    .stamp{position:absolute;right:-18px;top:-22px;padding:4px 16px;background:var(--pink);border:4px solid var(--ink);font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;transform:rotate(5deg)}
+    .facts{position:absolute;left:120px;right:120px;top:850px;display:grid;grid-template-columns:1fr 1fr;gap:44px}
+    .fact{padding-left:26px;border-left:6px solid var(--mint)}
+    .fact b{display:block;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:3px;color:var(--purple)}
+    .fact span{display:block;margin-top:4px;font-size:34px;line-height:1.25}
+
+    /* Slide 3: MOU */
+    .steps{position:absolute;left:120px;top:470px;width:960px;display:grid;gap:26px}
+    .step{display:flex;gap:28px;align-items:center}
+    .step .n{flex:none;display:grid;place-items:center;width:78px;height:78px;border:4px solid var(--ink);background:var(--c,var(--mint));box-shadow:6px 6px 0 var(--shadow);font:600 40px DM,Arial,sans-serif}
+    .step b{display:block;font:600 36px/1.2 DM,Arial,sans-serif}
+    .step span{display:block;font-size:27px;line-height:1.3;color:var(--muted)}
+    .doc{left:1190px;top:400px;width:560px;transform:rotate(2.2deg);background:var(--card)}
+    .doc .tape{left:200px;background:rgba(241,161,219,.8)}
+    .doc .page{padding:34px 40px 40px;color:var(--ink)}
+    .doc .page .kicker{font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:3px;color:var(--purple)}
+    .doc .page h3{margin-top:10px;font-size:42px;line-height:1.1}
+    .doc .line{height:14px;margin-top:20px;background:var(--shadow)}
+    .doc .line.short{width:62%}
+    .doc .sign{display:flex;justify-content:space-between;align-items:flex-end;margin-top:44px}
+    .doc .sign div{width:62%;border-top:3px solid var(--ink);padding-top:8px;font-size:22px;line-height:1.25;color:var(--muted)}
+    .doc .seal{width:76px;height:76px;border:4px solid var(--ink);background:var(--pink);box-shadow:6px 6px 0 var(--shadow);display:grid;place-items:center;font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:1px;transform:rotate(-8deg)}
+
+    /* Slide 4: looking after speakers */
+    .perks{position:absolute;left:120px;right:120px;top:430px;display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+    .perk{position:relative;border:4px solid var(--ink);background:var(--card);box-shadow:14px 14px 0 var(--shadow);transform:rotate(var(--tilt,0deg))}
+    .perk .window-bar{height:52px;font-size:26px;padding:0 18px 0 20px}
+    .perk .lights i{width:14px;height:14px}
+    .perk .body{padding:34px 36px 40px}
+    .perk svg{display:block;width:150px;height:110px;overflow:visible}
+    .perk svg *{stroke:var(--ink);stroke-width:5;stroke-linejoin:round;stroke-linecap:round}
+    .perk h3{margin-top:26px;font-size:50px;line-height:1.05}
+    .perk p{margin-top:12px;font-size:30px;line-height:1.35;color:var(--muted)}
+    .note-strip{position:absolute;left:120px;right:120px;top:900px;display:flex;align-items:center;gap:20px;font-size:30px;color:var(--muted)}
+    .note-strip i{flex:none;width:22px;height:22px;background:var(--mint);border:4px solid var(--ink)}
+
+    /* Slide 5: the road to event day */
+    .road{position:absolute;left:120px;right:120px;top:356px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px 44px}
+    .stop{position:relative;min-height:236px;padding:26px 30px 28px;border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow)}
+    .stop .n{position:absolute;left:-4px;top:-4px;display:grid;place-items:center;width:62px;height:62px;border:4px solid var(--ink);background:var(--c,var(--mint));font:600 34px DM,Arial,sans-serif}
+    .stop h3{margin-left:62px;font-size:38px;line-height:1.1;min-height:62px;display:flex;align-items:center}
+    .stop p{margin-top:16px;font-size:27px;line-height:1.35;color:var(--muted)}
+    .stop .chip{display:inline-block;margin-top:14px;padding:2px 14px;background:var(--sun);border:3px solid var(--ink);font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--ink)}
+    .stop.final{background:var(--mint)}
+    .stop.final p{color:var(--ink)}
+
+    /* Slide 6: questions */
+    .asks{position:absolute;left:120px;top:440px;width:1040px;display:grid;gap:30px}
+    .ask{display:flex;gap:28px;align-items:flex-start}
+    .ask .box{flex:none;width:64px;height:64px;margin-top:6px;border:4px solid var(--ink);background:var(--card);box-shadow:6px 6px 0 var(--shadow)}
+    .ask b{display:block;font:600 40px/1.2 DM,Arial,sans-serif}
+    .ask span{display:block;margin-top:4px;font-size:27px;line-height:1.3;color:var(--muted)}
+    .next{left:1250px;top:410px;width:550px;transform:rotate(1.6deg)}
+    .next .tape{left:200px}
+    .next .body{padding:30px 34px 36px;color:#ecebf7}
+    .next .body .k{font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:3px;color:var(--mint)}
+    .next .body p{margin-top:14px;font-size:32px;line-height:1.35}
+    .next .body p.thanks{margin-top:26px;padding-top:22px;border-top:3px dashed var(--lavender);font:600 40px DM,Arial,sans-serif;color:var(--mint)}
+
+    .pager{position:fixed;right:16px;bottom:16px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:12px/1.5 system-ui,sans-serif;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .3s;pointer-events:none}
+    .pager.on{opacity:1}
+    @media (prefers-reduced-motion:reduce){.asterisk,.cover-window img,.cover-window .loading::after,.is-active .rise,.is-active .pop{animation:none}}
+    @page{size:1920px 1080px;margin:0}
+    @media print{
+      html,body{width:auto;height:auto;overflow:visible;background:none}
+      .stage{position:static;transform:none}
+      .slide,.slide[hidden]{position:relative;display:block;width:1920px;height:1080px;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pager{display:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage" aria-label="Panel talk with WYHOW">
+
+    <!-- 1 · Cover -->
+    <section class="slide" aria-label="Slide 1: Panel talk with WYHOW">
+      <div class="cover-copy">
+        <p class="eyebrow rise">COMPUTER SCIENCE SOCIETY / EXTERNAL RELATIONS</p>
+        <h1 class="rise" style="--d:1">Join our<br><em>panel talk.</em></h1>
+        <p class="rise" style="--d:2">A quick chat with WYHOW from Microsoft about speaking at our campus, University of Nottingham.</p>
+        <div class="date-button rise" style="--d:3">Meeting with WYHOW →</div>
+      </div>
+      <div class="window cover-window pop" style="--d:2;--tilt:6deg">
+        <div class="tape" aria-hidden="true"></div>
+        <div class="window-bar"><span>panel_talk.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <img src="../../assets/css-logo.png" alt="Computer Science Society logo">
+          <p class="loading">&gt; loading speaker: wyhow...</p>
+        </div>
+      </div>
+      <svg class="asterisk mint" style="left:1720px;top:96px;width:128px;height:128px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <svg class="asterisk pink" style="left:1110px;top:790px;width:78px;height:78px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <svg class="envelope" style="left:1560px;top:850px;width:210px;height:162px" viewBox="0 0 160 124" aria-hidden="true"><rect x="5" y="5" width="150" height="114"/><path d="M5 5l75 62 75-62"/><rect class="seal" x="66" y="54" width="28" height="26"/></svg>
+      <p class="binary" aria-hidden="true">01010111 01011001 01001000</p>
+    </section>
+
+    <!-- 2 · The panel -->
+    <section class="slide" aria-label="Slide 2: The panel talk" hidden>
+      <div class="bits" aria-hidden="true">
+        <i style="left:1480px;top:150px;--c:var(--mint)"></i>
+        <i style="left:1560px;top:230px;--c:var(--pink);--z:14px"></i>
+        <i style="left:1660px;top:170px;--c:var(--lavender);--z:22px"></i>
+        <i style="left:1390px;top:260px;--c:var(--lavender);--z:12px"></i>
+        <i style="left:80px;top:400px;--c:var(--pink);--z:14px"></i>
+      </div>
+      <svg class="asterisk mint" style="left:1730px;top:90px;width:120px;height:120px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="head">
+        <p class="eyebrow rise">THE EVENT / PANEL TALK</p>
+        <h1 class="rise" style="--d:1">Three speakers, <em>one panel.</em></h1>
+        <p class="lede rise" style="--d:2">Three speakers share their work with our students, on our campus.</p>
+      </div>
+      <div class="speakers">
+        <article class="person pop" style="--d:3;--tilt:-1.2deg">
+          <span class="stamp" aria-hidden="true">INVITED</span>
+          <div class="window-bar"><span>speaker_01.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--mint)" aria-hidden="true">W</div><p class="name">WYHOW</p><p class="tag">ENGINEER · MICROSOFT</p></div>
+        </article>
+        <article class="person open pop" style="--d:4;--tilt:.8deg">
+          <div class="window-bar"><span>speaker_02.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--lavender)" aria-hidden="true">?</div><p class="name">To be confirmed</p><p class="tag">SPEAKER 02</p></div>
+        </article>
+        <article class="person open pop" style="--d:5;--tilt:-.8deg">
+          <div class="window-bar"><span>speaker_03.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--sun)" aria-hidden="true">?</div><p class="name">To be confirmed</p><p class="tag">SPEAKER 03</p></div>
+        </article>
+      </div>
+      <div class="facts rise" style="--d:6">
+        <p class="fact"><b>WHERE</b><span>Our campus, University of Nottingham</span></p>
+        <p class="fact"><b>WHEN</b><span>Picked once all three speakers are confirmed</span></p>
+      </div>
+      <div class="footer"><span>CSS / EXTERNAL RELATIONS</span><span>02 / 06</span></div>
+    </section>
+
+    <!-- 3 · MOU -->
+    <section class="slide" aria-label="Slide 3: Official MOU" hidden>
+      <div class="bits" aria-hidden="true">
+        <i style="left:1500px;top:130px;--c:var(--pink)"></i>
+        <i style="left:1590px;top:210px;--c:var(--mint);--z:14px"></i>
+        <i style="left:1680px;top:140px;--c:var(--lavender);--z:22px"></i>
+        <i style="left:96px;top:420px;--c:var(--mint);--z:14px"></i>
+      </div>
+      <svg class="asterisk pink" style="left:1730px;top:90px;width:110px;height:110px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="head">
+        <p class="eyebrow rise">YOUR CALL / OPTIONAL</p>
+        <h1 class="rise" style="--d:1">Want an official <em>MOU?</em></h1>
+        <p class="lede rise" style="--d:2">If you want one, a University of Nottingham professor can sign it.</p>
+      </div>
+      <div class="steps">
+        <div class="step rise" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><div><b>You tell us yes or no</b><span>Totally optional. Say no and nothing else changes.</span></div></div>
+        <div class="step rise" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><div><b>We ask our professor</b><span>We request the MOU from our professor at the university.</span></div></div>
+        <div class="step rise" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><div><b>You review the draft</b><span>We send it to you first, so you can check the wording.</span></div></div>
+        <div class="step rise" style="--d:6"><span class="n" style="--c:var(--sun)">4</span><div><b>Signed and official</b><span>The professor signs it on behalf of the university.</span></div></div>
+      </div>
+      <div class="window doc pop" style="--d:4;--tilt:6deg">
+        <div class="tape" aria-hidden="true"></div>
+        <div class="window-bar"><span>mou_draft.doc</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="page">
+          <p class="kicker">UNIVERSITY OF NOTTINGHAM</p>
+          <h3>Memorandum of Understanding</h3>
+          <div class="line"></div><div class="line"></div><div class="line short"></div>
+          <div class="sign"><div>Professor<br>University of Nottingham</div><span class="seal" aria-hidden="true">MOU</span></div>
+        </div>
+      </div>
+      <div class="footer"><span>CSS / EXTERNAL RELATIONS</span><span>03 / 06</span></div>
+    </section>
+
+    <!-- 4 · Looking after speakers -->
+    <section class="slide" aria-label="Slide 4: Looking after our speakers" hidden>
+      <div class="bits" aria-hidden="true">
+        <i style="left:1480px;top:150px;--c:var(--mint)"></i>
+        <i style="left:1560px;top:230px;--c:var(--pink);--z:14px"></i>
+        <i style="left:1660px;top:170px;--c:var(--lavender);--z:22px"></i>
+        <i style="left:80px;top:380px;--c:var(--sun);--z:14px"></i>
+      </div>
+      <svg class="asterisk mint" style="left:1730px;top:90px;width:120px;height:120px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="head">
+        <p class="eyebrow rise">FOR OUR SPEAKERS</p>
+        <h1 class="rise" style="--d:1">We look after <em>our speakers.</em></h1>
+        <p class="lede rise" style="--d:2">You give us your evening. Here is what we do in return.</p>
+      </div>
+      <div class="perks">
+        <article class="perk pop" style="--d:3;--tilt:-1.2deg">
+          <div class="window-bar"><span>travel.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><path d="M10 74V56l16-6 14-24h54l18 24 18 6v18z" fill="#98e7ad"/><path d="M42 30h24v20H30zM74 30h20l12 20H74z" fill="#fbfaf6"/><circle cx="42" cy="78" r="14" fill="#303044"/><circle cx="112" cy="78" r="14" fill="#303044"/></svg>
+            <h3>Travel covered</h3>
+            <p>We reimburse your car fuel or your Grab to campus.</p>
+          </div>
+        </article>
+        <article class="perk pop" style="--d:4;--tilt:.8deg">
+          <div class="window-bar"><span>gift.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><rect x="30" y="44" width="90" height="62" fill="#f1a1db"/><rect x="22" y="30" width="106" height="20" fill="#fbfaf6"/><path d="M75 30v76M75 30C60 4 36 8 46 26M75 30C90 4 114 8 104 26" fill="none"/></svg>
+            <h3>A thank-you gift</h3>
+            <p>A small gift from CSS, to say thank you for speaking.</p>
+          </div>
+        </article>
+        <article class="perk pop" style="--d:5;--tilt:-.8deg">
+          <div class="window-bar"><span>dinner.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><circle cx="75" cy="56" r="42" fill="#fbe7a6"/><circle cx="75" cy="56" r="24" fill="#fbfaf6"/><path d="M12 14v26a8 8 0 0 0 8 8v50M12 14v20M26 14v20M20 14v34" fill="none"/><path d="M136 14c-10 8-12 30-6 44h6v40" fill="none"/></svg>
+            <h3>Free dinner</h3>
+            <p>Dinner is on us on the day, so you can relax.</p>
+          </div>
+        </article>
+      </div>
+      <p class="note-strip rise" style="--d:6"><i aria-hidden="true"></i>For the travel, just keep your fuel receipt or your Grab screenshot.</p>
+      <div class="footer"><span>CSS / EXTERNAL RELATIONS</span><span>04 / 06</span></div>
+    </section>
+
+    <!-- 5 · Road to event day -->
+    <section class="slide" aria-label="Slide 5: From yes to event day" hidden>
+      <div class="bits" aria-hidden="true">
+        <i style="left:1500px;top:130px;--c:var(--lavender)"></i>
+        <i style="left:1590px;top:200px;--c:var(--mint);--z:14px"></i>
+        <i style="left:1680px;top:140px;--c:var(--pink);--z:22px"></i>
+        <i style="left:80px;top:340px;--c:var(--mint);--z:14px"></i>
+      </div>
+      <svg class="asterisk pink" style="left:1730px;top:90px;width:110px;height:110px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="head" style="top:90px">
+        <p class="eyebrow rise">WHAT HAPPENS NEXT</p>
+        <h1 class="rise" style="--d:1;font-size:100px;margin:20px 0 18px">From yes to <em>event day.</em></h1>
+        <p class="lede rise" style="--d:2;font-size:32px">We will keep you posted at every step.</p>
+      </div>
+      <div class="road">
+        <article class="stop pop" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><h3>Secure all three speakers</h3><p>We confirm the other two speakers, then tell you straight away.</p><span class="chip">AIM: BY NEXT WEEK</span></article>
+        <article class="stop pop" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><h3>Ask for your best time</h3><p>We ask each speaker separately which time suits them best.</p></article>
+        <article class="stop pop" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><h3>Confirm the event time</h3><p>With the best times in, we fix the date and time for everyone.</p></article>
+        <article class="stop pop" style="--d:6"><span class="n" style="--c:var(--sun)">4</span><h3>Online rehearsal</h3><p>A short online session to run through the panel together.</p></article>
+        <article class="stop pop" style="--d:7"><span class="n" style="--c:var(--mint)">5</span><h3>Your speaker handbook</h3><p>How to get to Nottingham, the event flow, the event questions, where to park and more.</p></article>
+        <article class="stop final pop" style="--d:8"><span class="n" style="--c:var(--pink)">6</span><h3>Event day</h3><p>The panel talk, then your gift and a free dinner.</p></article>
+      </div>
+      <div class="footer"><span>CSS / EXTERNAL RELATIONS</span><span>05 / 06</span></div>
+    </section>
+
+    <!-- 6 · Questions -->
+    <section class="slide" aria-label="Slide 6: A few quick questions" hidden>
+      <div class="bits" aria-hidden="true">
+        <i style="left:1480px;top:150px;--c:var(--mint)"></i>
+        <i style="left:1560px;top:230px;--c:var(--pink);--z:14px"></i>
+        <i style="left:1660px;top:170px;--c:var(--lavender);--z:22px"></i>
+        <i style="left:80px;top:400px;--c:var(--pink);--z:14px"></i>
+      </div>
+      <svg class="asterisk mint" style="left:1730px;top:90px;width:120px;height:120px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="head">
+        <p class="eyebrow rise">QUESTIONS FOR YOU</p>
+        <h1 class="rise" style="--d:1">A few quick <em>questions.</em></h1>
+        <p class="lede rise" style="--d:2">Short answers are fine. Your reply is not a final commitment.</p>
+      </div>
+      <div class="asks">
+        <div class="ask rise" style="--d:3"><span class="box" aria-hidden="true"></span><div><b>Would you like to join the panel?</b><span>The date is not fixed yet, so this is your interest for now.</span></div></div>
+        <div class="ask rise" style="--d:4"><span class="box" aria-hidden="true"></span><div><b>Do you want an official MOU?</b><span>Signed by a University of Nottingham professor, only if you want one.</span></div></div>
+        <div class="ask rise" style="--d:5"><span class="box" aria-hidden="true"></span><div><b>Does fuel or Grab reimbursement work?</b><span>Plus the thank-you gift and free dinner on the day.</span></div></div>
+        <div class="ask rise" style="--d:6"><span class="box" aria-hidden="true"></span><div><b>Any days or times we should avoid?</b><span>This helps when we ask every speaker for a best time.</span></div></div>
+      </div>
+      <div class="window next pop" style="--d:4;--tilt:6deg">
+        <div class="tape" aria-hidden="true"></div>
+        <div class="window-bar"><span>next_steps.txt</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <p class="k">&gt; WHAT WE DO NEXT</p>
+          <p>We secure all three speakers, aiming for next week, then come back to you with the plan.</p>
+          <p class="thanks">Thank you, WYHOW!</p>
+        </div>
+      </div>
+      <div class="footer"><span>CSS / EXTERNAL RELATIONS</span><span>06 / 06</span></div>
+    </section>
+
+  </main>
+  <div class="pager" id="pager" aria-hidden="true"></div>
+
+  <script>
+    // Minimal deck: arrows, Page Up/Down, Space, Home/End, clicks (left/right half), F fullscreen, P print, #N in the URL.
+    (function () {
+      var stage = document.getElementById('stage');
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var pager = document.getElementById('pager');
+      var current = 0, pagerTimer = 0;
+
+      function fit() {
+        var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        stage.style.setProperty('--s', String(Math.max(0.1, s)));
+      }
+
+      function show(index) {
+        current = Math.max(0, Math.min(slides.length - 1, index));
+        slides.forEach(function (slide, i) {
+          var active = i === current;
+          slide.hidden = !active;
+          slide.classList.remove('is-active');
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        void slides[current].offsetWidth;
+        slides[current].classList.add('is-active');
+        document.title = 'CSS External Relations — Slide ' + (current + 1) + ' of ' + slides.length;
+        try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) {}
+        pager.textContent = (current + 1) + ' / ' + slides.length;
+        pager.classList.add('on');
+        clearTimeout(pagerTimer);
+        pagerTimer = setTimeout(function () { pager.classList.remove('on'); }, 1600);
+      }
+
+      function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen();
+        } catch (e) {}
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        var k = e.key;
+        if (k === 'ArrowRight' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) { e.preventDefault(); show(current + 1); }
+        else if (k === 'ArrowLeft' || k === 'PageUp' || (k === ' ' && e.shiftKey)) { e.preventDefault(); show(current - 1); }
+        else if (k === 'Home') show(0);
+        else if (k === 'End') show(slides.length - 1);
+        else if (k === 'f' || k === 'F') toggleFullscreen();
+        else if (k === 'p' || k === 'P') window.print();
+      });
+      document.addEventListener('click', function (e) {
+        if (e.button !== 0 || String(window.getSelection()) || e.target.closest('button, a, [data-no-nav]')) return;
+        show(current + (e.clientX < window.innerWidth / 2 ? -1 : 1));
+      });
+      window.addEventListener('resize', fit);
+      window.addEventListener('hashchange', function () {
+        var m = /^#(\d+)$/.exec(location.hash);
+        if (m && Number(m[1]) - 1 !== current) show(Number(m[1]) - 1);
+      });
+
+      fit();
+      var m = /^#(\d+)$/.exec(location.hash);
+      show(m ? Number(m[1]) - 1 : 0);
+    })();
+  </script>
+
+</body>
+</html>

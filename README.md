@@ -1,6 +1,12 @@
-# CSS Weekly
+# CSS Slides
 
-Slides from every Computer Science Society committee weekly. The homepage (`index.html`, live at [cssweekly-seven.vercel.app](https://cssweekly-seven.vercel.app)) shows every weekly on one screen, with no scrolling, as a timeline from Week 1 (left) to the latest week (right): each has its date, title and a thumbnail of every slide. Click a title to open the deck, or a thumbnail to open it at that slide. On phones it becomes a normal scrolling page, oldest at the top.
+Every slide the Computer Science Society has used, in one place. The homepage (`index.html` and `hub.css`, live at [cssweekly-seven.vercel.app](https://cssweekly-seven.vercel.app)) is a scrolling hub with three sections, each deck shown as a card with a thumbnail of every slide. Click a title to open the deck, or a thumbnail to open it at that slide.
+
+1. **CSS Weeklies**: the committee meeting slides, latest first.
+2. **Event material**: what we put on screen at events (the Play deck below).
+3. **External relations**: decks for speakers, partners and the university.
+
+## CSS Weeklies
 
 | # | Date | Weekly | Deck |
 |---|------|--------|------|
@@ -10,6 +16,14 @@ Slides from every Computer Science Society committee weekly. The homepage (`inde
 | 01 | Wed 30 Sep 2026 | First committee meeting (7 slides) | [`weeklies/01-first-meeting/`](weeklies/01-first-meeting/) |
 
 Regular slot: Tuesdays at 6 PM, under an hour.
+
+## External relations
+
+| # | Deck | Folder |
+|---|------|--------|
+| 01 | Panel talk with WYHOW, the Microsoft engineer we are inviting to speak (6 slides: the panel, optional MOU, travel reimbursement, gift and dinner, the road to event day, questions) | [`external/01-wyhow-panel/`](external/01-wyhow-panel/) |
+
+It is a single self-contained file with the same keys as the weeklies. Its speaker details (names of the other two speakers, the date) are still to be filled in once confirmed.
 
 ## Presenting
 
@@ -31,17 +45,18 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 
 ## Layout
 
-- `index.html` and `weeklies/archive.css`: the archive homepage
-- `play/`: the countdown, Canva and Jeopardy deck (`play/countdown/`, `play/canva/` and `play/jeopardy/` are its three slides)
+- `index.html` and `hub.css`: the slide hub homepage
+- `play/`: the countdown, Canva and Jeopardy deck (`play/countdown/`, `play/canva/` and `play/jeopardy/` are its three slides); thumbnails in `play/thumbs/N.jpg`
 - `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weekly 03 is a single self-contained file
 - `weeklies/thumbs/NN-S.jpg`: slide thumbnails (weekly NN, slide S), 640×360
+- `external/NN-name/`: one folder per external relations deck, with thumbnails in `external/thumbs/NN-S.jpg`
 - `cs-fair-briefing.html`: redirects the old CS Fair link to `weeklies/02-cs-fair/`
 
-## Adding a new weekly
+## Adding a deck to the hub
 
-1. Put the deck in `weeklies/05-short-name/index.html`.
-2. Add a thumbnail per slide as `weeklies/thumbs/05-1.jpg`, `05-2.jpg` and so on (16:9, 640 wide).
-3. In `index.html`, copy the last `<article class="weekly">` block to the end of the `.grid`, then update its week label, date, title and thumbnails (the date is a pixel-digit SVG, so regenerate it rather than typing text). Update `--cols` on `<main class="stage">` to the new number of weeklies. The weeklies sit side by side, so they get narrower as more are added; past about six, the page will need a different layout.
+1. Put the deck in its section's folder: `weeklies/05-short-name/index.html`, `external/02-short-name/index.html`, or a new folder for event material.
+2. Add a 16:9, 640-wide thumbnail per slide in that section's `thumbs/` folder (`05-1.jpg`, `05-2.jpg` and so on).
+3. In `index.html`, copy an existing `<article class="deck">` into the right section and update its file name, tag, title, links, captions and slide count. In CSS Weeklies, put it first so the latest stays on top.
 
 ## Credits
 
