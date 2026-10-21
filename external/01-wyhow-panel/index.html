@@ -61,19 +61,19 @@
     .person .bar{height:48px;font-size:24px;padding:0 18px 0 20px}
     .person .lights i{width:13px;height:13px}
     .person{text-align:center}
-    .person .photo,.person .blank{display:block;width:220px;height:220px;margin:34px auto 0;border:4px solid var(--ink);border-radius:var(--shape,50%);box-shadow:8px 8px 0 var(--shadow)}
+    .person .photo,.person .blank{display:block;width:200px;height:200px;margin:30px auto 0;border:4px solid var(--ink);border-radius:var(--shape,50%);box-shadow:8px 8px 0 var(--shadow)}
     .person .photo{object-fit:cover;object-position:center 30%;background:var(--lavender)}
-    .person .blank{display:grid;place-items:center;background:repeating-linear-gradient(45deg,#efedf8,#efedf8 12px,#e6e3f4 12px,#e6e3f4 24px);color:var(--purple);font:600 110px DM,Arial,sans-serif}
-    .person .info{padding:26px 28px 30px}
+    .person .blank{display:grid;place-items:center;background:repeating-linear-gradient(45deg,#efedf8,#efedf8 12px,#e6e3f4 12px,#e6e3f4 24px);color:var(--purple);font:600 100px DM,Arial,sans-serif}
+    .person .info{padding:22px 28px 26px}
     .person h3{font-size:44px;line-height:1.1}
     .person .role{margin-top:6px;font-size:26px;line-height:1.35;color:var(--muted)}
     .person.open{border-style:dashed;background:transparent;box-shadow:none}
     .person.open h3{color:var(--purple)}
     .stamp{position:absolute;right:-16px;top:-20px;z-index:2;padding:3px 16px;background:var(--mint);border:4px solid var(--ink);font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;transform:rotate(3deg)}
     .stamp.invited{background:var(--lavender)}
-    .facts{position:absolute;left:120px;right:120px;top:918px;display:flex;gap:70px;font-size:26px;color:var(--muted)}
-    .facts span{padding-left:20px;border-left:6px solid var(--mint)}
-    .facts b{margin-right:12px;font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+    .facts{position:absolute;left:120px;right:120px;top:874px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;font-size:25px;line-height:1.3;color:var(--muted)}
+    .facts span{display:block;padding-left:20px;border-left:6px solid var(--mint)}
+    .facts b{display:block;margin-bottom:2px;font:400 21px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
 
     /* Slide 3: MOU */
     .steps{position:absolute;left:120px;top:440px;width:960px;display:grid;gap:36px}
@@ -102,7 +102,25 @@
     .note-strip{position:absolute;left:120px;right:120px;top:884px;display:flex;align-items:center;gap:18px;font-size:27px;color:var(--muted)}
     .note-strip i{flex:none;width:20px;height:20px;background:var(--mint);border:4px solid var(--ink)}
 
-    /* Slide 5: the road to event day */
+    /* Slide 5: what we need from you */
+    .needs{position:absolute;left:120px;top:440px;width:960px;display:grid;gap:34px;list-style:none;padding:0}
+    .need{display:flex;gap:28px;align-items:center}
+    .need .n{flex:none;display:grid;place-items:center;width:74px;height:74px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 38px DM,Arial,sans-serif}
+    .need b{display:block;font:600 36px/1.2 DM,Arial,sans-serif}
+    .need span{display:block;font-size:26px;line-height:1.3;color:var(--muted)}
+    .poster-win{left:1260px;top:380px;width:480px}
+    .poster-win .body{padding:26px;background:var(--tint,#efedf8)}
+    .poster{display:flex;flex-direction:column;align-items:center;padding:26px 24px 30px;border:3px solid var(--ink);background:var(--card);text-align:center}
+    .poster .top{font:400 18px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+    .poster .ph{position:relative;width:190px;height:190px;margin-top:24px;border:4px solid var(--ink);border-radius:50%;background:#e6e3f4;box-shadow:7px 7px 0 var(--shadow);overflow:hidden}
+    .poster .ph::before{content:"";position:absolute;left:50%;top:34px;width:70px;height:70px;margin-left:-35px;border-radius:50%;background:var(--lavender)}
+    .poster .ph::after{content:"";position:absolute;left:50%;top:116px;width:140px;height:120px;margin-left:-70px;border-radius:50%;background:var(--lavender)}
+    .poster .who{margin-top:30px;font:600 30px/1.2 DM,Arial,sans-serif}
+    .poster .who i{font-style:normal;font-weight:400;color:var(--purple);margin:0 6px}
+    .poster .where{margin-top:20px;padding-top:14px;width:100%;border-top:2px dashed var(--lavender);font:400 17px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:var(--muted)}
+    .poster-note{position:absolute;left:1260px;top:942px;width:480px;font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:2px;text-align:center;color:var(--purple)}
+
+    /* Slide 6: the road to event day */
     .road{position:absolute;left:120px;right:120px;top:400px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px;list-style:none;padding:0}
     .stop{position:relative;min-height:236px;padding:24px 30px 26px;border:4px solid var(--ink);background:var(--card);box-shadow:10px 10px 0 var(--shadow)}
     .stop .n{position:absolute;left:-4px;top:-4px;display:grid;place-items:center;width:60px;height:60px;border:4px solid var(--ink);background:var(--c,var(--mint));font:600 32px DM,Arial,sans-serif}
@@ -112,7 +130,7 @@
     .stop.final{background:var(--mint)}
     .stop.final p{color:var(--ink)}
 
-    /* Slide 6: points to confirm */
+    /* Slide 7: points to confirm */
     .asks{position:absolute;left:120px;top:430px;width:1020px;display:grid;gap:36px;list-style:none;padding:0}
     .ask{display:flex;gap:28px;align-items:flex-start}
     .ask .n{flex:none;display:grid;place-items:center;width:64px;height:64px;margin-top:4px;border:4px solid var(--ink);background:var(--c);box-shadow:5px 5px 0 var(--shadow);font:600 34px DM,Arial,sans-serif}
@@ -182,8 +200,8 @@
           <div class="info"><h3>To be confirmed</h3><p class="role">Announced once confirmed</p></div>
         </article>
       </div>
-      <p class="facts rise" style="--d:6"><span><b>Venue</b>University of Nottingham campus</span><span><b>Date</b>Set once all three speakers are confirmed</span></p>
-      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>02 / 06</span></div>
+      <p class="facts rise" style="--d:6"><span><b>Venue</b>University of Nottingham campus</span><span><b>Date</b>Set once all three speakers are confirmed</span><span><b>Promotion</b>We post on LinkedIn and Instagram, before and after the event</span></p>
+      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>02 / 07</span></div>
     </section>
 
     <!-- 3 · MOU -->
@@ -208,7 +226,7 @@
           <div class="sign">Professor<br>University of Nottingham</div>
         </div>
       </div>
-      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>03 / 06</span></div>
+      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>03 / 07</span></div>
     </section>
 
     <!-- 4 · Speaker hospitality -->
@@ -245,11 +263,38 @@
         </article>
       </div>
       <p class="note-strip rise" style="--d:6"><i aria-hidden="true"></i>To be reimbursed, please send us your receipt: a fuel receipt or a Grab screenshot.</p>
-      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>04 / 06</span></div>
+      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>04 / 07</span></div>
     </section>
 
-    <!-- 5 · Road to event day -->
-    <section class="slide" aria-label="Slide 5: From confirmation to event day" hidden>
+    <!-- 5 · What we need from you -->
+    <section class="slide" aria-label="Slide 5: What we need from you" hidden>
+      <div class="head">
+        <p class="eyebrow rise">For our promotion</p>
+        <h1 class="rise" style="--d:1">What we need <em>from you.</em></h1>
+        <p class="lede rise" style="--d:2">We share every speaker on LinkedIn and Instagram, before and after the event.</p>
+      </div>
+      <ol class="needs">
+        <li class="need rise" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><div><b>Your name</b><span>As you would like it to appear.</span></div></li>
+        <li class="need rise" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><div><b>Your role and company name</b><span>Your job title and where you work.</span></div></li>
+        <li class="need rise" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><div><b>Your picture</b><span>A clear, recent photo of you.</span></div></li>
+      </ol>
+      <div class="window poster-win pop" style="--d:4" aria-hidden="true">
+        <div class="bar"><span>poster_preview</span><span class="lights"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <div class="poster">
+            <p class="top">CSS Panel Talk</p>
+            <div class="ph"></div>
+            <p class="who">Name<i>|</i>Role, Company</p>
+            <p class="where">LINKEDIN · INSTAGRAM</p>
+          </div>
+        </div>
+      </div>
+      <p class="poster-note rise" style="--d:6">A simple preview of the poster</p>
+      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>05 / 07</span></div>
+    </section>
+
+    <!-- 6 · Road to event day -->
+    <section class="slide" aria-label="Slide 6: From confirmation to event day" hidden>
       <div class="head" style="top:84px">
         <p class="eyebrow rise">What happens next</p>
         <h1 class="rise" style="--d:1;font-size:96px;margin:18px 0 16px">From confirmation to <em>event day.</em></h1>
@@ -263,11 +308,11 @@
         <li class="stop pop" style="--d:7"><span class="n" style="--c:var(--mint)">5</span><h3>Speaker handbook</h3><p>How to get to Nottingham, the event flow, the event questions, where to park and more.</p></li>
         <li class="stop final pop" style="--d:8"><span class="n" style="--c:var(--pink)">6</span><h3>Event day</h3><p>The panel talk, then your gift and dinner.</p></li>
       </ol>
-      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>05 / 06</span></div>
+      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>06 / 07</span></div>
     </section>
 
-    <!-- 6 · Points to confirm -->
-    <section class="slide" aria-label="Slide 6: Points to confirm" hidden>
+    <!-- 7 · Points to confirm -->
+    <section class="slide" aria-label="Slide 7: Points to confirm" hidden>
       <div class="head">
         <p class="eyebrow rise">For discussion</p>
         <h1 class="rise" style="--d:1">A few points <em>to confirm.</em></h1>
@@ -287,7 +332,7 @@
           <p class="thanks">Thank you, Wyhow.</p>
         </div>
       </div>
-      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>06 / 06</span></div>
+      <div class="footer"><span>CSS × Wyhow / Panel Talk</span><span>07 / 07</span></div>
     </section>
 
   </main>
