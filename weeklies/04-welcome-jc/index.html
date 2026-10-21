@@ -163,7 +163,7 @@
       var stage = document.getElementById('stage');
       var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
       var pager = document.getElementById('pager');
-      var current = 0, pagerTimer = 0;
+      var current = 0, pagerTimer = 0, shown = false;
 
       function fit() {
         var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
@@ -171,7 +171,11 @@
       }
 
       function show(index) {
-        current = Math.max(0, Math.min(slides.length - 1, index));
+        var target = Math.max(0, Math.min(slides.length - 1, index));
+        // Already on this slide (e.g. Next on the last slide): do nothing, so it doesn't replay.
+        if (shown && target === current) return;
+        shown = true;
+        current = target;
         slides.forEach(function (slide, i) {
           var active = i === current;
           slide.hidden = !active;

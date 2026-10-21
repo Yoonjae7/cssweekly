@@ -202,7 +202,7 @@
       <div class="perks">
         <article class="perk rise" style="--d:3">
           <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 40v-9l8-14h24l10 14h6v9"/><path d="M8 40h48"/><circle cx="20" cy="44" r="5"/><circle cx="46" cy="44" r="5"/><path d="M18 31h28"/></svg>
-          <h3>Travel covered</h3>
+          <h3>Travel expense covered</h3>
           <p>We reimburse your car fuel or your Grab to campus.</p>
         </article>
         <article class="perk rise" style="--d:4">
@@ -270,7 +270,7 @@
       var stage = document.getElementById('stage');
       var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
       var pager = document.getElementById('pager');
-      var current = 0, pagerTimer = 0;
+      var current = 0, pagerTimer = 0, shown = false;
 
       function fit() {
         var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
@@ -278,7 +278,11 @@
       }
 
       function show(index) {
-        current = Math.max(0, Math.min(slides.length - 1, index));
+        var target = Math.max(0, Math.min(slides.length - 1, index));
+        // Already on this slide (e.g. Next on the last slide): do nothing, so it doesn't replay.
+        if (shown && target === current) return;
+        shown = true;
+        current = target;
         slides.forEach(function (slide, i) {
           var active = i === current;
           slide.hidden = !active;

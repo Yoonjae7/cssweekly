@@ -3,6 +3,7 @@ const slides = [...document.querySelectorAll('.slide')];
 const fullscreen = document.getElementById('fullscreen');
 
 let current = 0;
+let shown = false;
 
 function fitStage() {
   const availableHeight = window.innerHeight;
@@ -11,7 +12,11 @@ function fitStage() {
 }
 
 function showSlide(index) {
-  current = Math.max(0, Math.min(slides.length - 1, index));
+  const target = Math.max(0, Math.min(slides.length - 1, index));
+  // Already on this slide (e.g. Next on the last slide): do nothing.
+  if (shown && target === current) return;
+  shown = true;
+  current = target;
   slides.forEach((slide, position) => {
     const active = position === current;
     slide.hidden = !active;
