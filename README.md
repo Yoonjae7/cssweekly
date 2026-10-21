@@ -21,9 +21,9 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 
 | # | Deck | Folder |
 |---|------|--------|
-| 01 | Panel talk with WYHOW, the Microsoft engineer we are inviting to speak (6 slides: the panel, optional MOU, travel reimbursement, gift and dinner, the road to event day, questions) | [`external/01-wyhow-panel/`](external/01-wyhow-panel/) |
+| 01 | Computer Science Society Panel Talk, CSS × Waihao: the deck we show Waihao (Microsoft) when we meet to invite him to speak (6 slides: cover, the panel, optional MOU, travel reimbursement, gift and dinner, the road to event day, questions) | [`external/01-waihao-panel/`](external/01-waihao-panel/) |
 
-It is a single self-contained file with the same keys as the weeklies. Its speaker details (names of the other two speakers, the date) are still to be filled in once confirmed.
+It is a single self-contained file with the same keys as the weeklies. Speakers: Asadullah (Cognizant, confirmed), Waihao (Microsoft, invited) and a third speaker still to be confirmed; update slide 2 and the thumbnails when that changes.
 
 ## Presenting
 
