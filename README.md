@@ -21,9 +21,9 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 
 | # | Deck | Folder |
 |---|------|--------|
-| 01 | Computer Science Society Panel Talk, CSS × WyHow: the deck we show WyHow (Microsoft) when we meet to invite him to speak (6 slides: cover, the panel, optional MOU, travel reimbursement, gift and dinner, the road to event day, questions) | [`external/01-wyhow-panel/`](external/01-wyhow-panel/) |
+| 01 | Computer Science Society Panel Talk, CSS × Wyhow: the deck we show Wyhow (Microsoft) when we meet to invite him to speak (6 slides: cover, the panel, optional MOU, travel reimbursement, gift and dinner, the road to event day, questions) | [`external/01-wyhow-panel/`](external/01-wyhow-panel/) |
 
-It is a single self-contained file with the same keys as the weeklies. Speakers: Asadullah (Data Scientist, Cognizant, confirmed), WyHow (Solution Engineer, Microsoft, invited) and a third speaker still to be confirmed; update slide 2 and the thumbnails when that changes.
+It is a single self-contained file with the same keys as the weeklies. Speakers: Asadullah (Data Scientist, Cognizant, confirmed), Wyhow (Solution Engineer, Microsoft, invited) and a third speaker still to be confirmed; update slide 2 and the thumbnails when that changes.
 
 ## Presenting
 
