@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <meta name="robots" content="noindex">
+  <title>Computer Science Society — Panel Talk with Asadullah</title>
+  <link rel="icon" href="../../assets/css-logo.png">
+  <style>
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    /* Pixelify's digits are hard to read (2 looks like 8), so digits come from DM Sans, like the weekly decks. */
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
+    :root{--paper:#f8f7f2;--card:#fdfcf9;--ink:#303044;--purple:#7070a2;--lavender:#b3aee0;--shadow:#d6d4e2;--screen:#2a2838;--mint:#98e7ad;--pink:#f1a1db;--sun:#fbe7a6;--muted:#55536a;--s:1;color-scheme:light}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#1d1c27}
+    h1,h2,h3,p,ol,ul{margin:0}
+    .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s))}
+    .slide{position:absolute;inset:0;overflow:hidden;color:var(--ink);font:400 30px/1.4 DM,Arial,sans-serif;background-color:var(--paper);background-image:linear-gradient(rgba(112,112,162,.07) 2px,transparent 2px),linear-gradient(90deg,rgba(112,112,162,.07) 2px,transparent 2px);background-size:48px 48px}
+    .slide[hidden]{display:none}
+    h1,h2,h3{font-family:ClearDigits,Pixelify,monospace;font-weight:600}
+    h1 em{font-style:normal;color:var(--purple)}
+    .eyebrow{font:600 24px DM,Arial,sans-serif;letter-spacing:5px;text-transform:uppercase;color:var(--purple)}
+    .lede{font-size:34px;line-height:1.4;color:var(--muted)}
+    .footer{position:absolute;left:120px;right:120px;bottom:50px;display:flex;justify-content:space-between;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
+
+    /* Window chrome: straight and calm, with a hard lavender shadow */
+    .window{position:absolute;border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow)}
+    .bar{display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 20px 0 24px;background:var(--purple);color:#f2f0fb;font:400 28px ClearDigits,Pixelify,monospace}
+    .lights{display:flex;gap:10px}
+    .lights i{display:block;width:15px;height:15px;background:#d9d6f2}
+
+    /* Entrances: replayed each time a slide is shown */
+    .is-active .rise{animation:rise .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0) * 110ms)}
+    @keyframes rise{from{opacity:0;transform:translateY(28px)}}
+    .is-active .pop{animation:pop .6s cubic-bezier(.34,1.3,.64,1) both;animation-delay:calc(var(--d,0) * 120ms)}
+    @keyframes pop{from{opacity:0;transform:scale(.94)}}
+
+    /* Shared heading block */
+    .head{position:absolute;left:120px;top:96px;right:120px}
+    .head h1{font-size:104px;line-height:1;letter-spacing:-1px;margin:22px 0 20px}
+    .head .lede{max-width:1500px}
+
+    /* Slide 1: cover */
+    .cover-copy{position:absolute;left:120px;top:230px;width:1080px}
+    .cover-copy h1{font-size:140px;line-height:.92;letter-spacing:-3px;margin:38px 0 44px}
+    .cover-copy .lede{font-size:38px;max-width:1000px}
+    .tag{display:inline-block;margin-top:56px;padding:18px 32px;background:var(--mint);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--shadow);font:400 32px ClearDigits,Pixelify,monospace}
+    .cover-window{left:1200px;top:250px;width:560px}
+    .cover-window .body{display:flex;flex-direction:column;align-items:center;padding:30px 30px 40px;background:var(--screen)}
+    .cover-window img{display:block;width:380px;height:380px;object-fit:contain}
+    .cover-window .loading{font:400 30px ClearDigits,Pixelify,monospace;color:var(--mint)}
+
+    /* Slide 2: the panel */
+    .speakers{position:absolute;left:120px;right:120px;top:410px;display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+    .person{position:relative;border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow)}
+    .person .bar{height:48px;font-size:24px;padding:0 18px 0 20px}
+    .person .lights i{width:13px;height:13px}
+    .person{text-align:center}
+    .person .photo,.person .blank{display:block;width:200px;height:200px;margin:30px auto 0;border:4px solid var(--ink);border-radius:var(--shape,50%);box-shadow:8px 8px 0 var(--shadow)}
+    .person .photo{object-fit:cover;object-position:center 30%;background:var(--lavender)}
+    .person .blank{display:grid;place-items:center;background:repeating-linear-gradient(45deg,#efedf8,#efedf8 12px,#e6e3f4 12px,#e6e3f4 24px);color:var(--purple);font:600 100px DM,Arial,sans-serif}
+    .person .info{padding:22px 28px 26px}
+    .person h3{font-size:44px;line-height:1.1}
+    .person .role{margin-top:6px;font-size:26px;line-height:1.35;color:var(--muted)}
+    .person.open{border-style:dashed;background:transparent;box-shadow:none}
+    .person.open h3{color:var(--purple)}
+    .stamp{position:absolute;right:-16px;top:-20px;z-index:2;padding:3px 16px;background:var(--mint);border:4px solid var(--ink);font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;transform:rotate(3deg)}
+    .stamp.invited{background:var(--lavender)}
+    .facts{position:absolute;left:120px;right:120px;top:874px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;font-size:25px;line-height:1.3;color:var(--muted)}
+    .facts span{display:block;padding-left:20px;border-left:6px solid var(--mint)}
+    .facts b{display:block;margin-bottom:2px;font:400 21px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+
+    /* Slide 5: MOU */
+    .steps{position:absolute;left:120px;top:440px;width:960px;display:grid;gap:36px}
+    .step{display:flex;gap:28px;align-items:center}
+    .step .n{flex:none;display:grid;place-items:center;width:74px;height:74px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 38px DM,Arial,sans-serif}
+    .step b{display:block;font:600 34px/1.2 DM,Arial,sans-serif}
+    .step span{display:block;font-size:26px;line-height:1.3;color:var(--muted)}
+    .doc{left:1200px;top:410px;width:560px}
+    .doc .page{padding:34px 40px 40px}
+    .doc .org{font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+    .doc h3{margin-top:10px;font-size:42px;line-height:1.1}
+    .doc .line{height:12px;margin-top:20px;background:var(--shadow)}
+    .doc .line.short{width:62%}
+    .doc .sign{margin-top:54px;width:62%;border-top:3px solid var(--ink);padding-top:8px;font-size:22px;line-height:1.3;color:var(--muted)}
+
+    /* Slide 3: speaker hospitality */
+    .perks{position:absolute;left:120px;right:120px;top:410px;display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+    .perk{border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow)}
+    .perk .bar{height:48px;font-size:24px;padding:0 18px 0 20px}
+    .perk .lights i{width:13px;height:13px}
+    .perk .body{padding:28px 28px 32px}
+    .perk svg{display:block;width:112px;height:82px;overflow:visible}
+    .perk svg *{stroke:var(--ink);stroke-width:5;stroke-linejoin:round;stroke-linecap:round}
+    .perk h3{margin-top:22px;font-size:38px;line-height:1.1}
+    .perk p{margin-top:12px;font-size:26px;line-height:1.35;color:var(--muted)}
+    .note-strip{position:absolute;left:120px;right:120px;top:884px;display:flex;align-items:center;gap:18px;font-size:27px;color:var(--muted)}
+    .note-strip i{flex:none;width:20px;height:20px;background:var(--mint);border:4px solid var(--ink)}
+
+    /* Slide 6: what we need from you */
+    .needs{position:absolute;left:120px;top:440px;width:960px;display:grid;gap:34px;list-style:none;padding:0}
+    .need{display:flex;gap:28px;align-items:center}
+    .need .n{flex:none;display:grid;place-items:center;width:74px;height:74px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 38px DM,Arial,sans-serif}
+    .need b{display:block;font:600 36px/1.2 DM,Arial,sans-serif}
+    .need span{display:block;font-size:26px;line-height:1.3;color:var(--muted)}
+    .poster-win{left:1260px;top:380px;width:480px}
+    .poster-win .body{padding:26px;background:var(--tint,#efedf8)}
+    .poster{display:flex;flex-direction:column;align-items:center;padding:26px 24px 34px;border:3px solid var(--ink);background:var(--card);text-align:center}
+    .poster .top{font:400 18px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+    .poster .ph{position:relative;width:190px;height:190px;margin-top:24px;border:4px solid var(--ink);border-radius:50%;background:#e6e3f4;box-shadow:7px 7px 0 var(--shadow);overflow:hidden}
+    .poster .ph::before{content:"";position:absolute;left:50%;top:34px;width:70px;height:70px;margin-left:-35px;border-radius:50%;background:var(--lavender)}
+    .poster .ph::after{content:"";position:absolute;left:50%;top:116px;width:140px;height:120px;margin-left:-70px;border-radius:50%;background:var(--lavender)}
+    .poster .who{margin-top:30px;font:600 30px/1.2 DM,Arial,sans-serif}
+    .poster .who i{font-style:normal;font-weight:400;color:var(--purple);margin:0 6px}
+    .poster-note{position:absolute;left:1260px;top:896px;width:480px;font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:2px;text-align:center;color:var(--purple)}
+
+    /* Slide 4: the road to event day */
+    .road{position:absolute;left:120px;right:120px;top:400px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px;list-style:none;padding:0}
+    .stop{position:relative;min-height:236px;padding:24px 30px 26px;border:4px solid var(--ink);background:var(--card);box-shadow:10px 10px 0 var(--shadow)}
+    .stop .n{position:absolute;left:-4px;top:-4px;display:grid;place-items:center;width:60px;height:60px;border:4px solid var(--ink);background:var(--c,var(--mint));font:600 32px DM,Arial,sans-serif}
+    .stop h3{margin-left:60px;font-size:36px;line-height:1.1;min-height:60px;display:flex;align-items:center}
+    .stop p{margin-top:14px;font-size:27px;line-height:1.35;color:var(--muted)}
+    .stop .chip{display:inline-block;margin-top:12px;padding:2px 14px;background:var(--sun);border:3px solid var(--ink);font:400 22px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--ink)}
+    .stop.final{background:var(--mint)}
+    .stop.final p{color:var(--ink)}
+
+    /* Slide 7: points to confirm */
+    .asks{position:absolute;left:120px;top:430px;width:1020px;display:grid;gap:36px;list-style:none;padding:0}
+    .ask{display:flex;gap:28px;align-items:flex-start}
+    .ask .n{flex:none;display:grid;place-items:center;width:64px;height:64px;margin-top:4px;border:4px solid var(--ink);background:var(--c);box-shadow:5px 5px 0 var(--shadow);font:600 34px DM,Arial,sans-serif}
+    .ask b{display:block;font:600 38px/1.2 DM,Arial,sans-serif}
+    .ask span{display:block;margin-top:2px;font-size:26px;line-height:1.3;color:var(--muted)}
+    .next{left:1230px;top:410px;width:570px}
+    .next .body{padding:30px 34px 36px;background:var(--screen);color:#ecebf7}
+    .next .k{font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--mint)}
+    .next .body p{margin-top:14px;font-size:32px;line-height:1.35}
+    .next .body p.cong{margin-top:10px;font-size:28px;color:var(--lavender)}
+    .next .body p.thanks{margin-top:26px;padding-top:22px;border-top:3px dashed var(--lavender);font:600 40px DM,Arial,sans-serif;color:var(--mint)}
+
+    .pager{position:fixed;right:16px;bottom:16px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:12px/1.5 system-ui,sans-serif;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .3s;pointer-events:none}
+    .pager.on{opacity:1}
+    @media (prefers-reduced-motion:reduce){.is-active .rise,.is-active .pop{animation:none}}
+    @page{size:1920px 1080px;margin:0}
+    @media print{
+      html,body{width:auto;height:auto;overflow:visible;background:none}
+      .stage{position:static;transform:none}
+      .slide,.slide[hidden]{position:relative;display:block;width:1920px;height:1080px;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pager{display:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage" aria-label="Computer Science Society Panel Talk with Asadullah">
+
+    <!-- 1 · Cover -->
+    <section class="slide" aria-label="Slide 1: CSS × Asadullah">
+      <div class="cover-copy">
+        <p class="eyebrow rise">Computer Science Society / Panel Talk</p>
+        <h1 class="rise" style="--d:1">CSS ×<br><em>Asadullah.</em></h1>
+        <p class="lede rise" style="--d:2">An invitation to speak at the University of Nottingham.</p>
+        <div class="tag rise" style="--d:3">Congratulations on your marriage!</div>
+      </div>
+      <div class="window cover-window pop" style="--d:2">
+        <div class="bar"><span>panel_talk</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <img src="../../assets/css-logo.png" alt="Computer Science Society logo">
+          <p class="loading">&gt; Computer Science Society</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · The panel -->
+    <section class="slide" aria-label="Slide 2: The panel" hidden>
+      <div class="head">
+        <p class="eyebrow rise">Computer Science Society / The panel</p>
+        <h1 class="rise" style="--d:1">Three speakers, <em>one panel.</em></h1>
+        <p class="lede rise" style="--d:2">Industry speakers sharing their experience with our students, on our campus.</p>
+      </div>
+      <div class="speakers">
+        <article class="person pop" style="--d:3">
+          <span class="stamp" aria-hidden="true">CONFIRMED</span>
+          <div class="bar"><span>speaker_01</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <img class="photo" src="asadullah.jpg" alt="Photo of Asadullah">
+          <div class="info"><h3>Asadullah</h3><p class="role">Data Scientist, Cognizant</p></div>
+        </article>
+        <article class="person pop" style="--d:4">
+          <span class="stamp invited" aria-hidden="true">INVITED</span>
+          <div class="bar"><span>speaker_02</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <img class="photo" src="wyhow.jpg" alt="Photo of Wyhow">
+          <div class="info"><h3>Wyhow</h3><p class="role">Solution Engineer, Microsoft</p></div>
+        </article>
+        <article class="person open pop" style="--d:5">
+          <div class="bar"><span>speaker_03</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="blank" aria-hidden="true">?</div>
+          <div class="info"><h3>To be confirmed</h3><p class="role">Announced once confirmed</p></div>
+        </article>
+      </div>
+      <p class="facts rise" style="--d:6"><span><b>Venue</b>University of Nottingham campus</span><span><b>Date</b>Set once all three speakers are confirmed</span><span><b>Promotion</b>We post on LinkedIn and Instagram, before and after the event</span></p>
+      <div class="footer"><span>CSS × Asadullah / Panel Talk</span><span>02 / 07</span></div>
+    </section>
+
+    <!-- 3 · Speaker hospitality -->
+    <section class="slide" aria-label="Slide 3: Looking after our speakers" hidden>
+      <div class="head">
+        <p class="eyebrow rise">For our speakers</p>
+        <h1 class="rise" style="--d:1">Looking after <em>our speakers.</em></h1>
+        <p class="lede rise" style="--d:2">We are grateful for your time, and would like to look after you in return.</p>
+      </div>
+      <div class="perks">
+        <article class="perk pop" style="--d:3">
+          <div class="bar"><span>travel</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><path d="M10 74V56l16-6 14-24h54l18 24 18 6v18z" fill="#98e7ad"/><path d="M42 30h24v20H30zM74 30h20l12 20H74z" fill="#fbfaf6"/><circle cx="42" cy="78" r="14" fill="#303044"/><circle cx="112" cy="78" r="14" fill="#303044"/></svg>
+            <h3>Travel expense covered</h3>
+            <p>We reimburse your fuel or Grab, up to RM40.</p>
+          </div>
+        </article>
+        <article class="perk pop" style="--d:4">
+          <div class="bar"><span>gift</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><rect x="30" y="44" width="90" height="62" fill="#f1a1db"/><rect x="22" y="30" width="106" height="20" fill="#fbfaf6"/><path d="M75 30v76M75 30C60 4 36 8 46 26M75 30C90 4 114 8 104 26" fill="none"/></svg>
+            <h3>A thank-you gift</h3>
+            <p>A gift from the Computer Science Society, to thank you for speaking.</p>
+          </div>
+        </article>
+        <article class="perk pop" style="--d:5">
+          <div class="bar"><span>dinner</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><circle cx="75" cy="56" r="42" fill="#fbe7a6"/><circle cx="75" cy="56" r="24" fill="#fbfaf6"/><path d="M12 14v26a8 8 0 0 0 8 8v50M12 14v20M26 14v20M20 14v34" fill="none"/><path d="M136 14c-10 8-12 30-6 44h6v40" fill="none"/></svg>
+            <h3>Dinner on us</h3>
+            <p>You are our guest for dinner on the day, at no cost to you.</p>
+          </div>
+        </article>
+        <article class="perk pop" style="--d:6">
+          <div class="bar"><span>featured</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body">
+            <svg viewBox="0 0 150 110" aria-hidden="true"><path d="M16 12h118v70H70l-24 22V82H16z" fill="#b3aee0"/><path d="M75 26l8 18 20 2-15 13 5 19-18-10-18 10 5-19-15-13 20-2z" fill="#fbe7a6"/></svg>
+            <h3>Featured on our socials</h3>
+            <p>We thank you with a post on our LinkedIn and Instagram, featuring you.</p>
+          </div>
+        </article>
+      </div>
+      <p class="note-strip rise" style="--d:7"><i aria-hidden="true"></i>To be reimbursed, please send us your receipt: a fuel receipt or a Grab screenshot.</p>
+      <div class="footer"><span>CSS × Asadullah / Panel Talk</span><span>03 / 07</span></div>
+    </section>
+
+    <!-- 4 · Road to event day -->
+    <section class="slide" aria-label="Slide 4: From confirmation to event day" hidden>
+      <div class="head" style="top:84px">
+        <p class="eyebrow rise">What happens next</p>
+        <h1 class="rise" style="--d:1;font-size:96px;margin:18px 0 16px">From confirmation to <em>event day.</em></h1>
+        <p class="lede rise" style="--d:2;font-size:32px">We will keep you informed at every step.</p>
+      </div>
+      <ol class="road">
+        <li class="stop pop" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><h3>Confirm all three speakers</h3><p>You are confirmed. We confirm the other two speakers, then tell you.</p><span class="chip">AIM: BY NEXT WEEK</span></li>
+        <li class="stop pop" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><h3>Ask for your best time</h3><p>We ask each speaker separately which time suits them best.</p></li>
+        <li class="stop pop" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><h3>Confirm the event time</h3><p>With the best times in, we fix the date and time for everyone.</p></li>
+        <li class="stop pop" style="--d:6"><span class="n" style="--c:var(--sun)">4</span><h3>Online rehearsal</h3><p>A short online session to run through the panel together.</p></li>
+        <li class="stop pop" style="--d:7"><span class="n" style="--c:var(--mint)">5</span><h3>Speaker handbook</h3><p>How to get to Nottingham, the event flow, the event questions, where to park and more.</p></li>
+        <li class="stop final pop" style="--d:8"><span class="n" style="--c:var(--pink)">6</span><h3>Event day</h3><p>The panel talk, then your gift and dinner.</p></li>
+      </ol>
+      <div class="footer"><span>CSS × Asadullah / Panel Talk</span><span>04 / 07</span></div>
+    </section>
+
+    <!-- 5 · MOU -->
+    <section class="slide" aria-label="Slide 5: Official MOU" hidden>
+      <div class="head">
+        <p class="eyebrow rise">An offer from the university</p>
+        <h1 class="rise" style="--d:1">An official <em>MOU.</em></h1>
+        <p class="lede rise" style="--d:2">Should you wish, a University of Nottingham professor can sign an official MOU for your visit.</p>
+      </div>
+      <div class="steps">
+        <div class="step rise" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><div><b>You let us know</b><span>Entirely optional. Tell us if you would like one.</span></div></div>
+        <div class="step rise" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><div><b>We ask our professor</b><span>We request the MOU from our professor at the university.</span></div></div>
+        <div class="step rise" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><div><b>You review the draft</b><span>We send it to you first, so you can check the wording.</span></div></div>
+        <div class="step rise" style="--d:6"><span class="n" style="--c:var(--sun)">4</span><div><b>Signed and official</b><span>The professor signs it on behalf of the university.</span></div></div>
+      </div>
+      <div class="window doc pop" style="--d:4" aria-hidden="true">
+        <div class="bar"><span>mou_draft</span><span class="lights"><i></i><i></i><i></i></span></div>
+        <div class="page">
+          <p class="org">University of Nottingham</p>
+          <h3>Memorandum of Understanding</h3>
+          <div class="line"></div><div class="line"></div><div class="line"></div><div class="line short"></div>
+          <div class="sign">Professor<br>University of Nottingham</div>
+        </div>
+      </div>
+      <div class="footer"><span>CSS × Asadullah / Panel Talk</span><span>05 / 07</span></div>
+    </section>
+
+    <!-- 6 · What we need from you -->
+    <section class="slide" aria-label="Slide 6: What we need from you" hidden>
+      <div class="head">
+        <p class="eyebrow rise">For our promotion</p>
+        <h1 class="rise" style="--d:1">What we need <em>from you.</em></h1>
+        <p class="lede rise" style="--d:2">We share every speaker on LinkedIn and Instagram, before and after the event.</p>
+      </div>
+      <ol class="needs">
+        <li class="need rise" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><div><b>Your name</b><span>As you would like it to appear.</span></div></li>
+        <li class="need rise" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><div><b>Your role and company name</b><span>Your job title and where you work.</span></div></li>
+        <li class="need rise" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><div><b>Your picture</b><span>A clear, recent photo of you.</span></div></li>
+      </ol>
+      <div class="window poster-win pop" style="--d:4" aria-hidden="true">
+        <div class="bar"><span>poster_preview</span><span class="lights"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <div class="poster">
+            <p class="top">CSS Panel Talk</p>
+            <div class="ph"></div>
+            <p class="who">Name<i>|</i>Role, Company</p>
+          </div>
+        </div>
+      </div>
+      <p class="poster-note rise" style="--d:6">A simple preview of the poster</p>
+      <div class="footer"><span>CSS × Asadullah / Panel Talk</span><span>06 / 07</span></div>
+    </section>
+
+    <!-- 7 · Points to confirm -->
+    <section class="slide" aria-label="Slide 7: Points to confirm" hidden>
+      <div class="head">
+        <p class="eyebrow rise">For discussion</p>
+        <h1 class="rise" style="--d:1">A few points <em>to confirm.</em></h1>
+        <p class="lede rise" style="--d:2">Short answers are fine. Nothing here is final.</p>
+      </div>
+      <ol class="asks">
+        <li class="ask rise" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><div><b>Your place on the panel</b><span>Thank you for confirming. Date to follow once all three are set.</span></div></li>
+        <li class="ask rise" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><div><b>The official MOU</b><span>Whether you would like us to arrange one.</span></div></li>
+        <li class="ask rise" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><div><b>Travel by fuel or Grab</b><span>Reimbursed up to RM40, against your receipt.</span></div></li>
+        <li class="ask rise" style="--d:6"><span class="n" style="--c:var(--sun)">4</span><div><b>Days or times that do not work</b><span>This helps when we ask every speaker for a best time.</span></div></li>
+      </ol>
+      <div class="window next pop" style="--d:4">
+        <div class="bar"><span>next_steps</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <p class="k">&gt; What we do next</p>
+          <p>We confirm the other two speakers, aiming for next week, then come back to you with the plan.</p>
+          <p class="thanks">Thank you, Asadullah.</p>
+          <p class="cong">Congratulations again on your marriage!</p>
+        </div>
+      </div>
+      <div class="footer"><span>CSS × Asadullah / Panel Talk</span><span>07 / 07</span></div>
+    </section>
+
+  </main>
+  <div class="pager" id="pager" aria-hidden="true"></div>
+
+  <script>
+    // Minimal deck: arrows, Page Up/Down, Space, Home/End, clicks (left/right half), F fullscreen, P print, #N in the URL.
+    (function () {
+      var stage = document.getElementById('stage');
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var pager = document.getElementById('pager');
+      var current = 0, pagerTimer = 0, shown = false;
+
+      function fit() {
+        var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        stage.style.setProperty('--s', String(Math.max(0.1, s)));
+      }
+
+      function show(index) {
+        var target = Math.max(0, Math.min(slides.length - 1, index));
+        // Already on this slide (e.g. Next on the last slide): do nothing, so it doesn't replay.
+        if (shown && target === current) return;
+        shown = true;
+        current = target;
+        slides.forEach(function (slide, i) {
+          var active = i === current;
+          slide.hidden = !active;
+          slide.classList.remove('is-active');
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        void slides[current].offsetWidth;
+        slides[current].classList.add('is-active');
+        document.title = 'CSS × Asadullah — Slide ' + (current + 1) + ' of ' + slides.length;
+        try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) {}
+        pager.textContent = (current + 1) + ' / ' + slides.length;
+        pager.classList.add('on');
+        clearTimeout(pagerTimer);
+        pagerTimer = setTimeout(function () { pager.classList.remove('on'); }, 1600);
+      }
+
+      function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen();
+        } catch (e) {}
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        var k = e.key;
+        if (k === 'ArrowRight' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) { e.preventDefault(); show(current + 1); }
+        else if (k === 'ArrowLeft' || k === 'PageUp' || (k === ' ' && e.shiftKey)) { e.preventDefault(); show(current - 1); }
+        else if (k === 'Home') show(0);
+        else if (k === 'End') show(slides.length - 1);
+        else if (k === 'f' || k === 'F') toggleFullscreen();
+        else if (k === 'p' || k === 'P') window.print();
+      });
+      document.addEventListener('click', function (e) {
+        if (e.button !== 0 || String(window.getSelection()) || e.target.closest('button, a, [data-no-nav]')) return;
+        show(current + (e.clientX < window.innerWidth / 2 ? -1 : 1));
+      });
+      window.addEventListener('resize', fit);
+      window.addEventListener('hashchange', function () {
+        var m = /^#(\d+)$/.exec(location.hash);
+        if (m && Number(m[1]) - 1 !== current) show(Number(m[1]) - 1);
+      });
+
+      fit();
+      var m = /^#(\d+)$/.exec(location.hash);
+      show(m ? Number(m[1]) - 1 : 0);
+    })();
+  </script>
+
+</body>
+</html>
