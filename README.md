@@ -21,7 +21,7 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 
 | # | Deck | Folder |
 |---|------|--------|
-| 03 | Computer Science Society Panel Talk, CSS × Matthew Pang: the invitation deck addressed to Matthew Pang, added to the panel as an invited third speaker. His role, company and photo still need adding on slide 2 (7 slides) | [`external/03-matthew-pang-panel/`](external/03-matthew-pang-panel/) |
+| 03 | Computer Science Society Panel Talk, CSS × Matthew Pang: the invitation deck addressed to Matthew Pang, with Matthew Pang as the invited third speaker; Asadullah and Wyhow are shown as confirmed. His role and company still need adding on slide 2 (7 slides) | [`external/03-matthew-pang-panel/`](external/03-matthew-pang-panel/) |
 | 02 | Computer Science Society Panel Talk, CSS × Asadullah: the same deck addressed to Asadullah (Cognizant, confirmed speaker), with a congratulations on his marriage and wording for a speaker who has already confirmed (7 slides) | [`external/02-asadullah-panel/`](external/02-asadullah-panel/) |
 | 01 | Computer Science Society Panel Talk, CSS × Wyhow: the deck we show Wyhow (Microsoft) when we meet to invite him to speak (7 slides: cover, the panel and our LinkedIn/Instagram promotion, speaker hospitality with the RM40 travel cap, the road to event day, optional MOU, what we need from the speaker with a poster preview, points to confirm) | [`external/01-wyhow-panel/`](external/01-wyhow-panel/) |
 
