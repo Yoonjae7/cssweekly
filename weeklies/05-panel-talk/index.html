@@ -158,6 +158,12 @@
     .table-window td.tbd{color:var(--pink)}
     #sched .table-window{top:292px;height:672px}
     #sched td{height:106px}
+    #sched table{table-layout:fixed}
+    #sched th:nth-child(1){width:100px}
+    #sched th:nth-child(2){width:270px}
+    #sched th:nth-child(3){width:840px}
+    #sched td.pic{font-size:36px;line-height:1.2}
+    #sched td.pic span{white-space:nowrap}
     #actions .table-window{top:292px;height:672px}
     #actions td{height:90px;font-size:34px}
     #actions td.time{font-size:32px}
@@ -185,12 +191,13 @@
     .stat .label{font-size:22px}
     .stat b{display:block;font:600 52px/1.1 ClearDigits,Pixelify,monospace;white-space:nowrap}
     .stat.pic{background:var(--mint)}
+    .stat.pic b.names{font-size:32px;line-height:1.15;white-space:normal;padding-top:6px}
     .stat.pic .label{color:var(--ink)}
     .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
     .cols.three{grid-template-columns:repeat(3,1fr);gap:28px}
     .panel{padding:30px 34px 34px;min-height:330px}
     .panel h3{font-size:38px;line-height:1.1;color:var(--ink);margin-bottom:20px}
-    .panel .label{margin-bottom:10px}
+    .panel .label{margin-bottom:18px}
     .panel ul{list-style:none;padding:0}
     .panel li{position:relative;padding-left:34px;font-size:32px;line-height:1.3;margin-bottom:16px}
     .panel li::before{content:">";position:absolute;left:0;color:var(--purple);font:600 32px ClearDigits,Pixelify,monospace}
@@ -350,7 +357,7 @@
         <table>
           <thead><tr><th>PART</th><th>TIME</th><th>ACTIVITY</th><th>PIC</th></tr></thead>
           <tbody>
-            <tr><td class="no">01</td><td class="time">6:00 – 6:20</td><td class="act">Registration &amp; Arrival</td><td class="pic">Ben</td></tr>
+            <tr><td class="no">01</td><td class="time">6:00 – 6:20</td><td class="act">Registration &amp; Arrival</td><td class="pic"><span>Zachary,</span> <span>Chloe,</span> <span>Thu Thu</span></td></tr>
             <tr><td class="no">02</td><td class="time">6:20 – 6:30</td><td class="act">Opening &amp; Welcome</td><td class="pic">Sakinah</td></tr>
             <tr><td class="no">03</td><td class="time">6:30 – 7:15</td><td class="act">Panel Talk</td><td class="pic">Selina</td></tr>
             <tr><td class="no">04</td><td class="time">7:15 – 7:45</td><td class="act">Dinner &amp; Quiz</td><td class="pic">All (Q: Ben, D: Raza)</td></tr>
@@ -363,12 +370,12 @@
     <section class="slide" aria-label="Slide 7: Registration &amp; Arrival" hidden>
       <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_1.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="on" aria-current="step"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class=""><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class=""><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class=""><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Opening &amp; Welcome 6:20</p></div>
       <div class="main"><p class="eyebrow rise">PART 1 OF 5 / 6:00–6:20</p><h2 class="rise" style="--d:1">Registration &amp; Arrival</h2>
-<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>6:00–6:20</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>20 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b>Ben</b></div></div>
+<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>6:00–6:20</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>20 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b class="names">Zachary, Chloe, Thu Thu</b></div></div>
         <div class="cols">
-          <article class="card panel rise" style="--d:5"><p class="label">BEFORE 6:00</p><h3>Get ready</h3><ul>
+          <article class="card panel rise" style="--d:5"><p class="label">BEFORE 6:00</p><ul>
             <li><strong>Desai:</strong> speakers ready and here</li>
             <li>Light refreshments (drinks) ready</li></ul></article>
-          <article class="card panel rise" style="--d:6"><p class="label">REGISTRATION DESK</p><h3>On the desk</h3>
+          <article class="card panel rise" style="--d:6"><p class="label">REGISTRATION DESK</p>
             <div class="chips"><span class="chip" style="--c:var(--mint)">Zachary</span><span class="chip" style="--c:var(--pink)">Chloe</span><span class="chip" style="--c:var(--lavender)">Thu Thu</span></div>
             <p>Let people come in and register.</p></article>
         </div></div>
