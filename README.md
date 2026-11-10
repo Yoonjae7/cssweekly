@@ -10,6 +10,7 @@ Every slide the Computer Science Society has used, in one place. The homepage (`
 
 | # | Date | Weekly | Deck |
 |---|------|--------|------|
+| 05 | Tue 10 Nov 2026 | Panel Talk briefing: the week to Monday 16 Nov, promotion, dry run and the night part by part (14 slides) | [`weeklies/05-panel-talk/`](weeklies/05-panel-talk/) |
 | 04 | Tue 20 Oct 2026 | Welcome, Junior Committee (2 slides) | [`weeklies/04-welcome-jc/`](weeklies/04-welcome-jc/) |
 | 03 | Tue 13 Oct 2026 | Induction committee briefing (8 slides) | [`weeklies/03-induction/`](weeklies/03-induction/) |
 | 02 | Mon 5 Oct 2026 | CS Fair briefing (6 slides). Held a day early because the fair took Tuesday | [`weeklies/02-cs-fair/`](weeklies/02-cs-fair/) |
@@ -49,7 +50,7 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 
 - `index.html` and `hub.css`: the slide hub homepage
 - `play/`: the countdown, Canva and Jeopardy deck (`play/countdown/`, `play/canva/` and `play/jeopardy/` are its three slides); thumbnails in `play/thumbs/N.jpg`
-- `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weekly 03 is a single self-contained file
+- `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weeklies 03, 04 and 05 are each a single self-contained file
 - `weeklies/thumbs/NN-S.jpg`: slide thumbnails (weekly NN, slide S), 640×360
 - `external/NN-name/`: one folder per external relations deck, with thumbnails in `external/thumbs/NN-S.jpg`
 - `cs-fair-briefing.html`: redirects the old CS Fair link to `weeklies/02-cs-fair/`

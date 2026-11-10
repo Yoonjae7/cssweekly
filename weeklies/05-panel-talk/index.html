@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <title>CSS Weekly #05 — 10 November 2026</title>
+  <link rel="icon" href="../../assets/css-logo.png">
+  <style>
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    /* Pixelify's digits are hard to read (2 looks like 8), so digits come from DM Sans, like the earlier decks. */
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
+    :root{--paper:#f8f7f2;--card:#fbfaf6;--ink:#303044;--purple:#7070a2;--lavender:#b3aee0;--shadow:#d6d4e2;--screen:#2a2838;--mint:#98e7ad;--pink:#f1a1db;--muted:#55536a;--s:1;color-scheme:light}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#1d1c27}
+    h1,h2,h3,p,ul,ol{margin:0}
+    .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s))}
+    .slide{position:absolute;inset:0;overflow:hidden;color:var(--ink);font:400 30px/1.4 DM,Arial,sans-serif;background-color:var(--paper);background-image:linear-gradient(rgba(112,112,162,.09) 2px,transparent 2px),linear-gradient(90deg,rgba(112,112,162,.09) 2px,transparent 2px);background-size:48px 48px}
+    .slide[hidden]{display:none}
+    h1,h2,h3{font-family:ClearDigits,Pixelify,monospace;font-weight:600}
+    h1 em,h2 em{font-style:normal;color:var(--purple)}
+    .eyebrow{font:600 28px DM,Arial,sans-serif;letter-spacing:5px;color:var(--purple)}
+    .footer{position:absolute;left:120px;right:120px;bottom:52px;display:flex;justify-content:space-between;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
+    .binary{position:absolute;left:120px;bottom:62px;font:400 30px ClearDigits,Pixelify,monospace;letter-spacing:6px;color:var(--lavender)}
+    .label{font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:3px;color:var(--purple)}
+
+    /* Window chrome */
+    .window{position:absolute;border:4px solid var(--ink);background:var(--screen);box-shadow:16px 16px 0 var(--shadow)}
+    .window-bar{display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 22px 0 26px;background:var(--purple);color:#f2f0fb;font:400 30px ClearDigits,Pixelify,monospace}
+    .lights{display:flex;gap:12px}
+    .lights i{display:block;width:18px;height:18px;background:#d9d6f2}
+    .tape{position:absolute;top:-30px;width:156px;height:48px;background:rgba(152,231,173,.8);transform:rotate(-3deg);z-index:2}
+    .card{position:relative;border:4px solid var(--ink);background:var(--card);box-shadow:14px 14px 0 var(--shadow)}
+
+    /* Doodles */
+    .asterisk{position:absolute;fill:none;stroke-width:17;pointer-events:none}
+    .asterisk.mint{stroke:var(--mint);animation:spin 18s linear infinite}
+    .asterisk.pink{stroke:var(--pink);animation:spin 12s linear infinite reverse}
+    @keyframes spin{to{rotate:360deg}}
+    .bits{position:absolute;inset:0;pointer-events:none}
+    .bits i{position:absolute;width:var(--z,18px);height:var(--z,18px);background:var(--c);box-shadow:4px 4px 0 var(--shadow)}
+
+    /* Entrances: replayed each time a slide is shown */
+    .is-active .rise{animation:rise .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0) * 120ms)}
+    @keyframes rise{from{opacity:0;transform:translateY(40px)}}
+    .is-active .pop{animation:pop .7s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(var(--d,0) * 140ms)}
+    @keyframes pop{from{opacity:0;transform:scale(.6) rotate(var(--tilt,0deg))}}
+
+    /* Slide headings */
+    .head{position:absolute;left:120px;top:92px;right:120px}
+    .head h2{font-size:96px;line-height:1;letter-spacing:-1px;margin-top:20px}
+    .head .eyebrow{font-size:26px;letter-spacing:4px}
+    .callout{position:absolute;left:700px;right:120px;bottom:128px;border-top:4px solid var(--ink);padding-top:18px;font:400 34px/1.3 ClearDigits,Pixelify,monospace}
+    .callout::before{content:"> ";color:var(--purple);font-weight:600}
+
+    /* Slide 1: cover */
+    .cover-copy{position:absolute;left:120px;top:150px;width:1040px}
+    .cover-copy .eyebrow{font-size:26px;letter-spacing:4px;white-space:nowrap}
+    .cover-copy h1{font-size:150px;line-height:.92;letter-spacing:-2px;margin:40px 0 44px}
+    .cover-copy p{font-size:38px;line-height:1.35;color:var(--muted);max-width:900px}
+    .date-button{display:inline-block;margin-top:60px;padding:20px 34px;background:var(--mint);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--shadow);font:400 36px ClearDigits,Pixelify,monospace}
+    .cover-window{left:1200px;top:190px;width:580px;transform:rotate(1.6deg)}
+    .cover-window .tape{left:210px}
+    .cover-window .body{display:flex;flex-direction:column;align-items:center;padding:20px 30px 40px}
+    .cover-window img{display:block;width:440px;height:440px;margin:-40px 0 -36px;object-fit:contain;animation:float 4s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-10px) rotate(-1.5deg)}}
+    .cover-window .loading{font:400 34px ClearDigits,Pixelify,monospace;color:var(--mint)}
+    .cover-window .loading::after{content:"_";animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* Slide 2: this week */
+    .week{position:absolute;left:120px;right:120px;top:318px;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:352px 104px;gap:24px 20px}
+    .day{display:flex;flex-direction:column;padding:22px 22px 20px;border:4px solid var(--ink);background:var(--card);box-shadow:10px 10px 0 var(--shadow)}
+    .day .dow{font:400 26px ClearDigits,Pixelify,monospace;letter-spacing:3px;color:var(--purple)}
+    .day b{display:block;font:600 104px/1 ClearDigits,Pixelify,monospace;margin:4px 0 16px}
+    .day .note{font-size:29px;line-height:1.2;font-weight:600}
+    .day .sub{font-size:23px;line-height:1.3;color:var(--muted);margin-top:8px}
+    .day.today{border-color:var(--purple)}
+    .day.today .note{color:var(--purple)}
+    .day.epf{background:var(--mint)}
+    .day.dry{background:var(--pink)}
+    .day.epf .dow,.day.dry .dow,.day.epf .sub,.day.dry .sub{color:var(--ink)}
+    .day.quiet{background:transparent;border:4px dashed var(--lavender);box-shadow:none}
+    .day.quiet .dow,.day.quiet b{color:#a9a5cf}
+    .day.event{grid-column:7;grid-row:1/3;background:var(--screen);color:#f2f0fb;box-shadow:14px 14px 0 var(--shadow)}
+    .day.event .dow,.day.event b{color:var(--mint)}
+    .day.event .note{font:600 40px/1.15 ClearDigits,Pixelify,monospace}
+    .day.event .sub{font:600 38px/1.2 ClearDigits,Pixelify,monospace;color:var(--mint)}
+    .marketing{grid-column:1/7;grid-row:2;display:flex;align-items:center;gap:30px;padding:0 34px;border:4px dashed var(--purple);background:rgba(179,174,224,.18)}
+    .marketing .label{flex:none;color:var(--purple)}
+    .marketing p{font-size:34px;font-weight:600}
+    .week-note{position:absolute;left:120px;right:120px;top:868px;font:400 34px/1.3 ClearDigits,Pixelify,monospace}
+    .week-note::before{content:"> ";color:var(--purple);font-weight:600}
+
+    /* Slide 3: marketing window */
+    .count-window{left:120px;top:318px;width:600px;height:640px}
+    .count-window .body{padding:30px 40px 0}
+    .count-window .label{color:var(--pink)}
+    .count-window .big{font:600 300px/1 ClearDigits,Pixelify,monospace;color:var(--mint);margin:6px 0 0 -6px}
+    .count-window .unit{font:400 34px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:#f2f0fb;margin-top:-6px}
+    .pips{display:flex;gap:12px;margin-top:30px}
+    .pips i{flex:1;height:44px;background:var(--mint);box-shadow:4px 4px 0 #15141d}
+    .pips i:last-child{background:var(--pink)}
+    .count-window .range{font:400 26px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:var(--lavender);margin-top:18px}
+    .info{position:absolute;left:800px;right:120px;height:300px;padding:34px 44px}
+    .info .label{color:var(--ink)}
+    .info h3{font-size:60px;line-height:1.05;margin:12px 0 14px}
+    .info p{font-size:34px;line-height:1.3;max-width:900px}
+    .info.mint{top:318px;background:var(--mint)}
+    .info.pink{top:658px;background:var(--pink)}
+    .info::after{content:attr(data-ghost);position:absolute;right:30px;bottom:-10px;font:600 200px/1 ClearDigits,Pixelify,monospace;color:var(--ink);opacity:.07}
+
+    /* Slide 4: group chats */
+    .chats{position:absolute;left:120px;right:120px;top:318px;display:grid;grid-template-columns:repeat(3,1fr);gap:60px}
+    .chat{position:relative;border:4px solid var(--ink);background:var(--card);box-shadow:14px 14px 0 var(--shadow);transform:rotate(var(--tilt,0deg))}
+    .chat .window-bar{height:52px;font-size:26px;padding:0 18px 0 20px}
+    .chat .lights i{width:14px;height:14px}
+    .chat .body{display:flex;align-items:center;gap:36px;padding:34px 36px 36px}
+    .tile{display:grid;place-items:center;flex:none;width:170px;height:170px;border:4px solid var(--ink);background:var(--c);box-shadow:8px 8px 0 var(--shadow);font:600 104px DM,Arial,sans-serif;line-height:1;color:var(--ink)}
+    .chat .name{font:600 64px DM,Arial,sans-serif;line-height:1;letter-spacing:-.5px;white-space:nowrap}
+    .chat .tag{margin-top:14px;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:var(--purple)}
+    .brief{position:absolute;left:120px;right:120px;top:660px;display:flex;align-items:center;gap:44px;padding:36px 44px;background:var(--mint)}
+    .brief .label{flex:none;color:var(--ink)}
+    .brief p{font:600 56px/1.1 ClearDigits,Pixelify,monospace}
+    .brief-note{position:absolute;left:120px;right:120px;top:884px;font-size:32px;color:var(--muted)}
+
+    /* Slide 5: dry run */
+    .facts{position:absolute;left:120px;right:120px;top:318px;display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
+    .fact{padding:30px 40px 36px}
+    .fact h3{font-size:84px;line-height:1;margin-top:20px;white-space:nowrap}
+    .fact.mint{background:var(--mint)}
+    .fact.pink{background:var(--pink)}
+    .fact.lav{background:var(--lavender)}
+    .fact .label{color:var(--ink)}
+    .who{position:absolute;left:120px;right:120px;top:612px}
+    .who .label{margin-bottom:22px}
+    .who-row{display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+    .person-chip{display:flex;align-items:center;gap:26px;padding:20px 26px}
+    .person-chip .tile{width:96px;height:96px;font-size:60px;box-shadow:6px 6px 0 var(--shadow)}
+    .person-chip .nm{font:600 48px DM,Arial,sans-serif;line-height:1;letter-spacing:-.5px}
+    .dry-note{position:absolute;left:120px;right:120px;top:868px;font:400 34px/1.3 ClearDigits,Pixelify,monospace}
+    .dry-note::before{content:"> ";color:var(--purple);font-weight:600}
+
+    /* Tables (slides 6 and 14) */
+    .table-window{left:120px;right:120px}
+    .table-window table{width:100%;border-collapse:collapse;color:#f2f0fb}
+    .table-window th{text-align:left;padding:20px 30px;font:400 26px ClearDigits,Pixelify,monospace;letter-spacing:3px;color:var(--pink);border-bottom:4px solid #4a4766}
+    .table-window td{padding:0 30px;border-bottom:3px solid #4a4766;font-size:40px;line-height:1.2}
+    .table-window tr:last-child td{border-bottom:0}
+    .table-window td.no{width:120px;font:600 40px ClearDigits,Pixelify,monospace;color:var(--mint)}
+    .table-window td.time{white-space:nowrap;font:400 38px ClearDigits,Pixelify,monospace}
+    .table-window td.act{font-weight:600}
+    .table-window td.pic{color:var(--lavender)}
+    .table-window td.tbd{color:var(--pink)}
+    #sched .table-window{top:292px;height:672px}
+    #sched td{height:106px}
+    #actions .table-window{top:292px;height:672px}
+    #actions td{height:90px;font-size:34px}
+    #actions td.time{font-size:32px}
+
+    /* Part slides: schedule rail + details */
+    .rail{left:96px;top:84px;width:540px;height:880px}
+    .rail .body{padding:26px 24px 0}
+    .rail .label{color:var(--pink);font-size:22px}
+    .rail .date{font:600 32px DM,Arial,sans-serif;color:#f2f0fb;margin:4px 0 22px}
+    .rail ol{list-style:none;padding:0;display:grid;gap:10px}
+    .rail li{display:flex;gap:18px;align-items:flex-start;padding:14px 16px;border:3px solid transparent;color:#9b97c2}
+    .rail li::before{content:"";flex:none;width:20px;height:20px;margin-top:12px;border:3px solid currentColor}
+    .rail li.done{color:var(--lavender)}
+    .rail li.done::before{background:currentColor}
+    .rail li.on{background:var(--mint);color:var(--ink);border-color:var(--mint)}
+    .rail li.on::before{background:var(--ink);border-color:var(--ink)}
+    .rail .t{display:block;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px}
+    .rail .n{display:block;font:600 30px/1.15 DM,Arial,sans-serif;margin-top:2px}
+    .rail-next{position:absolute;left:24px;right:24px;bottom:20px;border-top:3px dashed #6d6a8f;padding-top:14px;font:400 24px ClearDigits,Pixelify,monospace;color:var(--mint)}
+    .main{position:absolute;left:700px;right:120px;top:92px}
+    .main .eyebrow{font-size:26px;letter-spacing:4px}
+    .main h2{font-size:84px;line-height:1;letter-spacing:-1px;margin-top:18px}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:34px 0 40px}
+    .stat{border:4px solid var(--ink);background:var(--card);box-shadow:8px 8px 0 var(--shadow);padding:14px 24px 16px}
+    .stat .label{font-size:22px}
+    .stat b{display:block;font:600 52px/1.1 ClearDigits,Pixelify,monospace;white-space:nowrap}
+    .stat.pic{background:var(--mint)}
+    .stat.pic .label{color:var(--ink)}
+    .cols{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+    .cols.three{grid-template-columns:repeat(3,1fr);gap:28px}
+    .panel{padding:30px 34px 34px;min-height:330px}
+    .panel h3{font-size:38px;line-height:1.1;color:var(--ink);margin-bottom:20px}
+    .panel .label{margin-bottom:10px}
+    .panel ul{list-style:none;padding:0}
+    .panel li{position:relative;padding-left:34px;font-size:32px;line-height:1.3;margin-bottom:16px}
+    .panel li::before{content:">";position:absolute;left:0;color:var(--purple);font:600 32px ClearDigits,Pixelify,monospace}
+    .panel p{font-size:32px;line-height:1.3}
+    .chips{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}
+    .chip{padding:8px 20px 10px;border:4px solid var(--ink);background:var(--c);font:600 34px ClearDigits,Pixelify,monospace;box-shadow:6px 6px 0 var(--shadow)}
+    .lead{padding:30px 36px 34px;min-height:350px;overflow:hidden}
+    .lead.mint{background:var(--mint)}
+    .lead.pink{background:var(--pink)}
+    .lead .label{color:var(--ink)}
+    .lead h3{font-size:92px;line-height:1;margin:18px 0 16px;letter-spacing:-1px}
+    .lead p{font-size:32px;line-height:1.3;max-width:62%}
+    .lead::after{content:attr(data-ghost);position:absolute;right:24px;bottom:-16px;font:600 190px/1 ClearDigits,Pixelify,monospace;opacity:.08}
+    .step{min-height:0}
+    .step h3{font-size:46px;margin:16px 0 14px}
+    .main h2 .sm{display:block;font-size:56px;line-height:1.05}
+    .step p{font-size:30px}
+    .step .big{font:600 96px/1 ClearDigits,Pixelify,monospace;color:var(--purple)}
+
+    /* Panel talk slide */
+    .speakers .sp{margin-bottom:20px}
+    .speakers .sp:last-child{margin-bottom:0}
+    .speakers .nm{font:600 38px DM,Arial,sans-serif;line-height:1.1}
+    .speakers .rl{font-size:26px;line-height:1.3;color:var(--muted)}
+    .flow{list-style:none;padding:0;display:grid;gap:10px}
+    .flow li{margin:0;padding:10px 18px 12px;border:3px solid var(--ink);background:#fff;font-size:27px;line-height:1.25}
+    .flow li::before{content:none}
+    .flow .label{display:block;font-size:21px;margin-bottom:2px}
+    .panel-cols{display:grid;grid-template-columns:420px 1fr;gap:36px;align-items:start}
+    .panel-cols .panel{min-height:0;padding:26px 30px 28px}
+
+    /* Question slides */
+    .qs{position:absolute;left:700px;right:120px;top:262px;list-style:none;padding:0}
+    .q{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:18px 0 20px;border-top:4px solid var(--ink)}
+    .q .no{font:600 60px/1 ClearDigits,Pixelify,monospace;color:var(--purple)}
+    .q .who-tag{display:inline-block;margin-top:10px;padding:2px 12px 3px;border:3px solid var(--ink);background:var(--mint);font:400 20px ClearDigits,Pixelify,monospace;letter-spacing:2px}
+    .q .who-tag.one{background:var(--pink)}
+    .q p{font-size:var(--qs,34px);line-height:1.3}
+    .qs:not(.small) .q{padding:26px 0 28px}
+    .qs.small{--qs:27px;top:250px}
+    .qs.small .q{padding:14px 0 16px}
+
+    .pager{position:fixed;right:16px;bottom:16px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:12px/1.5 system-ui,sans-serif;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .3s;pointer-events:none}
+    .pager.on{opacity:1}
+    @media (prefers-reduced-motion:reduce){.asterisk,.cover-window img,.cover-window .loading::after,.is-active .rise,.is-active .pop{animation:none}}
+    @page{size:1920px 1080px;margin:0}
+    @media print{
+      html,body{width:auto;height:auto;overflow:visible;background:none}
+      .stage{position:static;transform:none}
+      .slide,.slide[hidden]{position:relative;display:block;width:1920px;height:1080px;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pager{display:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage" aria-label="CSS Weekly #05">
+
+    <section class="slide" aria-label="Slide 1: CSS Weekly #05">
+      <div class="cover-copy">
+        <p class="eyebrow rise">COMPUTER SCIENCE SOCIETY / COMMITTEE WEEKLY</p>
+        <h1 class="rise" style="--d:1">CSS Weekly<br><em>#05.</em></h1>
+        <p class="rise" style="--d:2">This week’s committee meeting: next Monday’s panel talk, how we promote it, and how the night runs.</p>
+        <div class="date-button rise" style="--d:3">Tue 10 Nov →</div>
+      </div>
+      <div class="window cover-window pop" style="--d:2;--tilt:6deg">
+        <div class="tape" aria-hidden="true"></div>
+        <div class="window-bar"><span>weekly_05.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <img src="../../assets/css-logo.png" alt="Computer Science Society logo">
+          <p class="loading">&gt; loading weekly #05...</p>
+        </div>
+      </div>
+      <svg class="asterisk mint" style="left:1720px;top:96px;width:128px;height:128px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <svg class="asterisk pink" style="left:1110px;top:790px;width:78px;height:78px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <p class="binary" aria-hidden="true">00100011 00110000 00110101</p>
+    </section>
+    <section class="slide" aria-label="Slide 2: Panel Talk is next Monday" hidden>
+      <div class="bits" aria-hidden="true">
+        <i style="left:1530px;top:130px;--c:var(--mint)"></i>
+        <i style="left:1610px;top:210px;--c:var(--pink);--z:14px"></i>
+        <i style="left:1700px;top:150px;--c:var(--lavender);--z:22px"></i>
+      </div>
+      <div class="head"><p class="eyebrow rise">THIS WEEK / TUE 10 – MON 16 NOV 2026</p><h2 class="rise" style="--d:1">Panel Talk is <em>next Monday.</em></h2></div>
+      <div class="week">
+        <div class="day today rise" style="--d:2"><span class="dow">TUE</span><b>10</b><p class="note">Today</p></div>
+        <div class="day epf rise" style="--d:3"><span class="dow">WED</span><b>11</b><p class="note">EPF approval</p><p class="sub">Expected, per Ms Farah (SA)</p></div>
+        <div class="day dry rise" style="--d:4"><span class="dow">THU</span><b>12</b><p class="note">Dry run</p><p class="sub">8 PM, online</p></div>
+        <div class="day quiet rise" style="--d:5"><span class="dow">FRI</span><b>13</b></div>
+        <div class="day quiet rise" style="--d:5"><span class="dow">SAT</span><b>14</b></div>
+        <div class="day quiet rise" style="--d:5"><span class="dow">SUN</span><b>15</b></div>
+        <div class="day event pop" style="--d:6;--tilt:3deg"><span class="dow">MON</span><b>16</b><p class="note">Panel Talk</p><p class="sub">6–8 PM</p></div>
+        <div class="marketing rise" style="--d:6"><span class="label">MARKETING WINDOW</span><p>ClassBash + Year 1, 2 &amp; 3 group chats</p></div>
+      </div>
+      <p class="week-note rise" style="--d:7">6 days to go: EPF tomorrow, dry run on Thursday, promote until Monday.</p>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>02 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 3: The marketing window is short" hidden>
+      <div class="head"><p class="eyebrow rise">MARKETING / THE TIME WE HAVE LEFT</p><h2 class="rise" style="--d:1">The marketing <em>window is short.</em></h2></div>
+      <div class="window count-window pop" style="--d:2;--tilt:-3deg">
+        <div class="window-bar"><span>countdown.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <p class="label">COUNTDOWN</p>
+          <p class="big">6</p>
+          <p class="unit">DAYS TO PANEL TALK</p>
+          <div class="pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <p class="range">TUE 10 → MON 16 NOV</p>
+        </div>
+      </div>
+      <article class="card info mint pop" style="--d:3;--tilt:2deg" data-ghost="EPF">
+        <p class="label">EPF STATUS</p>
+        <h3>Expected approved tomorrow</h3>
+        <p>Wed 11 Nov, based on what Ms Farah from SA said.</p>
+      </article>
+      <article class="card info pink pop" style="--d:4;--tilt:-2deg" data-ghost="&gt;_">
+        <p class="label">WHAT WE DO</p>
+        <h3>ClassBash</h3>
+        <p>The marketing window is small, so we take the promotion straight to the classes.</p>
+      </article>
+      <svg class="asterisk pink" style="left:1740px;top:96px;width:100px;height:100px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>03 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 4: Share to every group chat" hidden>
+      <div class="head"><p class="eyebrow rise">MARKETING / SPREAD THE WORD</p><h2 class="rise" style="--d:1">Share to <em>every group chat.</em></h2></div>
+      <div class="chats">
+        <article class="chat pop" style="--d:2;--tilt:-1.5deg"><div class="window-bar"><span>year_1.chat</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><div class="tile" style="--c:var(--mint)" aria-hidden="true">1</div><div><p class="name">Year 1</p><p class="tag">GROUP CHAT</p></div></div></article>
+        <article class="chat pop" style="--d:3;--tilt:1deg"><div class="window-bar"><span>year_2.chat</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><div class="tile" style="--c:var(--pink)" aria-hidden="true">2</div><div><p class="name">Year 2</p><p class="tag">GROUP CHAT</p></div></div></article>
+        <article class="chat pop" style="--d:4;--tilt:-1deg"><div class="window-bar"><span>year_3.chat</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><div class="tile" style="--c:var(--lavender)" aria-hidden="true">3</div><div><p class="name">Year 3</p><p class="tag">GROUP CHAT</p></div></div></article>
+      </div>
+      <div class="card brief pop" style="--d:5;--tilt:-.6deg"><span class="label">WHAT TO SHARE</span><p>Panel Talk · Mon 16 Nov · 6–8 PM</p></div>
+      <p class="brief-note rise" style="--d:6">Year 1, Year 2 and Year 3: every group chat gets it.</p>
+      <svg class="asterisk mint" style="left:1730px;top:100px;width:110px;height:110px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>04 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 5: Panel talk dry run" hidden>
+      <div class="head"><p class="eyebrow rise">THIS THURSDAY / BEFORE THE REAL THING</p><h2 class="rise" style="--d:1">Panel talk <em>dry run.</em></h2></div>
+      <div class="facts">
+        <div class="card fact mint pop" style="--d:2;--tilt:-1.5deg"><span class="label">DAY</span><h3>Thu 12 Nov</h3></div>
+        <div class="card fact pink pop" style="--d:3;--tilt:1deg"><span class="label">TIME</span><h3>8:00 PM</h3></div>
+        <div class="card fact lav pop" style="--d:4;--tilt:-1deg"><span class="label">WHERE</span><h3>Online</h3></div>
+      </div>
+      <div class="who">
+        <p class="label rise" style="--d:5">WHO’S ON THE CALL</p>
+        <div class="who-row">
+          <div class="card person-chip pop" style="--d:5"><div class="tile" style="--c:var(--mint)" aria-hidden="true">D</div><span class="nm">Desai</span></div>
+          <div class="card person-chip pop" style="--d:6"><div class="tile" style="--c:var(--pink)" aria-hidden="true">J</div><span class="nm">Jack</span></div>
+          <div class="card person-chip pop" style="--d:7"><div class="tile" style="--c:var(--lavender)" aria-hidden="true">B</div><span class="nm">Ben</span></div>
+          <div class="card person-chip pop" style="--d:8"><div class="tile" style="--c:#fbe7a6" aria-hidden="true">S</div><span class="nm">Selina</span></div>
+        </div>
+      </div>
+      <p class="dry-note rise" style="--d:8">Rehearse the whole night: the schedule and the nine panel questions.</p>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>05 / 14</span></div>
+    </section>
+    <section class="slide" id="sched" aria-label="Slide 6: The night at a glance" hidden>
+      <div class="head"><p class="eyebrow rise">PANEL TALK NIGHT / MON 16 NOV 2026</p><h2 class="rise" style="--d:1">The night, <em>at a glance.</em></h2></div>
+      <div class="window table-window pop" style="--d:2;--tilt:-.6deg"><div class="window-bar"><span>schedule.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <table>
+          <thead><tr><th>PART</th><th>TIME</th><th>ACTIVITY</th><th>PIC</th></tr></thead>
+          <tbody>
+            <tr><td class="no">01</td><td class="time">6:00 – 6:20</td><td class="act">Registration &amp; Arrival</td><td class="pic">Ben</td></tr>
+            <tr><td class="no">02</td><td class="time">6:20 – 6:30</td><td class="act">Opening &amp; Welcome</td><td class="pic">Sakinah</td></tr>
+            <tr><td class="no">03</td><td class="time">6:30 – 7:15</td><td class="act">Panel Talk</td><td class="pic">Selina</td></tr>
+            <tr><td class="no">04</td><td class="time">7:15 – 7:45</td><td class="act">Dinner &amp; Quiz</td><td class="pic">All (Q: Ben, D: Raza)</td></tr>
+            <tr><td class="no">05</td><td class="time">7:45 – 8:00</td><td class="act">Closing, Prize Giving and Feedback Form</td><td class="pic">Sakinah</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>06 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 7: Registration &amp; Arrival" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_1.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="on" aria-current="step"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class=""><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class=""><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class=""><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Opening &amp; Welcome 6:20</p></div>
+      <div class="main"><p class="eyebrow rise">PART 1 OF 5 / 6:00–6:20</p><h2 class="rise" style="--d:1">Registration &amp; Arrival</h2>
+<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>6:00–6:20</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>20 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b>Ben</b></div></div>
+        <div class="cols">
+          <article class="card panel rise" style="--d:5"><p class="label">BEFORE 6:00</p><h3>Get ready</h3><ul>
+            <li><strong>Desai:</strong> speakers ready and here</li>
+            <li>Light refreshments (drinks) ready</li></ul></article>
+          <article class="card panel rise" style="--d:6"><p class="label">REGISTRATION DESK</p><h3>On the desk</h3>
+            <div class="chips"><span class="chip" style="--c:var(--mint)">Zachary</span><span class="chip" style="--c:var(--pink)">Chloe</span><span class="chip" style="--c:var(--lavender)">Thu Thu</span></div>
+            <p>Let people come in and register.</p></article>
+        </div></div>
+      <p class="callout rise" style="--d:7">Speakers must be here and ready before registration starts.</p>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>07 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 8: Opening &amp; Welcome" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_2.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="done"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class="on" aria-current="step"><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class=""><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class=""><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Panel Talk 6:30</p></div>
+      <div class="main"><p class="eyebrow rise">PART 2 OF 5 / 6:20–6:30</p><h2 class="rise" style="--d:1">Opening &amp; Welcome</h2>
+<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>6:20–6:30</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>10 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b>Sakinah</b></div></div>
+        <div class="cols">
+          <article class="card lead mint rise" style="--d:5" data-ghost="02"><p class="label">OPENING &amp; WELCOME</p><h3>Sakinah</h3><p>Opens the night and welcomes everyone.</p></article>
+          <article class="card lead pink rise" style="--d:6" data-ghost="03"><p class="label">UP NEXT / 6:30</p><h3>Panel Talk</h3><p>Selina takes over for the panel.</p></article>
+        </div></div>
+      <p class="callout rise" style="--d:7">Keep it to 10 minutes: the panel talk starts at 6:30.</p>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>08 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 9: Panel Talk" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_3.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="done"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class="done"><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class="on" aria-current="step"><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class=""><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Dinner &amp; Quiz 7:15</p></div>
+      <div class="main"><p class="eyebrow rise">PART 3 OF 5 / 6:30–7:15</p><h2 class="rise" style="--d:1">Panel Talk</h2>
+<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>6:30–7:15</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>45 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b>Selina</b></div></div>
+        <div class="panel-cols">
+          <article class="card panel speakers rise" style="--d:5"><p class="label">ON THE PANEL</p>
+            <div class="sp"><p class="nm">Asadullah</p><p class="rl">Data Scientist, Cognizant</p></div>
+            <div class="sp"><p class="nm">Wyhow</p><p class="rl">Solution Engineer, Microsoft</p></div>
+            <div class="sp"><p class="nm">Matthew Pang</p><p class="rl">Partner Technical Specialist, IBM</p></div></article>
+          <article class="card panel rise" style="--d:6"><p class="label">9 QUESTIONS / 4 STEPS</p>
+            <ol class="flow">
+              <li><span class="label">Q1 · ALL</span>Icebreaker: your job in 3 words</li>
+              <li><span class="label">Q2–4 · ALL</span>Role, career path and using AI</li>
+              <li><span class="label">Q5–7 · KOH, ASAD, MATTHEW</span>One question each</li>
+              <li><span class="label">Q8–9 · ALL</span>Keeping up with AI, and advice</li>
+            </ol></article>
+        </div></div>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>09 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 10: Panel Talk questions 1–4" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_3_q1.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="done"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class="done"><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class="on" aria-current="step"><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class=""><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Dinner &amp; Quiz 7:15</p></div>
+      <div class="main"><p class="eyebrow rise">PART 3 OF 5 / QUESTIONS 1–4 OF 9</p><h2 class="rise" style="--d:1">Panel Talk questions</h2></div>
+      <ol class="qs">
+        <li class="q rise" style="--d:2"><div><span class="no">01</span><br><span class="who-tag">ICEBREAKER</span></div><p>If you had to explain your job in 3 words, what would you say?</p></li>
+        <li class="q rise" style="--d:3"><div><span class="no">02</span><br><span class="who-tag">ALL</span></div><p>Could you share a bit more about your role, like what you work on and what a typical day looks like?</p></li>
+        <li class="q rise" style="--d:4"><div><span class="no">03</span><br><span class="who-tag">ALL</span></div><p>How did you find your way into this field and what did you do along the way that helped you get to where you are now?</p></li>
+        <li class="q rise" style="--d:5"><div><span class="no">04</span><br><span class="who-tag">ALL</span></div><p>How do you personally use AI in your day-to-day work? Has it changed the way you work compared to a few years ago?</p></li>
+      </ol>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>10 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 11: Panel Talk questions 5–9" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_3_q2.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="done"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class="done"><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class="on" aria-current="step"><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class=""><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Dinner &amp; Quiz 7:15</p></div>
+      <div class="main"><p class="eyebrow rise">PART 3 OF 5 / QUESTIONS 5–9 OF 9</p><h2 class="rise" style="--d:1">Panel Talk questions</h2></div>
+      <ol class="qs small">
+        <li class="q rise" style="--d:2"><div><span class="no">05</span><br><span class="who-tag one">KOH</span></div><p>When a company says “we want to use AI”, what do they usually actually need? And what do you wish more people understood about AI before they start?</p></li>
+        <li class="q rise" style="--d:3"><div><span class="no">06</span><br><span class="who-tag one">ASAD</span></div><p>With tools like ChatGPT, Claude and Copilot getting more and more powerful, is it getting harder to break into data science, or is AI actually creating more opportunities?</p></li>
+        <li class="q rise" style="--d:4"><div><span class="no">07</span><br><span class="who-tag one">MATTHEW</span></div><p>Your role sits between the technology and the people who use it. What’s the biggest gap between what universities teach and what industry actually needs, especially on the non-technical side?</p></li>
+        <li class="q rise" style="--d:5"><div><span class="no">08</span><br><span class="who-tag">ALL</span></div><p>AI is changing so fast that what’s new today is old in six months. How do you keep up without feeling overwhelmed?</p></li>
+        <li class="q rise" style="--d:6"><div><span class="no">09</span><br><span class="who-tag">ALL</span></div><p>To wrap up, what’s one piece of advice you’d give students who want to stand out in today’s job market and make the most out of university life?</p></li>
+      </ol>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>11 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 12: Dinner &amp; Quiz" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_4.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="done"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class="done"><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class="done"><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class="on" aria-current="step"><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class=""><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Closing 7:45</p></div>
+      <div class="main"><p class="eyebrow rise">PART 4 OF 5 / 7:15–7:45</p><h2 class="rise" style="--d:1">Dinner &amp; Quiz</h2>
+<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>7:15–7:45</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>30 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b>All</b></div></div>
+        <div class="cols">
+          <article class="card lead pink rise" style="--d:5" data-ghost="D"><p class="label">DINNER</p><h3>Raza</h3><p>Leads the dinner.</p></article>
+          <article class="card lead mint rise" style="--d:6" data-ghost="Q"><p class="label">QUIZ</p><h3>Ben</h3><p>Leads the quiz.</p></article>
+        </div></div>
+      <p class="callout rise" style="--d:7">Everyone pitches in: Raza leads dinner, Ben leads the quiz.</p>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>12 / 14</span></div>
+    </section>
+    <section class="slide" aria-label="Slide 13: Closing, Prize Giving and Feedback Form" hidden>
+      <div class="window rail pop" style="--d:0;--tilt:-2deg"><div class="window-bar"><span>part_5.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div><div class="body"><p class="label">PANEL TALK NIGHT</p><p class="date">Mon 16 Nov · 6–8 PM</p><ol aria-label="Event schedule"><li class="done"><span><span class="t">6:00–6:20</span><span class="n">Registration &amp; Arrival</span></span></li><li class="done"><span><span class="t">6:20–6:30</span><span class="n">Opening &amp; Welcome</span></span></li><li class="done"><span><span class="t">6:30–7:15</span><span class="n">Panel Talk</span></span></li><li class="done"><span><span class="t">7:15–7:45</span><span class="n">Dinner &amp; Quiz</span></span></li><li class="on" aria-current="step"><span><span class="t">7:45–8:00</span><span class="n">Closing, Prize Giving and Feedback Form</span></span></li></ol></div><p class="rail-next">NEXT &gt; Event ends 8:00 PM</p></div>
+      <div class="main"><p class="eyebrow rise">PART 5 OF 5 / 7:45–8:00</p><h2 class="rise" style="--d:1"><span class="sm">Closing, Prize Giving and Feedback Form</span></h2>
+<div class="stats"><div class="stat rise" style="--d:2"><p class="label">TIME</p><b>7:45–8:00</b></div><div class="stat rise" style="--d:3"><p class="label">LENGTH</p><b>15 min</b></div><div class="stat pic rise" style="--d:4"><p class="label">PIC</p><b>Sakinah</b></div></div>
+        <div class="cols three">
+          <article class="card panel step rise" style="--d:5"><p class="big">01</p><h3>Closing</h3><p>Wrap up the night.</p></article>
+          <article class="card panel step rise" style="--d:6"><p class="big">02</p><h3>Prize giving</h3><p>Hand out the prizes.</p></article>
+          <article class="card panel step rise" style="--d:7"><p class="big">03</p><h3>Feedback form</h3><p>Ask everyone to fill it in.</p></article>
+        </div></div>
+      <p class="callout rise" style="--d:7">The event ends at 8:00 PM.</p>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>13 / 14</span></div>
+    </section>
+    <section class="slide" id="actions" aria-label="Slide 14: Action items" hidden>
+      <div class="head"><p class="eyebrow rise">BEFORE MON 16 NOV 2026</p><h2 class="rise" style="--d:1">Action <em>items.</em></h2></div>
+      <div class="window table-window pop" style="--d:2;--tilt:-.5deg"><div class="window-bar"><span>action_items.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <table>
+          <thead><tr><th>ITEM</th><th>WHEN</th><th>OWNER</th></tr></thead>
+          <tbody>
+            <tr><td class="act">EPF approved</td><td class="time">Wed 11 Nov</td><td class="pic">SA (Ms Farah)</td></tr>
+            <tr><td class="act">Panel talk dry run, online</td><td class="time">Thu 12 Nov, 8 PM</td><td class="pic">Desai, Jack, Ben, Selina</td></tr>
+            <tr><td class="act">ClassBash</td><td class="time">Before Mon 16 Nov</td><td class="tbd">To assign</td></tr>
+            <tr><td class="act">Share to Year 1, 2 &amp; 3 group chats</td><td class="time">Before Mon 16 Nov</td><td class="tbd">To assign</td></tr>
+            <tr><td class="act">Speakers ready and here</td><td class="time">Mon 16 Nov, before 6 PM</td><td class="pic">Desai</td></tr>
+            <tr><td class="act">Light refreshments (drinks)</td><td class="time">Mon 16 Nov, before 6 PM</td><td class="tbd">To assign</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer"><span>CSS / WEEKLY #05</span><span>14 / 14</span></div>
+    </section>
+
+  </main>
+  <div class="pager" id="pager" aria-hidden="true"></div>
+
+  <script>
+    // Minimal deck: arrows, Page Up/Down, Space, Home/End, clicks (left/right half), F fullscreen, P print, #N in the URL.
+    (function () {
+      var stage = document.getElementById('stage');
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var pager = document.getElementById('pager');
+      var current = 0, pagerTimer = 0, shown = false;
+
+      function fit() {
+        var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        stage.style.setProperty('--s', String(Math.max(0.1, s)));
+      }
+
+      function show(index) {
+        var target = Math.max(0, Math.min(slides.length - 1, index));
+        // Already on this slide (e.g. Next on the last slide): do nothing, so it doesn't replay.
+        if (shown && target === current) return;
+        shown = true;
+        current = target;
+        slides.forEach(function (slide, i) {
+          var active = i === current;
+          slide.hidden = !active;
+          slide.classList.remove('is-active');
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        void slides[current].offsetWidth;
+        slides[current].classList.add('is-active');
+        document.title = 'CSS Weekly #05 — Slide ' + (current + 1) + ' of ' + slides.length;
+        try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) {}
+        pager.textContent = (current + 1) + ' / ' + slides.length;
+        pager.classList.add('on');
+        clearTimeout(pagerTimer);
+        pagerTimer = setTimeout(function () { pager.classList.remove('on'); }, 1600);
+      }
+
+      function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen();
+        } catch (e) {}
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        var k = e.key;
+        if (k === 'ArrowRight' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) { e.preventDefault(); show(current + 1); }
+        else if (k === 'ArrowLeft' || k === 'PageUp' || (k === ' ' && e.shiftKey)) { e.preventDefault(); show(current - 1); }
+        else if (k === 'Home') show(0);
+        else if (k === 'End') show(slides.length - 1);
+        else if (k === 'f' || k === 'F') toggleFullscreen();
+        else if (k === 'p' || k === 'P') window.print();
+      });
+      document.addEventListener('click', function (e) {
+        if (e.button !== 0 || String(window.getSelection()) || e.target.closest('button, a, [data-no-nav]')) return;
+        show(current + (e.clientX < window.innerWidth / 2 ? -1 : 1));
+      });
+      window.addEventListener('resize', fit);
+      window.addEventListener('hashchange', function () {
+        var m = /^#(\d+)$/.exec(location.hash);
+        if (m && Number(m[1]) - 1 !== current) show(Number(m[1]) - 1);
+      });
+
+      fit();
+      var m = /^#(\d+)$/.exec(location.hash);
+      show(m ? Number(m[1]) - 1 : 0);
+    })();
+  </script>
+
+</body>
+</html>
