@@ -61,6 +61,10 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 2. Add a 16:9, 640-wide thumbnail per slide in that section's `thumbs/` folder (`05-1.jpg`, `05-2.jpg` and so on).
 3. In `index.html`, copy an existing `<article class="deck">` into the right section and update its file name, tag, title, links, captions and slide count. In CSS Weeklies, put it first so the latest stays on top.
 
+## Design system skill
+
+`.claude/skills/css-ui/` is a Claude Code skill that captures the CSS look (tokens, fonts, window cards, stamps, the playful and formal registers, the deck engine and the hub conventions). It includes a starter deck at `.claude/skills/css-ui/assets/deck-template.html` and a component catalogue. Claude loads it automatically when you work on CSS slides or pages in this repo.
+
 ## Credits
 
 The visual style adapts [CSS Photo Club Design 2](https://github.com/Yoonjae7/cssphotoclub): retro computer windows, lavender borders, mint cursor, Pixelify Sans headings and a terminal footer. The CSS logo and the bundled Pixelify Sans and DM Sans fonts come from that repository. Font licenses are in `assets/fonts/`.
