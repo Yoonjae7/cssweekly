@@ -18,6 +18,13 @@ Every slide the Computer Science Society has used, in one place. The homepage (`
 
 Regular slot: Tuesdays at 6 PM, under an hour.
 
+## Event material
+
+| # | Deck | Folder |
+|---|------|--------|
+| 01 | Dumbathon (30 Nov to 8 Dec 2026): what it is, the one rule, who can join, the flow from brainstorm to pitch night, the 8 Dec run of show, judging and prizes (7 slides). Dates and times follow the EPF; criteria and prizes follow the proposal | [`events/01-dumbathon/`](events/01-dumbathon/) |
+| | Play: countdown, Canva and Jeopardy (3 slides, see below) | [`play/`](play/) |
+
 ## External relations
 
 | # | Deck | Folder |
@@ -52,6 +59,7 @@ Weekly 03 has a 10-minute countdown on slide 4, before Round 1. Click Press star
 - `play/`: the countdown, Canva and Jeopardy deck (`play/countdown/`, `play/canva/` and `play/jeopardy/` are its three slides); thumbnails in `play/thumbs/N.jpg`
 - `weeklies/NN-name/`: one folder per weekly. Weeklies 01 and 02 each have their own `styles.css` and `slides.js` and share `assets/`; weeklies 03, 04 and 05 are each a single self-contained file
 - `weeklies/thumbs/NN-S.jpg`: slide thumbnails (weekly NN, slide S), 640×360
+- `events/NN-name/`: one folder per event deck (Dumbathon is `events/01-dumbathon/`), with thumbnails in `events/thumbs/NN-S.jpg`
 - `external/NN-name/`: one folder per external relations deck, with thumbnails in `external/thumbs/NN-S.jpg`
 - `cs-fair-briefing.html`: redirects the old CS Fair link to `weeklies/02-cs-fair/`
 

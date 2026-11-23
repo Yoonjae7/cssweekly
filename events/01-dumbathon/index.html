@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f2">
+  <meta name="robots" content="noindex">
+  <title>Dumbathon — 30 Nov to 8 Dec 2026</title>
+  <link rel="icon" href="../../assets/css-logo.png">
+  <style>
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:Pixelify;src:url('../../assets/fonts/pixelify-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:DM;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap}
+    /* Pixelify's digits are hard to read (2 looks like 8), so digits come from DM Sans, like the weekly decks. */
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-400.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0030-0039}
+    @font-face{font-family:ClearDigits;src:url('../../assets/fonts/dm-sans-600.ttf') format('truetype');font-weight:600;font-display:swap;unicode-range:U+0030-0039}
+    :root{--paper:#f8f7f2;--card:#fdfcf9;--ink:#303044;--purple:#7070a2;--lavender:#b3aee0;--shadow:#d6d4e2;--screen:#2a2838;--mint:#98e7ad;--pink:#f1a1db;--sun:#fbe7a6;--muted:#55536a;--s:1;color-scheme:light}
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#1d1c27}
+    h1,h2,h3,p,ol,ul{margin:0}
+    .stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform:translate(-50%,-50%) scale(var(--s))}
+    .slide{position:absolute;inset:0;overflow:hidden;color:var(--ink);font:400 30px/1.4 DM,Arial,sans-serif;background-color:var(--paper);background-image:linear-gradient(rgba(112,112,162,.08) 2px,transparent 2px),linear-gradient(90deg,rgba(112,112,162,.08) 2px,transparent 2px);background-size:48px 48px}
+    .slide[hidden]{display:none}
+    h1,h2,h3{font-family:ClearDigits,Pixelify,monospace;font-weight:600}
+    h1 em{font-style:normal;color:var(--purple)}
+    .eyebrow{font:600 24px DM,Arial,sans-serif;letter-spacing:5px;text-transform:uppercase;color:var(--purple)}
+    .lede{font-size:34px;line-height:1.4;color:var(--muted)}
+    .footer{position:absolute;left:120px;right:120px;bottom:50px;display:flex;justify-content:space-between;font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px;color:var(--purple)}
+    .binary{position:absolute;left:120px;bottom:62px;font:400 30px ClearDigits,Pixelify,monospace;letter-spacing:6px;color:var(--lavender)}
+
+    /* Window chrome */
+    .window{position:absolute;border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow)}
+    .bar{display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 20px 0 24px;background:var(--purple);color:#f2f0fb;font:400 28px ClearDigits,Pixelify,monospace}
+    .lights{display:flex;gap:10px}
+    .lights i{display:block;width:15px;height:15px;background:#d9d6f2}
+    .tape{position:absolute;top:-30px;width:156px;height:48px;background:rgba(152,231,173,.8);transform:rotate(-3deg);z-index:2}
+    .tilt{transform:rotate(var(--tilt,0deg))}
+
+    /* Doodles */
+    .asterisk{position:absolute;fill:none;stroke-width:17;pointer-events:none}
+    .asterisk.mint{stroke:var(--mint);animation:spin 18s linear infinite}
+    .asterisk.pink{stroke:var(--pink);animation:spin 12s linear infinite reverse}
+    @keyframes spin{to{rotate:360deg}}
+    .bits{position:absolute;inset:0;pointer-events:none}
+    .bits i{position:absolute;width:var(--z,18px);height:var(--z,18px);background:var(--c);box-shadow:4px 4px 0 var(--shadow)}
+
+    /* Entrances: replayed each time a slide is shown */
+    .is-active .rise{animation:rise .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--d,0) * 110ms)}
+    @keyframes rise{from{opacity:0;transform:translateY(28px)}}
+    .is-active .pop{animation:pop .6s cubic-bezier(.34,1.3,.64,1) both;animation-delay:calc(var(--d,0) * 120ms)}
+    @keyframes pop{from{opacity:0;transform:scale(.94) rotate(var(--tilt,0deg))}}
+
+    /* Shared heading block */
+    .head{position:absolute;left:120px;top:96px;right:120px}
+    .head h1{font-size:104px;line-height:1;letter-spacing:-1px;margin:22px 0 20px}
+    .head .lede{max-width:1500px}
+
+    /* Numbered rows (shared by slides 2 and 6 and 7) */
+    .rows{position:absolute;display:grid;list-style:none;padding:0}
+    .row{display:flex;gap:28px;align-items:center}
+    .row .n{flex:none;display:grid;place-items:center;width:74px;height:74px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 38px DM,Arial,sans-serif}
+    .row b{display:block;font:600 34px/1.2 DM,Arial,sans-serif}
+    .row span.t{display:block;font-size:26px;line-height:1.3;color:var(--muted)}
+
+    /* Slide 1: cover */
+    .cover-copy{position:absolute;left:120px;top:210px;width:1100px}
+    .cover-copy .eyebrow{font-size:26px;letter-spacing:4px;white-space:nowrap}
+    .cover-copy h1{font-size:150px;line-height:.92;letter-spacing:-3px;margin:38px 0 44px;white-space:nowrap}
+    .cover-copy .lede{font-size:38px;line-height:1.35;max-width:980px}
+    .tag{display:inline-block;margin-top:56px;padding:18px 32px;background:var(--mint);border:4px solid var(--ink);box-shadow:10px 10px 0 var(--shadow);font:400 34px ClearDigits,Pixelify,monospace}
+    .cover-window{left:1230px;top:230px;width:540px;--tilt:1.6deg;background:var(--screen);transform:rotate(1.6deg)}
+    .cover-window .tape{left:200px}
+    .cover-window .body{display:flex;flex-direction:column;align-items:center;padding:30px 30px 40px}
+    .cover-window img{display:block;width:360px;height:360px;object-fit:contain;animation:float 4s ease-in-out infinite}
+    @keyframes float{50%{transform:translateY(-10px) rotate(-1.5deg)}}
+    .cover-window .loading{font:400 30px ClearDigits,Pixelify,monospace;color:var(--mint)}
+    .cover-window .loading::after{content:"_";animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* Slide 2: what it is */
+    .about{left:120px;top:410px;width:900px}
+    .about .body{padding:40px 46px 46px}
+    .about .quote{font:600 52px/1.18 ClearDigits,Pixelify,monospace;letter-spacing:-.5px}
+    .about .quote em{font-style:normal;color:var(--purple);white-space:nowrap}
+    .about .small{margin-top:28px;font-size:28px;line-height:1.4;color:var(--muted)}
+    .points{left:1110px;top:430px;width:690px;gap:44px}
+
+    /* Slide 3: the one rule */
+    .rule{left:120px;top:410px;width:860px;background:var(--screen)}
+    .rule .body{padding:38px 44px 44px;color:#ecebf7}
+    .rule .k{font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--mint)}
+    .rule p{margin-top:16px;font-size:34px;line-height:1.4}
+    .rule p b{font-weight:600;color:var(--mint)}
+    .chips{position:absolute;left:120px;top:858px;width:960px;display:flex;gap:14px;white-space:nowrap}
+    .chip{padding:6px 18px;border:3px solid var(--ink);background:var(--c);font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:1px}
+    .example{left:1060px;top:410px;width:740px}
+    .example .body{padding:20px 40px 30px}
+    .example .item{padding:18px 0 16px;border-bottom:3px dashed var(--shadow)}
+    .example .item:last-child{border-bottom:0}
+    .example .item b{display:block;font:400 21px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--purple)}
+    .example .item span{display:block;margin-top:4px;font-size:28px;line-height:1.35}
+    .stamp{position:absolute;right:110px;top:-26px;z-index:2;padding:3px 16px;background:var(--lavender);border:4px solid var(--ink);font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:2px;transform:rotate(3deg)}
+
+    /* Slide 4: who can join */
+    .cards{position:absolute;left:120px;right:120px;top:410px;display:grid;grid-template-columns:repeat(4,1fr);gap:36px}
+    .card{border:4px solid var(--ink);background:var(--card);box-shadow:12px 12px 0 var(--shadow);transform:rotate(var(--tilt,0deg))}
+    .card .bar{height:48px;font-size:24px;padding:0 18px 0 20px}
+    .card .lights i{width:13px;height:13px}
+    .card .body{padding:28px 28px 32px}
+    .card .tile{display:grid;place-items:center;width:112px;height:112px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 54px/1 DM,Arial,sans-serif}
+    .card h3{margin-top:24px;font-size:36px;line-height:1.1;min-height:46px}
+    .card p{margin-top:12px;font-size:26px;line-height:1.35;color:var(--muted)}
+    .note-strip{position:absolute;left:120px;right:120px;top:900px;display:flex;align-items:center;gap:18px;font-size:27px;color:var(--muted)}
+    .note-strip i{flex:none;width:20px;height:20px;background:var(--mint);border:4px solid var(--ink)}
+
+    /* Slide 5: the flow */
+    .road{position:absolute;left:120px;right:120px;top:380px;display:grid;grid-template-columns:repeat(3,1fr);gap:34px 48px;list-style:none;padding:0}
+    .stop{position:relative;padding:22px 30px 26px;border:4px solid var(--ink);background:var(--card);box-shadow:10px 10px 0 var(--shadow)}
+    .stop .n{position:absolute;left:-4px;top:-4px;display:grid;place-items:center;width:60px;height:60px;border:4px solid var(--ink);background:var(--c,var(--mint));font:600 32px DM,Arial,sans-serif}
+    .stop h3{margin-left:60px;font-size:38px;line-height:1.1;min-height:60px;display:flex;align-items:center}
+    .stop .chip{display:inline-block;margin-top:10px;background:var(--sun)}
+    .stop p{margin-top:12px;font-size:27px;line-height:1.35;color:var(--muted)}
+    .stop.final{background:var(--mint)}
+    .stop.final p{color:var(--ink)}
+    .stop.final .chip{background:var(--card)}
+
+    /* Slide 6: pitch night */
+    .night{left:120px;top:420px;width:1060px;gap:26px}
+    .night .row{gap:26px}
+    .night .time{flex:none;display:grid;place-items:center;width:178px;height:76px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 36px ClearDigits,DM,Arial,sans-serif;letter-spacing:1px}
+    .night .row.big .time{height:96px}
+    .night b{font-size:34px}
+    .live{left:1290px;top:420px;width:510px;background:var(--screen);--tilt:1.2deg;transform:rotate(1.2deg)}
+    .live .body{padding:34px 36px 40px;color:#ecebf7}
+    .live .k{font:400 24px ClearDigits,Pixelify,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--mint)}
+    .live .big{margin-top:10px;font:600 56px/1.1 ClearDigits,Pixelify,monospace;color:#fff}
+    .live p{margin-top:18px;font-size:29px;line-height:1.4}
+    .live .venue{margin-top:26px;padding-top:22px;border-top:3px dashed var(--lavender);font:400 32px ClearDigits,Pixelify,monospace;color:var(--mint)}
+
+    /* Slide 7: judging and prizes */
+    .judging{left:120px;top:420px;width:1020px;gap:38px}
+    .judging .n{width:112px;height:74px;font:600 40px ClearDigits,DM,Arial,sans-serif}
+    .prizes{left:1260px;top:410px;width:540px}
+    .prizes .body{padding:26px 30px 28px}
+    .prize{display:flex;align-items:center;gap:22px;margin-bottom:20px}
+    .prize .place{flex:none;display:grid;place-items:center;width:104px;height:84px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 36px ClearDigits,DM,Arial,sans-serif}
+    .prize .amt{font:600 58px/1 ClearDigits,Pixelify,monospace}
+    .prize .amt small{font:400 26px DM,Arial,sans-serif;color:var(--muted);margin-left:6px}
+    .prizes .total{margin-top:6px;padding-top:20px;border-top:3px dashed var(--lavender);display:flex;justify-content:space-between;align-items:baseline;font:400 28px ClearDigits,Pixelify,monospace;letter-spacing:2px;color:var(--purple)}
+    .prizes .total strong{font:600 52px ClearDigits,Pixelify,monospace;letter-spacing:0;color:var(--ink)}
+
+    .pager{position:fixed;right:16px;bottom:16px;padding:4px 10px;border-radius:999px;background:rgba(0,0,0,.7);color:#fff;font:12px/1.5 system-ui,sans-serif;font-variant-numeric:tabular-nums;opacity:0;transition:opacity .3s;pointer-events:none}
+    .pager.on{opacity:1}
+    @media (prefers-reduced-motion:reduce){.asterisk,.cover-window img,.cover-window .loading::after,.is-active .rise,.is-active .pop{animation:none}}
+    @page{size:1920px 1080px;margin:0}
+    @media print{
+      html,body{width:auto;height:auto;overflow:visible;background:none}
+      .stage{position:static;transform:none}
+      .slide,.slide[hidden]{position:relative;display:block;width:1920px;height:1080px;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+      .pager{display:none}
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage" aria-label="Dumbathon">
+
+    <!-- 1 · Cover -->
+    <section class="slide" aria-label="Slide 1: Dumbathon">
+      <div class="cover-copy">
+        <p class="eyebrow rise">Computer Science Society / Event</p>
+        <h1 class="rise" style="--d:1">Dumbathon<em>.</em></h1>
+        <p class="lede rise" style="--d:2">A judgement-free hackathon where the silliest idea, pitched with full confidence, can win.</p>
+        <div class="tag rise" style="--d:3">30 Nov – 8 Dec 2026</div>
+      </div>
+      <div class="window cover-window pop" style="--d:2">
+        <div class="tape" aria-hidden="true"></div>
+        <div class="bar"><span>dumbathon.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <img src="../../assets/css-logo.png" alt="Computer Science Society logo">
+          <p class="loading">&gt; loading dumb ideas...</p>
+        </div>
+      </div>
+      <svg class="asterisk mint" style="left:1720px;top:96px;width:120px;height:120px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <svg class="asterisk pink" style="left:1170px;top:800px;width:78px;height:78px" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4v92M4 50h92M17.5 17.5l65 65M82.5 17.5l-65 65"/></svg>
+      <div class="bits" aria-hidden="true"><i style="left:1620px;top:820px;--c:var(--pink);--z:16px"></i><i style="left:1700px;top:900px;--c:var(--mint);--z:22px"></i><i style="left:1560px;top:930px;--c:var(--sun);--z:12px"></i></div>
+      <p class="binary" aria-hidden="true">01000100 01010101 01001101 01000010</p>
+    </section>
+
+    <!-- 2 · What it is -->
+    <section class="slide" aria-label="Slide 2: What is Dumbathon" hidden>
+      <div class="head">
+        <p class="eyebrow rise">What it is</p>
+        <h1 class="rise" style="--d:1">What is <em>Dumbathon?</em></h1>
+        <p class="lede rise" style="--d:2">A hackathon open to every student, whatever their background.</p>
+      </div>
+      <div class="window about pop tilt" style="--d:3;--tilt:-1deg">
+        <div class="bar"><span>about.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <p class="quote">Some of the best ideas begin as ones that sound <em>too silly to try.</em></p>
+          <p class="small">The fear of looking foolish stops more people from creating than a lack of talent ever does. Dumbathon removes that fear.</p>
+        </div>
+      </div>
+      <ul class="rows points">
+        <li class="row rise" style="--d:4"><span class="n" style="--c:var(--mint)">1</span><div><b>Judgement-free</b><span class="t">Silliness is a creative tool, so nobody fears looking foolish.</span></div></li>
+        <li class="row rise" style="--d:5"><span class="n" style="--c:var(--pink)">2</span><div><b>Any background</b><span class="t">You don’t need to code. Every student can join a team.</span></div></li>
+        <li class="row rise" style="--d:6"><span class="n" style="--c:var(--lavender)">3</span><div><b>Pitch with confidence</b><span class="t">Spot a problem, build fast and present it like you mean it.</span></div></li>
+      </ul>
+      <div class="bits" aria-hidden="true"><i style="left:1700px;top:200px;--c:var(--pink);--z:16px"></i><i style="left:1780px;top:150px;--c:var(--mint);--z:22px"></i><i style="left:1630px;top:260px;--c:var(--sun);--z:12px"></i></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>02 / 07</span></div>
+    </section>
+
+    <!-- 3 · The one rule -->
+    <section class="slide" aria-label="Slide 3: The one rule" hidden>
+      <div class="head">
+        <p class="eyebrow rise">The one rule</p>
+        <h1 class="rise" style="--d:1">One rule: <em>be dumb.</em></h1>
+        <p class="lede rise" style="--d:2">Solve a real pain point on campus, in the funniest way you can.</p>
+      </div>
+      <div class="window rule pop" style="--d:3">
+        <div class="bar"><span>the_rule.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <p class="k">&gt; your mission</p>
+          <p>Imagine you are a Nottingham student who can <b>start any startup or build anything for campus.</b> Come up with the funniest solution and present it with full confidence.</p>
+        </div>
+      </div>
+      <div class="chips rise" style="--d:5">
+        <span class="chip" style="--c:var(--mint)">Solve a pain point</span>
+        <span class="chip" style="--c:var(--pink)">Obey the laws of physics</span>
+        <span class="chip" style="--c:var(--sun)">AI tools allowed</span>
+      </div>
+      <div class="window example pop tilt" style="--d:4;--tilt:1deg">
+        <span class="stamp" aria-hidden="true">EXAMPLE</span>
+        <div class="bar"><span>gilbert_remote.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <div class="item"><b>The pain point</b><span>Students can’t control Gilbert, our unofficial mascot goose.</span></div>
+          <div class="item"><b>The idea</b><span>A digital remote for Gilbert: pick a button, honk, waddle, wave at the lake.</span></div>
+          <div class="item"><b>Dumber add-on</b><span>Gilbert Premium: same buttons, but Gilbert ignores you faster.</span></div>
+        </div>
+      </div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>03 / 07</span></div>
+    </section>
+
+    <!-- 4 · Who can join -->
+    <section class="slide" aria-label="Slide 4: Who can join" hidden>
+      <div class="head">
+        <p class="eyebrow rise">Teams and format</p>
+        <h1 class="rise" style="--d:1">Who can <em>join.</em></h1>
+        <p class="lede rise" style="--d:2">One track, hybrid format, built in small teams.</p>
+      </div>
+      <div class="cards">
+        <article class="card pop" style="--d:3;--tilt:-1deg">
+          <div class="bar"><span>teams.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--mint)" aria-hidden="true">2–3</div><h3>Teams of 2 or 3</h3><p>No solo teams. Sign up with friends or get matched.</p></div>
+        </article>
+        <article class="card pop" style="--d:4;--tilt:1deg">
+          <div class="bar"><span>spots.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--pink)" aria-hidden="true">75</div><h3>Up to 75 students</h3><p>A maximum of 25 teams, so spots are limited.</p></div>
+        </article>
+        <article class="card pop" style="--d:5;--tilt:-1deg">
+          <div class="bar"><span>format.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--lavender)" aria-hidden="true">1</div><h3>Hybrid, one track</h3><p>Online until the pitch. Pitch night is on campus.</p></div>
+        </article>
+        <article class="card pop" style="--d:6;--tilt:1deg">
+          <div class="bar"><span>updates.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+          <div class="body"><div class="tile" style="--c:var(--sun)" aria-hidden="true">!</div><h3>Stay in the loop</h3><p>News in the WhatsApp group. Results by email only.</p></div>
+        </article>
+      </div>
+      <p class="note-strip rise" style="--d:7"><i aria-hidden="true"></i>Hosted by the Computer Science Society, Engineers Without Borders and The Institution of Engineers, Malaysia.</p>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>04 / 07</span></div>
+    </section>
+
+    <!-- 5 · The flow -->
+    <section class="slide" aria-label="Slide 5: How it flows" hidden>
+      <div class="head" style="top:84px">
+        <p class="eyebrow rise">How the event flows</p>
+        <h1 class="rise" style="--d:1;font-size:96px;margin:18px 0 16px">From idea to <em>pitch night.</em></h1>
+        <p class="lede rise" style="--d:2;font-size:32px">Eight days, six steps, one very confident pitch.</p>
+      </div>
+      <ol class="road">
+        <li class="stop pop" style="--d:3"><span class="n" style="--c:var(--mint)">1</span><h3>Welcome</h3><span class="chip">MON 30 NOV · 18:00</span><p>You join on WhatsApp and get the assignment to brainstorm.</p></li>
+        <li class="stop pop" style="--d:4"><span class="n" style="--c:var(--pink)">2</span><h3>Proposal report</h3><span class="chip">WED 2 DEC · 23:59</span><p>A 2-page report: name, pain point, solution, customer.</p></li>
+        <li class="stop pop" style="--d:5"><span class="n" style="--c:var(--lavender)">3</span><h3>Shortlist</h3><span class="chip">THU 3 DEC · 18:00</span><p>Shortlisted teams hear by email and start building.</p></li>
+        <li class="stop pop" style="--d:6"><span class="n" style="--c:var(--sun)">4</span><h3>Build</h3><span class="chip">3 – 7 DEC</span><p>Shortlisted teams make the prototype and slides online.</p></li>
+        <li class="stop pop" style="--d:7"><span class="n" style="--c:var(--mint)">5</span><h3>Submit</h3><span class="chip">MON 7 DEC · 23:59</span><p>Send your GitHub link, Vercel link and slides.</p></li>
+        <li class="stop final pop" style="--d:8"><span class="n" style="--c:var(--pink)">6</span><h3>Pitch night</h3><span class="chip">TUE 8 DEC · 17:00</span><p>Pitch live at F1A15, get judged and win prizes.</p></li>
+      </ol>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>05 / 07</span></div>
+    </section>
+
+    <!-- 6 · Pitch night run of show -->
+    <section class="slide" aria-label="Slide 6: Pitch night" hidden>
+      <div class="head">
+        <p class="eyebrow rise">The finals</p>
+        <h1 class="rise" style="--d:1">Pitch night, <em>8 December.</em></h1>
+        <p class="lede rise" style="--d:2">Tuesday evening at F1A15, from 5 PM to 7:30 PM.</p>
+      </div>
+      <ul class="rows night">
+        <li class="row rise" style="--d:3"><span class="time" style="--c:var(--mint)">17:00</span><div><b>Registration and opening</b><span class="t">Teams register, then the event is formally opened.</span></div></li>
+        <li class="row rise" style="--d:4"><span class="time" style="--c:var(--pink)">17:15</span><div><b>Meet the judges and teams</b><span class="t">The judges and shortlisted teams are introduced.</span></div></li>
+        <li class="row big rise" style="--d:5"><span class="time" style="--c:var(--lavender)">17:30</span><div><b>Idea pitching</b><span class="t">Every team pitches. The longest part of the night: 90 minutes.</span></div></li>
+        <li class="row rise" style="--d:6"><span class="time" style="--c:var(--sun)">19:00</span><div><b>Prize giving</b><span class="t">The top three teams are announced and take their prizes.</span></div></li>
+        <li class="row rise" style="--d:7"><span class="time" style="--c:var(--mint)">19:15</span><div><b>Closing</b><span class="t">The emcee thanks everyone and the night ends.</span></div></li>
+      </ul>
+      <div class="window live pop" style="--d:4">
+        <div class="bar"><span>now_pitching.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <p class="k">&gt; the main event</p>
+          <p class="big">Idea pitching</p>
+          <p>Teams present the idea, the prototype and the slides. Judges score every team live against the criteria.</p>
+          <p class="venue">&gt; venue: F1A15</p>
+        </div>
+      </div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>06 / 07</span></div>
+    </section>
+
+    <!-- 7 · Judging and prizes -->
+    <section class="slide" aria-label="Slide 7: Judging and prizes" hidden>
+      <div class="head">
+        <p class="eyebrow rise">Judging and prizes</p>
+        <h1 class="rise" style="--d:1">How it’s <em>judged.</em></h1>
+        <p class="lede rise" style="--d:2">Scored on the final pitch only. The top three teams share RM700.</p>
+      </div>
+      <ul class="rows judging">
+        <li class="row rise" style="--d:3"><span class="n" style="--c:var(--mint)">30%</span><div><b>Creative Absurdity</b><span class="t">How original, funny and gloriously dumb the idea is.</span></div></li>
+        <li class="row rise" style="--d:4"><span class="n" style="--c:var(--pink)">20%</span><div><b>Practicality</b><span class="t">Does it solve the pain point, within the laws of physics?</span></div></li>
+        <li class="row rise" style="--d:5"><span class="n" style="--c:var(--lavender)">25%</span><div><b>Product Execution</b><span class="t">Does the prototype work, and are the links live?</span></div></li>
+        <li class="row rise" style="--d:6"><span class="n" style="--c:var(--sun)">25%</span><div><b>Presentation</b><span class="t">Confidence, delivery and quality of the slides.</span></div></li>
+      </ul>
+      <div class="window prizes pop tilt" style="--d:4;--tilt:1deg">
+        <div class="bar"><span>prizes.exe</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="body">
+          <div class="prize"><span class="place" style="--c:var(--mint)">1st</span><span class="amt">RM400</span></div>
+          <div class="prize"><span class="place" style="--c:var(--pink)">2nd</span><span class="amt">RM200</span></div>
+          <div class="prize"><span class="place" style="--c:var(--lavender)">3rd</span><span class="amt">RM100</span></div>
+          <div class="total"><span>TOTAL</span><strong>RM700</strong></div>
+        </div>
+      </div>
+      <p class="note-strip rise" style="--d:7;top:896px;right:auto;width:1040px"><i aria-hidden="true"></i>The proposal report is not scored. Only the final pitch counts.</p>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>07 / 07</span></div>
+    </section>
+
+  </main>
+  <div class="pager" id="pager" aria-hidden="true"></div>
+
+  <script>
+    // Minimal deck: arrows, Page Up/Down, Space, Home/End, clicks (left/right half), F fullscreen, P print, #N in the URL.
+    (function () {
+      var stage = document.getElementById('stage');
+      var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+      var pager = document.getElementById('pager');
+      var current = 0, pagerTimer = 0, shown = false;
+
+      function fit() {
+        var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+        stage.style.setProperty('--s', String(Math.max(0.1, s)));
+      }
+
+      function show(index) {
+        var target = Math.max(0, Math.min(slides.length - 1, index));
+        // Already on this slide (e.g. Next on the last slide): do nothing, so it doesn't replay.
+        if (shown && target === current) return;
+        shown = true;
+        current = target;
+        slides.forEach(function (slide, i) {
+          var active = i === current;
+          slide.hidden = !active;
+          slide.classList.remove('is-active');
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        void slides[current].offsetWidth;
+        slides[current].classList.add('is-active');
+        document.title = 'Dumbathon — Slide ' + (current + 1) + ' of ' + slides.length;
+        try { history.replaceState(null, '', '#' + (current + 1)); } catch (e) {}
+        pager.textContent = (current + 1) + ' / ' + slides.length;
+        pager.classList.add('on');
+        clearTimeout(pagerTimer);
+        pagerTimer = setTimeout(function () { pager.classList.remove('on'); }, 1600);
+      }
+
+      function toggleFullscreen() {
+        try {
+          if (document.fullscreenElement) document.exitFullscreen();
+          else document.documentElement.requestFullscreen();
+        } catch (e) {}
+      }
+
+      document.addEventListener('keydown', function (e) {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        var k = e.key;
+        if (k === 'ArrowRight' || k === 'PageDown' || (k === ' ' && !e.shiftKey)) { e.preventDefault(); show(current + 1); }
+        else if (k === 'ArrowLeft' || k === 'PageUp' || (k === ' ' && e.shiftKey)) { e.preventDefault(); show(current - 1); }
+        else if (k === 'Home') show(0);
+        else if (k === 'End') show(slides.length - 1);
+        else if (k === 'f' || k === 'F') toggleFullscreen();
+        else if (k === 'p' || k === 'P') window.print();
+      });
+      document.addEventListener('click', function (e) {
+        if (e.button !== 0 || String(window.getSelection()) || e.target.closest('button, a, [data-no-nav]')) return;
+        show(current + (e.clientX < window.innerWidth / 2 ? -1 : 1));
+      });
+      window.addEventListener('resize', fit);
+      window.addEventListener('hashchange', function () {
+        var m = /^#(\d+)$/.exec(location.hash);
+        if (m && Number(m[1]) - 1 !== current) show(Number(m[1]) - 1);
+      });
+
+      fit();
+      var m = /^#(\d+)$/.exec(location.hash);
+      show(m ? Number(m[1]) - 1 : 0);
+    })();
+  </script>
+
+</body>
+</html>
