@@ -22,7 +22,7 @@ Regular slot: Tuesdays at 6 PM, under an hour.
 
 | # | Deck | Folder |
 |---|------|--------|
-| 01 | Dumbathon (30 Nov to 8 Dec 2026): what it is, the one rule, who can join, the flow from brainstorm to pitch night, the 8 Dec run of show, judging and prizes (7 slides). Dates and times follow the EPF; criteria and prizes follow the proposal. The hub shows its card at the top of CSS Weeklies | [`events/01-dumbathon/`](events/01-dumbathon/) |
+| 01 | Dumbathon (30 Nov to 8 Dec 2026): what it is, the one rule, who can join, the flow from brainstorm to pitch night, the live event website (dumbathon27.vercel.app) and what opens when, the 8 Dec run of show, judging and prizes (8 slides). Dates and times follow the EPF; criteria and prizes follow the proposal. The hub shows its card at the top of CSS Weeklies | [`events/01-dumbathon/`](events/01-dumbathon/) |
 | | Play: countdown, Canva and Jeopardy (3 slides, see below) | [`play/`](play/) |
 
 ## External relations

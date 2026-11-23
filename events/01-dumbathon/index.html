@@ -125,7 +125,25 @@
     .stop.final p{color:var(--ink)}
     .stop.final .chip{background:var(--card)}
 
-    /* Slide 6: pitch night */
+    /* Slide 6: the website */
+    .site-row{position:absolute;left:120px;right:120px;top:388px;display:flex;align-items:center;gap:44px}
+    .site-link{flex:none;display:flex;align-items:center;gap:20px;padding:16px 34px 16px 22px;border:4px solid var(--ink);background:var(--mint);box-shadow:10px 10px 0 var(--shadow);font:400 44px ClearDigits,Pixelify,monospace;color:var(--ink);text-decoration:none}
+    .site-link i{display:block;width:22px;height:22px;background:var(--card);border:4px solid var(--ink)}
+    .site-note{font-size:30px;line-height:1.35;color:var(--muted)}
+    .site-note b{font-weight:600;color:var(--ink)}
+    .phases{position:absolute;left:120px;right:120px;top:560px;display:grid;grid-template-columns:repeat(7,1fr);gap:18px;list-style:none;padding:0}
+    .phases::before{content:"";position:absolute;left:0;right:0;top:24px;height:6px;background:var(--lavender)}
+    .phase{position:relative;padding:20px 14px 20px;border:4px solid var(--ink);background:var(--card);box-shadow:8px 8px 0 var(--shadow)}
+    .phase .n{position:absolute;left:-4px;top:-4px;display:grid;place-items:center;width:48px;height:48px;border:4px solid var(--ink);background:var(--c);font:600 26px DM,Arial,sans-serif}
+    .phase .when{display:block;margin-left:46px;min-height:62px}
+    .phase .when b{display:block;font:400 32px/1 ClearDigits,Pixelify,monospace;color:var(--ink)}
+    .phase .when small{display:block;margin-top:6px;font:400 22px/1 ClearDigits,DM,Arial,sans-serif;color:var(--purple)}
+    .phase h3{margin-top:14px;font-size:27px;line-height:1.1;min-height:60px}
+    .phase p{margin-top:10px;font-size:24px;line-height:1.3;color:var(--muted)}
+    .phase.end{background:var(--mint)}
+    .phase.end p{color:var(--ink)}
+
+    /* Slide 7: pitch night */
     .night{left:120px;top:420px;width:1060px;gap:26px}
     .night .row{gap:26px}
     .night .time{flex:none;display:grid;place-items:center;width:178px;height:76px;border:4px solid var(--ink);background:var(--c);box-shadow:6px 6px 0 var(--shadow);font:600 36px ClearDigits,DM,Arial,sans-serif;letter-spacing:1px}
@@ -207,7 +225,7 @@
         <li class="row rise" style="--d:6"><span class="n" style="--c:var(--lavender)">3</span><div><b>Pitch with confidence</b><span class="t">Spot a problem, build fast and present it like you mean it.</span></div></li>
       </ul>
       <div class="bits" aria-hidden="true"><i style="left:1700px;top:200px;--c:var(--pink);--z:16px"></i><i style="left:1780px;top:150px;--c:var(--mint);--z:22px"></i><i style="left:1630px;top:260px;--c:var(--sun);--z:12px"></i></div>
-      <div class="footer"><span>CSS / DUMBATHON</span><span>02 / 07</span></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>02 / 08</span></div>
     </section>
 
     <!-- 3 · The one rule -->
@@ -238,7 +256,7 @@
           <div class="item"><b>Dumber add-on</b><span>Gilbert Premium: same buttons, but Gilbert ignores you faster.</span></div>
         </div>
       </div>
-      <div class="footer"><span>CSS / DUMBATHON</span><span>03 / 07</span></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>03 / 08</span></div>
     </section>
 
     <!-- 4 · Who can join -->
@@ -267,7 +285,7 @@
         </article>
       </div>
       <p class="note-strip rise" style="--d:7"><i aria-hidden="true"></i>Hosted by the Computer Science Society, Engineers Without Borders and The Institution of Engineers, Malaysia.</p>
-      <div class="footer"><span>CSS / DUMBATHON</span><span>04 / 07</span></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>04 / 08</span></div>
     </section>
 
     <!-- 5 · The flow -->
@@ -285,11 +303,35 @@
         <li class="stop pop" style="--d:7"><span class="n" style="--c:var(--mint)">5</span><h3>Submit</h3><span class="chip">MON 7 DEC · 23:59</span><p>Send your GitHub link, Vercel link and slides.</p></li>
         <li class="stop final pop" style="--d:8"><span class="n" style="--c:var(--pink)">6</span><h3>Pitch night</h3><span class="chip">TUE 8 DEC · 17:00</span><p>Pitch live at F1A15, get judged and win prizes.</p></li>
       </ol>
-      <div class="footer"><span>CSS / DUMBATHON</span><span>05 / 07</span></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>05 / 08</span></div>
     </section>
 
-    <!-- 6 · Pitch night run of show -->
-    <section class="slide" aria-label="Slide 6: Pitch night" hidden>
+    <!-- 6 · The participant website -->
+    <section class="slide" aria-label="Slide 6: The event website" hidden>
+      <div class="head">
+        <p class="eyebrow rise">Your event website</p>
+        <h1 class="rise" style="--d:1">Follow along <em>live.</em></h1>
+        <p class="lede rise" style="--d:2">The website shows what to do, live. WhatsApp tells you when a new stage opens.</p>
+      </div>
+      <div class="site-row rise" style="--d:3">
+        <a class="site-link" href="https://dumbathon27.vercel.app/" target="_blank" rel="noopener"><i aria-hidden="true"></i>dumbathon27.vercel.app</a>
+        <p class="site-note"><b>Tasks, deadlines and the topic drop</b> all live here. All times are Malaysia time (MYT).</p>
+      </div>
+      <ol class="phases">
+        <li class="phase pop" style="--d:4"><span class="n" style="--c:var(--mint)">1</span><span class="when"><b>NOW</b><small>until 30 Nov</small></span><h3>Pre-game</h3><p>4 get-ready tasks and the prize pool. Topic locked.</p></li>
+        <li class="phase pop" style="--d:5"><span class="n" style="--c:var(--pink)">2</span><span class="when"><b>30 NOV</b><small>18:00</small></span><h3>Brainstorm &amp; Proposal</h3><p>The topic drops, plus the One Rule and proposal format.</p></li>
+        <li class="phase pop" style="--d:6"><span class="n" style="--c:var(--lavender)">3</span><span class="when"><b>2 DEC</b><small>23:59</small></span><h3>Shortlist</h3><p>3 tasks. Wait for the announcement.</p></li>
+        <li class="phase pop" style="--d:7"><span class="n" style="--c:var(--sun)">4</span><span class="when"><b>3 DEC</b><small>18:00</small></span><h3>Build</h3><p>5 tasks and the judging criteria.</p></li>
+        <li class="phase pop" style="--d:8"><span class="n" style="--c:var(--mint)">5</span><span class="when"><b>7 DEC</b><small>23:59</small></span><h3>Pitch prep</h3><p>4 tasks and the judging criteria.</p></li>
+        <li class="phase pop" style="--d:9"><span class="n" style="--c:var(--pink)">6</span><span class="when"><b>8 DEC</b><small>17:00</small></span><h3>Pitch night</h3><p>The run sheet, live slot and prizes.</p></li>
+        <li class="phase end pop" style="--d:10"><span class="n" style="--c:var(--lavender)">7</span><span class="when"><b>8 DEC</b><small>19:30</small></span><h3>Finished</h3><p>“That’s a wrap.” Go touch grass.</p></li>
+      </ol>
+      <p class="note-strip rise" style="--d:11;top:920px"><i aria-hidden="true"></i>Don’t miss a stage: keep WhatsApp notifications on, then open the website for the details.</p>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>06 / 08</span></div>
+    </section>
+
+    <!-- 7 · Pitch night run of show -->
+    <section class="slide" aria-label="Slide 7: Pitch night" hidden>
       <div class="head">
         <p class="eyebrow rise">The finals</p>
         <h1 class="rise" style="--d:1">Pitch night, <em>8 December.</em></h1>
@@ -311,11 +353,11 @@
           <p class="venue">&gt; venue: F1A15</p>
         </div>
       </div>
-      <div class="footer"><span>CSS / DUMBATHON</span><span>06 / 07</span></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>07 / 08</span></div>
     </section>
 
     <!-- 7 · Judging and prizes -->
-    <section class="slide" aria-label="Slide 7: Judging and prizes" hidden>
+    <section class="slide" aria-label="Slide 8: Judging and prizes" hidden>
       <div class="head">
         <p class="eyebrow rise">Judging and prizes</p>
         <h1 class="rise" style="--d:1">How it’s <em>judged.</em></h1>
@@ -337,7 +379,7 @@
         </div>
       </div>
       <p class="note-strip rise" style="--d:7;top:896px;right:auto;width:1040px"><i aria-hidden="true"></i>The proposal report is not scored. Only the final pitch counts.</p>
-      <div class="footer"><span>CSS / DUMBATHON</span><span>07 / 07</span></div>
+      <div class="footer"><span>CSS / DUMBATHON</span><span>08 / 08</span></div>
     </section>
 
   </main>
